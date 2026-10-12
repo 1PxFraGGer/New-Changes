@@ -209,12 +209,19 @@ export default function WhyChooseUs() {
 
               <div className="why-image-wrap">
                 {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt={data.heading || "Why Choose Us"}
-                    className="why-image"
-                    loading="lazy"
-                  />
+                  
+<img
+  src={imageUrl}
+  alt={data.heading || "Why Choose Us"}
+  className="why-image"
+  loading="lazy"
+  decoding="async"
+  onError={(e) => {
+    console.error("Failed to load image:", imageUrl);
+    e.currentTarget.style.display = "none";
+  }}
+/>
+
                 ) : (
                   <div className="why-no-image">
                     University Excellence

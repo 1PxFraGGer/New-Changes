@@ -1,339 +1,836 @@
-/* =========================================================
-   HOME TESTIMONIALS — CINEMATIC LUXURY
-   Seamless marquee fix:
-     card width  = 300px  (flex: 0 0 300px)
-     gap         =  20px
-     slot total  = 320px  ← must match CARD_SLOT in JSX
-   Animation translates by exactly (card-count × 320px) = one full set
-========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+/* ============================================================
+   HOME TESTIMONIALS — REFERENCE DESIGN
+   GEduconnect
+   ============================================================ */
 
-/* =========================================================
-   SECTION
-========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 .home-testimonials {
-    position: relative;
-    overflow: hidden;
-    padding: 50px 0;
-    background: linear-gradient(180deg, #ffffff 0%, #faf8f9 100%);
+  --ht-burgundy: #99002f;
+  --ht-navy: #102036;
+  --ht-gold: #d7a66d;
+  --ht-muted: #64748b;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  overflow: hidden;
+
+  padding: 54px 0 65px;
+
+  background:
+    radial-gradient(
+      ellipse at 8% 0%,
+      rgba(245, 210, 217, 0.42),
+      transparent 32%
+    ),
+    radial-gradient(
+      ellipse at 95% 100%,
+      rgba(225, 157, 172, 0.28),
+      transparent 38%
+    ),
+    linear-gradient(
+      135deg,
+      #fff9f8 0%,
+      #fffafa 48%,
+      #fff3f3 100%
+    );
+
+  border-top: 1px solid rgba(155, 0, 47, 0.08);
+  border-bottom: 1px solid rgba(155, 0, 47, 0.08);
 }
 
-/* =========================================================
-   ANIMATED GRID
-========================================================= */
-
-.home-testimonials::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(122,31,43,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(122,31,43,0.03) 1px, transparent 1px);
-    background-size: 42px 42px;
-    opacity: 0.5;
-    animation: htGridMove 18s linear infinite;
-}
-
-@keyframes htGridMove {
-    from { transform: translateY(0px); }
-    to   { transform: translateY(42px); }
-}
-
-/* =========================================================
-   GLOWS
-========================================================= */
+/* ============================================================
+   BACKGROUND GLOWS
+   ============================================================ */
 
 .ht-bg {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    pointer-events: none;
-    animation: htOrb 8s ease-in-out infinite;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .ht-bg-one {
-    width: 260px;
-    height: 260px;
-    background: rgba(122,31,43,0.10);
-    top: -80px;
-    left: -80px;
+  width: 350px;
+  height: 350px;
+  top: -185px;
+  left: -140px;
+
+  background: radial-gradient(
+    circle,
+    rgba(214, 122, 145, 0.28),
+    rgba(255, 230, 235, 0.1) 65%,
+    transparent 75%
+  );
 }
 
 .ht-bg-two {
-    width: 220px;
-    height: 220px;
-    background: rgba(201,146,42,0.10);
-    bottom: -70px;
-    right: -70px;
-    animation-delay: 2s;
+  width: 430px;
+  height: 430px;
+  right: -190px;
+  bottom: -245px;
+
+  background: radial-gradient(
+    circle,
+    rgba(190, 55, 91, 0.22),
+    rgba(255, 220, 227, 0.14) 65%,
+    transparent 75%
+  );
 }
 
-@keyframes htOrb {
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-24px); }
-    100% { transform: translateY(0px); }
+/* ============================================================
+   DOTTED DECORATIONS
+   ============================================================ */
+
+.ht-dots {
+  position: absolute;
+  width: 150px;
+  height: 130px;
+  pointer-events: none;
+
+  background-image: radial-gradient(
+    rgba(165, 0, 50, 0.24) 1px,
+    transparent 1px
+  );
+
+  background-size: 11px 11px;
+  opacity: 0.5;
 }
 
-/* =========================================================
-   CONTAINER
-========================================================= */
+.ht-dots-left {
+  left: -45px;
+  top: 42%;
+}
+
+.ht-dots-right {
+  right: -35px;
+  bottom: 5%;
+}
+
+/* ============================================================
+   DECORATIVE ORBITS
+   ============================================================ */
+
+.ht-orbit {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(155, 0, 47, 0.38);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ht-orbit-left {
+  top: -210px;
+  left: -85px;
+}
+
+.ht-orbit-right {
+  top: -190px;
+  right: -110px;
+}
+
+.ht-orbit-dot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ht-burgundy);
+  box-shadow: 0 0 0 4px #fff2f4;
+}
+
+.ht-orbit-dot-left {
+  top: 65px;
+  left: 160px;
+}
+
+.ht-orbit-dot-right {
+  top: 110px;
+  right: 80px;
+}
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
 
 .ht-container {
-    position: relative;
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 28px;
-    z-index: 2;
+  position: relative;
+  width: min(100% - 100px, 1450px);
+  margin: 0 auto;
+  z-index: 2;
 }
 
-/* =========================================================
+/* ============================================================
    HEADER
-========================================================= */
+   ============================================================ */
 
 .ht-header {
-    text-align: center;
-    margin-bottom: 32px;
+  text-align: center;
+  margin: 0 auto 38px;
+  max-width: 760px;
+}
+
+.ht-heading-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 12px;
+}
+
+.ht-heading-line {
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c48b91;
 }
 
 .ht-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 16px;
-    border-radius: 999px;
-    background: rgba(122,31,43,0.08);
-    border: 1px solid rgba(122,31,43,0.10);
-    backdrop-filter: blur(12px);
-    color: #7a1f2b;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    box-shadow: 0 8px 24px rgba(122,31,43,0.08);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 7px 17px;
+  border-radius: 100px;
+
+  background: #fff2f3;
+  border: 1px solid #f1d8dc;
+
+  color: #8e1736;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
 .ht-header h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(32px, 3.5vw, 56px);
-    line-height: 0.95;
-    font-weight: 700;
-    letter-spacing: -1px;
-    color: #12070b;
-    margin: 0 0 12px;
+  margin: 0 0 13px;
+
+  font-family: "Playfair Display", serif;
+  font-size: clamp(30px, 3vw, 46px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+
+  color: #111b2c;
+}
+
+.ht-header h2 span {
+  color: var(--ht-burgundy);
 }
 
 .ht-header p {
-    font-size: 14px;
-    line-height: 1.9;
-    color: #6b7280;
-    max-width: 620px;
-    margin: 0 auto;
+  max-width: 560px;
+  margin: 0 auto;
+
+  color: #687387;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.75;
 }
 
-/* =========================================================
-   MARQUEE WRAPPER
-========================================================= */
+.ht-heading-diamond {
+  width: 7px;
+  height: 7px;
+  margin: 18px auto 0;
 
-.ht-marquee-wrapper {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(
-        90deg,
-        transparent 0%,
-        #000 8%,
-        #000 92%,
-        transparent 100%
-    );
-    mask-image: linear-gradient(
-        90deg,
-        transparent 0%,
-        #000 8%,
-        #000 92%,
-        transparent 100%
-    );
+  background: var(--ht-burgundy);
+  transform: rotate(45deg);
 }
 
-/* =========================================================
-   MARQUEE TRACK — KEY FIX
-   
-   Uses CSS custom properties set from JSX:
-     --card-count  number of original cards (e.g. 4)
-     --card-slot   card width + gap as a px value (e.g. 320px)
+/* ============================================================
+   CAROUSEL
+   ============================================================ */
 
-   The animation translates by exactly ONE full set width:
-     translateX(calc(-1 * var(--card-count) * var(--card-slot)))
-
-   Because we render 3× the cards, when set-1 scrolls out,
-   set-2 is already in place — zero gap, zero jump.
-
-   gap must equal (--card-slot minus card flex-basis):
-     320px slot − 300px card = 20px gap  ✓
-========================================================= */
-
-.ht-marquee-track {
-    display: flex;
-    gap: 20px;                    /* ← must equal --card-slot minus card width */
-    width: max-content;
-    animation: htMarquee calc(var(--card-count, 4) * 3.5s) linear infinite;
-    will-change: transform;
+.ht-carousel {
+  position: relative;
+  width: 100%;
+  padding: 0 18px;
 }
 
-.ht-marquee-wrapper:hover .ht-marquee-track {
-    animation-play-state: paused;
+/* ============================================================
+   CARD GRID
+   ============================================================ */
+
+.ht-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
 }
 
-@keyframes htMarquee {
-    0%   { transform: translateX(0); }
-    100% {
-        /* Scroll exactly one set: card-count × (300px card + 20px gap) */
-        transform: translateX(
-            calc(-1 * var(--card-count, 4) * var(--card-slot, 320px))
-        );
-    }
-}
-
-/* =========================================================
-   CARD
-========================================================= */
+/* ============================================================
+   TESTIMONIAL CARD
+   ============================================================ */
 
 .ht-card {
-    position: relative;
-    overflow: hidden;
-    flex: 0 0 300px;              /* ← card width; slot = 300 + 20gap = 320px */
-    border-radius: 20px;
-    padding: 22px 20px;
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(122,31,43,0.08);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.05);
-    transition:
-        transform 0.45s cubic-bezier(.22,1,.36,1),
-        box-shadow 0.4s ease,
-        border-color 0.4s ease;
+  position: relative;
+  min-width: 0;
+  min-height: 245px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px 21px 20px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border: 1px solid rgba(157, 36, 68, 0.10);
+  border-radius: 17px;
+
+  box-shadow:
+    0 12px 30px rgba(110, 33, 54, 0.08),
+    0 3px 8px rgba(110, 33, 54, 0.04);
+
+  overflow: hidden;
+
+  animation: htCardEnter 0.55s ease both;
+  animation-delay: var(--card-delay);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
 
 .ht-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(201,146,42,0.18);
-    box-shadow: 0 20px 50px rgba(122,31,43,0.10);
+  transform: translateY(-7px);
+  border-color: rgba(155, 0, 47, 0.22);
+
+  box-shadow:
+    0 20px 40px rgba(110, 33, 54, 0.13),
+    0 5px 12px rgba(110, 33, 54, 0.05);
 }
+
+@keyframes htCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   CARD DECORATIONS
+   ============================================================ */
 
 .ht-card-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top left, rgba(122,31,43,0.10), transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: -100px;
+  right: -80px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 196, 207, 0.45),
+    transparent 75%
+  );
+
+  pointer-events: none;
 }
 
-.ht-card:hover .ht-card-glow {
-    opacity: 1;
+.ht-card-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 70px;
+  height: 70px;
+
+  background: linear-gradient(
+    225deg,
+    rgba(249, 219, 226, 0.45),
+    transparent 75%
+  );
+
+  border-radius: 0 17px 0 100%;
+  pointer-events: none;
 }
 
-/* =========================================================
-   QUOTE MARK
-========================================================= */
+/* ============================================================
+   QUOTE ICON
+   ============================================================ */
 
 .ht-quote {
-    position: absolute;
-    top: 10px;
-    right: 16px;
-    font-size: 72px;
-    line-height: 1;
-    color: rgba(122,31,43,0.08);
-    font-family: 'Cormorant Garamond', serif;
-    pointer-events: none;
+  position: relative;
+  z-index: 2;
+
+  width: 35px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin-bottom: 10px;
+
+  color: #d68b9d;
 }
 
-/* =========================================================
-   CONTENT
-========================================================= */
+.ht-quote svg {
+  width: 27px;
+  height: 27px;
+}
+
+/* ============================================================
+   MESSAGE
+   ============================================================ */
 
 .ht-content {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+  margin-bottom: 20px;
 }
 
 .ht-content p {
-    font-size: 14px;
-    line-height: 1.8;
-    color: #4b5563;
-    margin: 0;
+  margin: 0;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+
+  color: #4d5362;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
 }
 
-/* =========================================================
+/* ============================================================
    FOOTER
-========================================================= */
+   ============================================================ */
 
 .ht-footer {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: auto;
 }
 
 .ht-avatar {
-    min-width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #7a1f2b, #c9922a);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 700;
-    box-shadow: 0 10px 24px rgba(122,31,43,0.18);
+  flex-shrink: 0;
+
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: linear-gradient(
+    135deg,
+    #8c002b,
+    #b74c40 65%,
+    #c99157
+  );
+
+  color: #fff;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+
+  box-shadow: 0 5px 14px rgba(138, 0, 43, 0.2);
+}
+
+.ht-user {
+  min-width: 0;
 }
 
 .ht-user h4 {
-    margin: 0 0 3px;
-    font-size: 15px;
-    color: #14070b;
+  margin: 0 0 3px;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #182235;
 }
 
 .ht-user span {
-    display: block;
-    font-size: 12px;
-    color: #7a1f2b;
-    margin-bottom: 2px;
+  display: block;
+  margin-bottom: 2px;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ht-burgundy);
 }
 
 .ht-user small {
-    color: #6b7280;
-    font-size: 11px;
+  display: block;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  color: #6e7787;
 }
 
-/* =========================================================
+/* ============================================================
+   NAVIGATION ARROWS
+   ============================================================ */
+
+.ht-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(155, 0, 47, 0.14);
+  border-radius: 50%;
+
+  background: #fff;
+  color: var(--ht-burgundy);
+
+  cursor: pointer;
+  z-index: 10;
+
+  box-shadow:
+    0 5px 18px rgba(96, 32, 50, 0.11);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.ht-nav:hover:not(:disabled) {
+  background: var(--ht-burgundy);
+  color: #fff;
+
+  box-shadow:
+    0 8px 22px rgba(155, 0, 47, 0.23);
+}
+
+.ht-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ht-nav-prev {
+  left: -35px;
+}
+
+.ht-nav-next {
+  right: -35px;
+}
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+
+.ht-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 26px;
+}
+
+.ht-page-dot {
+  width: 7px;
+  height: 7px;
+
+  border: none;
+  border-radius: 100px;
+
+  background: rgba(155, 0, 47, 0.2);
+  cursor: pointer;
+  padding: 0;
+
+  transition: all 0.3s ease;
+}
+
+.ht-page-dot.active {
+  width: 24px;
+  background: var(--ht-burgundy);
+}
+
+/* ============================================================
+   RESPONSIVE - LARGE TABLETS
+   ============================================================ */
+
+@media (max-width: 1200px) {
+  .ht-container {
+    width: min(100% - 80px, 1100px);
+  }
+
+  .ht-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ht-card {
+    min-height: 255px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE - TABLETS
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .home-testimonials {
+    padding: 45px 0 55px;
+  }
+
+  .ht-container {
+    width: min(100% - 75px, 760px);
+  }
+
+  .ht-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .ht-card {
+    min-height: 245px;
+  }
+
+  .ht-nav-prev {
+    left: -30px;
+  }
+
+  .ht-nav-next {
+    right: -30px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE - MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+  .home-testimonials {
+    padding: 42px 0 48px;
+  }
+
+  .ht-container {
+    width: calc(100% - 58px);
+  }
+
+  .ht-header {
+    margin-bottom: 30px;
+  }
+
+  .ht-header h2 {
+    font-size: clamp(27px, 7vw, 34px);
+    line-height: 1.18;
+    letter-spacing: -0.4px;
+  }
+
+  .ht-header p {
+    font-size: 11px;
+    line-height: 1.75;
+  }
+
+  .ht-carousel {
+    padding: 0;
+  }
+
+  .ht-cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .ht-card {
+    min-height: 255px;
+    padding: 22px 20px;
+  }
+
+  .ht-content p {
+    font-size: 12px;
+    -webkit-line-clamp: 9;
+  }
+
+  .ht-nav {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ht-nav-prev {
+    left: -39px;
+  }
+
+  .ht-nav-next {
+    right: -39px;
+  }
+
+  .ht-nav svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .ht-dots {
+    opacity: 0.25;
+  }
+
+  .ht-orbit {
+    opacity: 0.5;
+  }
+
+  .ht-pagination {
+    margin-top: 22px;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .ht-card {
+    animation: none;
+    transition: none;
+  }
+
+  .ht-nav,
+  .ht-page-dot {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   TESTIMONIALS — COMPACT SECTION
+   ========================================== */
+
+.home-testimonials {
+  padding: 28px 0 32px;
+}
+
+/* Reduce heading spacing */
+.ht-header {
+  margin-bottom: 20px;
+}
+
+.ht-heading-top {
+  margin-bottom: 8px;
+}
+
+.ht-header h2 {
+  font-size: clamp(28px, 2.7vw, 39px);
+  line-height: 1.12;
+  margin-bottom: 8px;
+}
+
+.ht-header p {
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.ht-heading-diamond {
+  margin-top: 10px;
+}
+
+/* Compact testimonial cards */
+.ht-card {
+  min-height: 205px;
+  padding: 16px 18px;
+  border-radius: 15px;
+}
+
+.ht-quote {
+  height: 24px;
+  margin-bottom: 6px;
+}
+
+.ht-quote svg {
+  width: 23px;
+  height: 23px;
+}
+
+.ht-content {
+  margin-bottom: 12px;
+}
+
+.ht-content p {
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.ht-avatar {
+  width: 38px;
+  height: 38px;
+  font-size: 15px;
+}
+
+.ht-user h4 {
+  font-size: 11px;
+}
+
+.ht-user span,
+.ht-user small {
+  font-size: 9px;
+}
+
+/* Pagination */
+.ht-pagination {
+  margin-top: 16px;
+}
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 900px) {
+  .home-testimonials {
+    padding: 28px 0 35px;
+  }
+
+  .ht-card {
+    min-height: 215px;
+  }
+}
+
+/* ==========================================
    MOBILE
-========================================================= */
+   ========================================== */
 
-@media (max-width: 768px) {
-    .home-testimonials {
-        padding: 36px 0;
-    }
+@media (max-width: 600px) {
+  .home-testimonials {
+    padding: 25px 0 30px;
+  }
 
-    .ht-container {
-        padding: 0 20px;
-    }
+  .ht-header {
+    margin-bottom: 18px;
+  }
 
-    .ht-header h2 {
-        font-size: 36px;
-    }
+  .ht-header h2 {
+    font-size: 27px;
+  }
 
-    /* On mobile, card is narrower — update slot accordingly */
-    .ht-card {
-        flex: 0 0 260px;           /* card width = 260px */
-        padding: 18px 16px;
-    }
+  .ht-card {
+    min-height: 220px;
+    padding: 17px;
+  }
 
-    /* Override --card-slot for mobile: 260px + 20px gap = 280px */
-    .ht-marquee-track {
-        --card-slot: 280px;
-    }
-
-    .ht-content p {
-        font-size: 13px;
-    }
+  .ht-pagination {
+    margin-top: 14px;
+  }
 }

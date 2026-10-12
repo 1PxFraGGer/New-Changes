@@ -1,354 +1,371 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-} from "react";
 
+import React, { useEffect, useRef, useState } from "react";
 import api from "../api/api";
-
 import "./JourneyPage.css";
 
-const API_BASE =
-  import.meta.env.VITE_API_BASE_URL ||
-  "https://api.geduconnect.com/api";
-
-const BASE_URL =
-  API_BASE.replace("/api", "");
-
-/* =========================================================
-   FIX IMAGE URLS
-========================================================= */
-
-const resolveUrl = (url) => {
-
-  if (!url) return "";
-
-  if (url.startsWith("http")) {
-    return url;
-  }
-
-  const cleanUrl =
-    url.replace(/^\/+/, "");
-
-  return `${BASE_URL}/${cleanUrl}`;
-};
+const SCROLL_SPEED = 45;
 
 export default function JourneyPage() {
+  const [journeyData, setJourneyData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const scrollRef = useRef(null);
+  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+  const groupRef = useRef(null);
 
-  const [journeyData, setJourneyData] =
-    useState([]);
-
-  const [isDragging, setIsDragging] =
-    useState(false);
-
-  const dragData = useRef({
-    startX: 0,
-    scrollLeft: 0,
+  const positionRef = useRef(0);
+  const pausedRef = useRef(false);
+  const draggingRef = useRef(false);
+  const pointerRef = useRef({
+    x: 0,
+    moved: false,
   });
 
-  /* =========================================================
-     FETCH JOURNEY DATA
-  ========================================================= */
+  /* ==========================================
+     FETCH JOURNEY FROM BACKEND
+  ========================================== */
 
   useEffect(() => {
-    fetchJourney();
-  }, []);
+    let mounted = true;
 
-  const fetchJourney = async () => {
+    const fetchJourney = async () => {
+      try {
+        const res = await api.get("/journey/public");
 
-    try {
+        const response = res.data;
 
-      const res = await api.get(
-        "/journey/public"
-      );
+        const items = Array.isArray(response)
+          ? response
+          : Array.isArray(response?.data)
+          ? response.data
+          : Array.isArray(response?.journeys)
+          ? response.journeys
+          : [];
 
-      setJourneyData(
-        res.data || []
-      );
-
-    } catch (err) {
-
-      console.error(
-        "Journey fetch failed:",
-        err
-      );
-    }
-  };
-
-  /* =========================================================
-     AUTO SCROLL
-  ========================================================= */
-
-  useEffect(() => {
-
-    const container =
-      scrollRef.current;
-
-    if (
-      !container ||
-      journeyData.length === 0
-    ) {
-      return;
-    }
-
-    let animationFrame;
-
-    let paused = false;
-
-    const speed = 0.7;
-
-    const autoScroll = () => {
-
-      if (!paused) {
-
-        container.scrollLeft += speed;
-
-        /* seamless loop */
-
-        if (
-          container.scrollLeft >=
-          container.scrollWidth / 2
-        ) {
-          container.scrollLeft = 0;
+        if (mounted) {
+          setJourneyData(items);
+        }
+      } catch (error) {
+        console.error("Journey fetch failed:", error);
+      } finally {
+        if (mounted) {
+          setLoading(false);
         }
       }
-
-      animationFrame =
-        requestAnimationFrame(
-          autoScroll
-        );
     };
 
-    animationFrame =
-      requestAnimationFrame(
-        autoScroll
-      );
-
-    /* pause on hover */
-
-    const stop = () =>
-      (paused = true);
-
-    const start = () =>
-      (paused = false);
-
-    container.addEventListener(
-      "mouseenter",
-      stop
-    );
-
-    container.addEventListener(
-      "mouseleave",
-      start
-    );
+    fetchJourney();
 
     return () => {
+      mounted = false;
+    };
+  }, []);
 
-      cancelAnimationFrame(
-        animationFrame
-      );
+  /* ==========================================
+     INFINITE CONTINUOUS AUTO ROTATION
+  ========================================== */
 
-      container.removeEventListener(
-        "mouseenter",
-        stop
-      );
+  useEffect(() => {
+    if (!journeyData.length) return;
 
-      container.removeEventListener(
-        "mouseleave",
-        start
-      );
+    const track = trackRef.current;
+    const group = groupRef.current;
+
+    if (!track || !group) return;
+
+    let frameId;
+    let lastTime = null;
+
+    const normalizePosition = (position, width) => {
+      if (width <= 0) return 0;
+
+      return ((position % width) + width) % width;
     };
 
+    const animate = (timestamp) => {
+      if (lastTime === null) {
+        lastTime = timestamp;
+      }
+
+      const delta = Math.min(
+        (timestamp - lastTime) / 1000,
+        0.05
+      );
+
+      lastTime = timestamp;
+
+      const groupWidth = group.getBoundingClientRect().width;
+
+      if (
+        !pausedRef.current &&
+        !draggingRef.current &&
+        !document.hidden
+      ) {
+        positionRef.current += SCROLL_SPEED * delta;
+      }
+
+      positionRef.current = normalizePosition(
+        positionRef.current,
+        groupWidth
+      );
+
+      track.style.transform = `translate3d(${-positionRef.current}px, 0, 0)`;
+
+      frameId = requestAnimationFrame(animate);
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
   }, [journeyData]);
 
-  /* =========================================================
-     DRAG SCROLL
-  ========================================================= */
+  /* ==========================================
+     POINTER DRAG SUPPORT
+  ========================================== */
 
-  const handleMouseDown = (e) => {
+  const handlePointerDown = (e) => {
+    if (e.pointerType === "touch") return;
 
-    const container =
-      scrollRef.current;
-
-    if (!container) return;
+    draggingRef.current = true;
+    pausedRef.current = true;
 
     setIsDragging(true);
 
-    container.classList.add(
-      "active"
-    );
-
-    dragData.current = {
-      startX:
-        e.pageX -
-        container.offsetLeft,
-
-      scrollLeft:
-        container.scrollLeft,
+    pointerRef.current = {
+      x: e.clientX,
+      moved: false,
     };
+
+    e.currentTarget.setPointerCapture(e.pointerId);
   };
 
-  const handleMouseLeave = () => {
+  const handlePointerMove = (e) => {
+    if (!draggingRef.current) return;
 
+    const difference = e.clientX - pointerRef.current.x;
+
+    if (Math.abs(difference) > 2) {
+      pointerRef.current.moved = true;
+    }
+
+    positionRef.current -= difference;
+    pointerRef.current.x = e.clientX;
+  };
+
+  const handlePointerUp = (e) => {
+    draggingRef.current = false;
     setIsDragging(false);
 
-    scrollRef.current?.classList.remove(
-      "active"
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+
+    pausedRef.current = e.currentTarget.matches(":hover");
+  };
+
+  /* ==========================================
+     PREVIOUS / NEXT CONTROLS
+  ========================================== */
+
+  const moveTimeline = (direction) => {
+    const group = groupRef.current;
+    const item = group?.querySelector(".snake-item");
+
+    if (!group || !item) return;
+
+    const width = group.getBoundingClientRect().width;
+
+    const styles = window.getComputedStyle(group);
+    const gap = parseFloat(styles.columnGap) || 0;
+
+    const distance =
+      item.getBoundingClientRect().width + gap;
+
+    if (!width) return;
+
+    positionRef.current =
+      ((positionRef.current + direction * distance) % width + width) % width;
+  };
+
+  /* ==========================================
+     RENDER MILESTONE CARD
+  ========================================== */
+
+  const renderMilestone = (item, index, duplicate = false) => {
+    return (
+      <div
+        className="snake-item"
+        key={`${duplicate ? "copy" : "original"}-${item.id ?? index}-${index}`}
+      >
+        <div className="snake-dot">
+          <span />
+        </div>
+
+        <div className="snake-card">
+          <div className="snake-card-glow" />
+
+          <div className="snake-card-top">
+            <span className="year">
+              {item.year}
+            </span>
+
+            <span className="snake-card-index">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+
+          <h4>{item.title}</h4>
+
+          <p>{item.description}</p>
+
+          <div className="snake-card-bottom">
+            <span className="snake-card-label">
+              MILESTONE
+            </span>
+
+            <span className="snake-arrow">
+              ↗
+            </span>
+          </div>
+        </div>
+      </div>
     );
   };
 
-  const handleMouseUp = () => {
+  /* ==========================================
+     LOADING / EMPTY STATE
+  ========================================== */
 
-    setIsDragging(false);
+  if (loading || journeyData.length === 0) {
+    return null;
+  }
 
-    scrollRef.current?.classList.remove(
-      "active"
-    );
-  };
-
-  const handleMouseMove = (e) => {
-
-    if (!isDragging) return;
-
-    e.preventDefault();
-
-    const container =
-      scrollRef.current;
-
-    if (!container) return;
-
-    const x =
-      e.pageX -
-      container.offsetLeft;
-
-    const walk =
-      (x -
-        dragData.current.startX) *
-      1.8;
-
-    container.scrollLeft =
-      dragData.current.scrollLeft -
-      walk;
-  };
-
-  /* =========================================================
-     DUPLICATE FOR INFINITE LOOP
-  ========================================================= */
-
-  const loopData = [
-    ...journeyData,
-    ...journeyData,
-  ];
-
-  /* =========================================================
+  /* ==========================================
      RENDER
-  ========================================================= */
+  ========================================== */
 
   return (
-
     <section className="journey-snake">
+
+      {/* BACKGROUND DECORATIONS */}
+      <div className="journey-decoration journey-decoration-one" />
+      <div className="journey-decoration journey-decoration-two" />
+      <div className="journey-dot-pattern" />
 
       <div className="journey-container">
 
-        {/* =========================================================
-            HEADER
-        ========================================================= */}
-
+        {/* SECTION HEADER */}
         <div className="journey-header">
 
-          <span className="journey-tag">
-            Our Growth Story
-          </span>
+          <div className="journey-eyebrow">
+            <span className="journey-eyebrow-line" />
+            <span>OUR GROWTH STORY</span>
+            <span className="journey-eyebrow-line" />
+          </div>
 
           <h2>
             A Journey of Vision,
-            Innovation & Expansion
+            <br />
+            <em>Innovation &amp; Expansion</em>
           </h2>
 
           <p>
-            From our foundation
-            to national impact,
-            every milestone
-            reflects our
-            commitment to
-            transforming
-            education partnerships
+            From our foundation to national impact,
+            every milestone reflects our commitment
+            to transforming education partnerships
             across India.
           </p>
 
         </div>
 
-        {/* =========================================================
-            TIMELINE
-        ========================================================= */}
+        {/* INFINITE TIMELINE */}
+        <div className="journey-timeline-area">
 
-        <div
-          className="snake-scroll-wrapper"
-          ref={scrollRef}
-          onMouseDown={
-            handleMouseDown
-          }
-          onMouseLeave={
-            handleMouseLeave
-          }
-          onMouseUp={
-            handleMouseUp
-          }
-          onMouseMove={
-            handleMouseMove
-          }
-        >
+          <div
+            className={`snake-scroll-wrapper ${
+              isDragging ? "active" : ""
+            }`}
+            ref={viewportRef}
+            onMouseEnter={() => {
+              pausedRef.current = true;
+            }}
+            onMouseLeave={() => {
+              if (!draggingRef.current) {
+                pausedRef.current = false;
+              }
+            }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+          >
 
-          <div className="snake-row">
+            <div
+              className="snake-row"
+              ref={trackRef}
+            >
 
-            {loopData.map(
-              (item, index) => (
+              {/* ORIGINAL MILESTONES */}
+              <div
+                className="snake-group"
+                ref={groupRef}
+              >
+                {journeyData.map((item, index) =>
+                  renderMilestone(item, index)
+                )}
+              </div>
 
-                <div
-                  key={`${item.id}-${index}`}
-                  className="snake-item"
-                >
+              {/* DUPLICATE FOR SEAMLESS LOOP */}
+              <div
+                className="snake-group"
+                aria-hidden="true"
+              >
+                {journeyData.map((item, index) =>
+                  renderMilestone(item, index, true)
+                )}
+              </div>
 
-                  {/* DOT */}
+            </div>
+          </div>
+        </div>
 
-                  <div className="snake-dot" />
+        {/* BOTTOM CONTROLS */}
+        <div className="journey-bottom">
 
-                  {/* CARD */}
-
-                  <div className="snake-card">
-
-                    <div className="snake-card-glow" />
-
-                    <span className="year">
-                      {item.year}
-                    </span>
-
-                    <h4>
-                      {item.title}
-                    </h4>
-
-                    <p>
-                      {item.description}
-                    </p>
-
-                    <div className="snake-arrow">
-                      →
-                    </div>
-
-                  </div>
-
-                </div>
-              )
-            )}
-
+          <div className="journey-hint">
+            <span className="journey-hint-dot" />
+            <span>
+              Explore Our Milestones
+            </span>
           </div>
 
+          <div className="journey-controls">
+
+            <button
+              type="button"
+              className="journey-nav-btn"
+              onClick={() => moveTimeline(-1)}
+              aria-label="Previous milestone"
+            >
+              ←
+            </button>
+
+            <button
+              type="button"
+              className="journey-nav-btn"
+              onClick={() => moveTimeline(1)}
+              aria-label="Next milestone"
+            >
+              →
+            </button>
+
+          </div>
         </div>
 
       </div>
-
     </section>
   );
 }
