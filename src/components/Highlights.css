@@ -1,0 +1,829 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap');
+
+/* ==========================================
+   HIGHLIGHTS SECTION
+========================================== */
+
+.hl-section {
+  --hl-burgundy: #890526;
+  --hl-dark: #171c22;
+  --hl-pink: #f8e8eb;
+
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-height: 325px;
+
+  padding: 55px 5.5% 48px;
+
+  background-color: #fffdfb;
+
+  border-top: 1px solid #ead5d8;
+  border-bottom: 1px solid #ead5d8;
+
+  box-shadow:
+    0 -10px 28px rgba(93, 20, 40, 0.045),
+    0 10px 30px rgba(93, 20, 40, 0.035);
+
+  overflow: hidden;
+  box-sizing: border-box;
+
+  margin-top: 0;
+  clear: both;
+}
+
+/* TOP CENTER ACCENT */
+
+.hl-section::after {
+  content: "";
+
+  position: absolute;
+  z-index: 5;
+
+  top: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 145px;
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #9b163b 25%,
+    #780321 75%,
+    transparent 100%
+  );
+
+  border-radius: 0 0 8px 8px;
+}
+
+/* ==========================================
+   BACKGROUND
+========================================== */
+
+.hl-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 253, 251, 0.97),
+      rgba(255, 253, 251, 0.97)
+    ),
+    var(--hl-cms-bg, none);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* SOFT BACKGROUND TEXTURE */
+
+.hl-section::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    radial-gradient(
+      ellipse at 8% 90%,
+      rgba(247, 190, 200, 0.14),
+      transparent 28%
+    ),
+    radial-gradient(
+      ellipse at 95% 85%,
+      rgba(247, 190, 200, 0.17),
+      transparent 30%
+    );
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   MAIN CONTAINER
+========================================== */
+
+.hl-inner {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 32px;
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.hl-head {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+  gap: 12px;
+}
+
+/* HIGHLIGHTS WITH SIDE LINES */
+
+.hl-heading-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+}
+
+.hl-heading-line {
+  display: block;
+
+  width: 42px;
+  height: 1.5px;
+
+  background: linear-gradient(
+    90deg,
+    #c88d99,
+    #890526
+  );
+}
+
+/* MAIN HIGHLIGHTS TITLE */
+
+.hl-title {
+  margin: 0;
+  padding: 0;
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  letter-spacing: 5px;
+  line-height: 1.4;
+
+  color: #890526;
+
+  text-transform: uppercase;
+}
+
+/* SUBTITLE */
+
+.hl-subtitle {
+  margin: 0;
+  padding: 0;
+
+  font-family: "Playfair Display", Georgia, serif;
+
+  font-size: clamp(21px, 2.2vw, 27px);
+  font-weight: 700;
+
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+
+  color: var(--hl-dark);
+
+  text-align: center;
+}
+
+/* ==========================================
+   STATISTICS ROW
+========================================== */
+
+.hl-stats {
+  position: relative;
+
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  align-items: end;
+
+  gap: 0;
+  padding-top: 12px;
+}
+
+/* INDIVIDUAL STAT */
+
+.hl-stat {
+  position: relative;
+
+  min-width: 0;
+  min-height: 125px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+
+  animation: hlFadeUp 0.65s ease forwards;
+}
+
+/* VERTICAL SEPARATORS */
+
+.hl-stat:not(:first-child)::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 18px;
+  bottom: 4px;
+
+  width: 1px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(137, 5, 38, 0.20) 25%,
+    rgba(137, 5, 38, 0.20) 85%,
+    transparent
+  );
+}
+
+.hl-stat-inner {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  text-align: center;
+
+  gap: 6px;
+
+  padding: 0 8px;
+}
+
+/* ==========================================
+   ICON CIRCLES
+========================================== */
+
+.hl-icon-circle {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  margin-bottom: 8px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    145deg,
+    #fff3f5 0%,
+    #f8e3e8 100%
+  );
+
+  border: 1px solid rgba(137, 5, 38, 0.08);
+
+  color: #890526;
+
+  box-shadow:
+    0 4px 12px rgba(137, 5, 38, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* ICON SVG */
+
+.hl-icon-circle svg {
+  width: 29px;
+  height: 29px;
+
+  stroke: currentColor;
+  stroke-width: 1.9;
+
+  fill: none;
+}
+
+/* HOVER EFFECT */
+
+.hl-stat:hover .hl-icon-circle {
+  transform: translateY(-4px) scale(1.07);
+
+  background: #f5dce2;
+
+  box-shadow:
+    0 8px 20px rgba(137, 5, 38, 0.1);
+}
+
+/* ==========================================
+   NUMBERS
+========================================== */
+
+.hl-num-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 30px;
+}
+
+.hl-number {
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 25px;
+  font-weight: 800;
+
+  line-height: 1.15;
+  letter-spacing: -0.6px;
+
+  color: #790322;
+
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.hl-label {
+  display: block;
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.15px;
+  line-height: 1.35;
+
+  text-transform: uppercase;
+  text-align: center;
+
+  color: #242127;
+}
+
+/* ==========================================
+   DOTTED BACKGROUND
+========================================== */
+
+.hl-dots {
+  position: absolute;
+  z-index: 0;
+
+  width: 110px;
+  height: 80px;
+
+  opacity: 0.6;
+
+  background-image:
+    radial-gradient(
+      #cf969e 1px,
+      transparent 1px
+    );
+
+  background-size: 14px 14px;
+
+  pointer-events: none;
+}
+
+.hl-dots-left {
+  left: 12px;
+  top: 74px;
+}
+
+.hl-dots-right {
+  right: 12px;
+  top: 70px;
+}
+
+/* ==========================================
+   LEFT DECORATIVE SHAPES
+========================================== */
+
+.hl-decoration-left {
+  position: absolute;
+  z-index: 0;
+
+  left: -100px;
+  bottom: -95px;
+
+  width: 210px;
+  height: 225px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    140deg,
+    rgba(255, 245, 246, 0.3),
+    rgba(235, 132, 153, 0.4)
+  );
+
+  transform: rotate(-22deg);
+
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.hl-deco-curve-one {
+  position: absolute;
+
+  width: 180px;
+  height: 220px;
+
+  top: -35px;
+  left: 25px;
+
+  border: 1px solid rgba(184, 61, 89, 0.4);
+  border-radius: 50%;
+
+  transform: rotate(-25deg);
+}
+
+.hl-deco-curve-two {
+  position: absolute;
+
+  width: 165px;
+  height: 215px;
+
+  top: -25px;
+  left: 40px;
+
+  border: 1px solid rgba(184, 61, 89, 0.22);
+  border-radius: 50%;
+
+  transform: rotate(-25deg);
+}
+
+/* ==========================================
+   RIGHT DECORATIVE SHAPES
+========================================== */
+
+.hl-decoration-right {
+  position: absolute;
+  z-index: 0;
+
+  right: -105px;
+  bottom: -100px;
+
+  width: 215px;
+  height: 230px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    220deg,
+    rgba(255, 245, 246, 0.4),
+    rgba(229, 114, 138, 0.36)
+  );
+
+  transform: rotate(25deg);
+
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.hl-deco-curve-three {
+  position: absolute;
+
+  width: 180px;
+  height: 230px;
+
+  top: -35px;
+  right: 28px;
+
+  border: 1px solid rgba(184, 61, 89, 0.35);
+  border-radius: 50%;
+
+  transform: rotate(25deg);
+}
+
+.hl-deco-curve-four {
+  position: absolute;
+
+  width: 165px;
+  height: 215px;
+
+  top: -25px;
+  right: 40px;
+
+  border: 1px solid rgba(184, 61, 89, 0.2);
+  border-radius: 50%;
+
+  transform: rotate(25deg);
+}
+
+/* ==========================================
+   SOFT BOTTOM CORNER WAVES
+========================================== */
+
+.hl-bottom-wave-left {
+  position: absolute;
+
+  left: -40px;
+  bottom: -75px;
+
+  width: 150px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  background: rgba(244, 179, 191, 0.2);
+
+  filter: blur(15px);
+
+  pointer-events: none;
+}
+
+.hl-bottom-wave-right {
+  position: absolute;
+
+  right: -40px;
+  bottom: -75px;
+
+  width: 150px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  background: rgba(244, 179, 191, 0.22);
+
+  filter: blur(15px);
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes hlFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1200px) {
+  .hl-section {
+    min-height: 325px;
+    padding: 55px 5.5% 48px;
+  }
+
+  .hl-inner {
+    gap: 32px;
+  }
+
+  .hl-head {
+    gap: 12px;
+  }
+
+  .hl-title {
+    font-size: 17px;
+  }
+
+  .hl-subtitle {
+    font-size: 26px;
+  }
+
+  .hl-stats {
+    padding-top: 12px;
+  }
+
+  .hl-stat {
+    min-height: 125px;
+  }
+
+  .hl-icon-circle {
+    width: 58px;
+    height: 58px;
+  }
+
+  .hl-icon-circle svg {
+    width: 29px;
+    height: 29px;
+  }
+
+  .hl-number {
+    font-size: 25px;
+  }
+
+  .hl-label {
+    font-size: 10px;
+  }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 651px) and (max-width: 900px) {
+  .hl-section {
+    min-height: 290px;
+    padding: 48px 4% 42px;
+  }
+
+  .hl-inner {
+    gap: 30px;
+  }
+
+  .hl-title {
+    font-size: 15px;
+    letter-spacing: 4px;
+  }
+
+  .hl-subtitle {
+    font-size: 22px;
+  }
+
+  .hl-stats {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .hl-stat {
+    min-height: 110px;
+  }
+
+  .hl-icon-circle {
+    width: 49px;
+    height: 49px;
+  }
+
+  .hl-icon-circle svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .hl-number {
+    font-size: 18px;
+  }
+
+  .hl-label {
+    font-size: 8px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 650px) {
+  .hl-section {
+    min-height: auto;
+    padding: 45px 16px 50px;
+  }
+
+  .hl-section::after {
+    width: 100px;
+    height: 3px;
+  }
+
+  .hl-inner {
+    gap: 32px;
+  }
+
+  .hl-head {
+    gap: 12px;
+  }
+
+  .hl-title {
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+
+  .hl-heading-top {
+    gap: 12px;
+  }
+
+  .hl-heading-line {
+    width: 25px;
+  }
+
+  .hl-subtitle {
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .hl-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 32px;
+    padding-top: 5px;
+  }
+
+  .hl-stat {
+    min-height: 110px;
+  }
+
+  .hl-stat:not(:first-child)::before {
+    display: none;
+  }
+
+  .hl-stat:nth-child(odd):not(:last-child) {
+    border-right: 1px solid #e5d9d9;
+  }
+
+  .hl-stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    border-right: none;
+  }
+
+  .hl-stat-inner {
+    padding: 0 8px;
+  }
+
+  .hl-icon-circle {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 6px;
+  }
+
+  .hl-icon-circle svg {
+    width: 27px;
+    height: 27px;
+  }
+
+  .hl-number {
+    font-size: 22px;
+  }
+
+  .hl-label {
+    font-size: 9px;
+  }
+
+  .hl-decoration-left,
+  .hl-decoration-right {
+    opacity: 0.65;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .hl-title {
+    font-size: 13px;
+    letter-spacing: 2.5px;
+  }
+
+  .hl-subtitle {
+    font-size: 19px;
+  }
+
+  .hl-stat-inner {
+    padding: 0 5px;
+  }
+
+  .hl-label {
+    font-size: 8px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .hl-stat {
+    animation: none;
+    opacity: 1;
+  }
+
+  .hl-icon-circle {
+    transition: none;
+  }
+
+  .hl-stat:hover .hl-icon-circle {
+    transform: none;
+  }
+}

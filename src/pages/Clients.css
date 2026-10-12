@@ -1,0 +1,918 @@
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800;900&display=swap");
+
+/* ==========================================
+   DESIGN VARIABLES
+========================================== */
+
+:root {
+  --cl-primary: #99002e;
+  --cl-primary-dark: #790023;
+  --cl-gold: #c78b34;
+  --cl-navy: #10243c;
+  --cl-muted: #718098;
+  --cl-bg: #fffaf9;
+  --cl-border: #f0e1dc;
+  --cl-shadow: 0 10px 28px rgba(45, 26, 36, 0.065);
+}
+
+/* ==========================================
+   SECTION
+========================================== */
+
+.cl-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      #ffffff 0%,
+      #fffaf9 75%
+    );
+  padding: 45px 0 55px;
+  border-top: 1px solid #f4e8e4;
+  isolation: isolate;
+}
+
+.cl-container {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 80px, 1600px);
+  margin: 0 auto;
+}
+
+/* ==========================================
+   BACKGROUND DECORATION
+========================================== */
+
+.cl-bg-circle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.cl-bg-circle--top {
+  width: 250px;
+  height: 250px;
+  top: -190px;
+  left: -100px;
+  background: #fce7e9;
+}
+
+.cl-bg-circle--bottom {
+  width: 270px;
+  height: 270px;
+  right: -150px;
+  bottom: -180px;
+  background: #fce8eb;
+}
+
+.cl-bg-dots {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  width: 150px;
+  height: 125px;
+  opacity: 0.4;
+  background-image:
+    radial-gradient(#d69a9b 1px, transparent 1px);
+  background-size: 11px 11px;
+  pointer-events: none;
+}
+
+/* ==========================================
+   TOP LAYOUT
+========================================== */
+
+.cl-top-layout {
+  display: grid;
+  grid-template-columns: 370px minmax(0, 1fr);
+  gap: 42px;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.cl-head {
+  text-align: left;
+}
+
+.cl-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cl-gold);
+  margin-bottom: 13px;
+}
+
+.cl-eyebrow-line {
+  width: 38px;
+  height: 1px;
+  background: var(--cl-gold);
+}
+
+.cl-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+  font-size: clamp(38px, 3.4vw, 58px);
+  line-height: 1.06;
+  letter-spacing: -1.8px;
+  margin: 0;
+}
+
+.cl-title span,
+.cl-title strong {
+  display: block;
+}
+
+.cl-title span {
+  color: var(--cl-navy);
+}
+
+.cl-title strong {
+  color: var(--cl-primary);
+  font-weight: 900;
+}
+
+.cl-sub {
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--cl-muted);
+  margin: 15px 0 0;
+  max-width: 360px;
+}
+
+/* ==========================================
+   STUDY MODE BUTTONS
+========================================== */
+
+.cl-modes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  width: 100%;
+}
+
+.cl-mode {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  min-height: 78px;
+  padding: 12px 13px;
+  border: 1px solid #efe1db;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 6px 22px rgba(42, 29, 33, 0.035);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.cl-mode:hover {
+  border-color: #eab8c2;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(153, 0, 46, 0.08);
+}
+
+.cl-mode--active {
+  background: #fff2f3;
+  border-color: #f3a8b8;
+  box-shadow: inset 0 0 0 1px #f3bdc8;
+}
+
+.cl-mode-icon {
+  width: 43px;
+  height: 43px;
+  min-width: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #c17b14;
+  background: #fbf0e5;
+}
+
+.cl-mode--active .cl-mode-icon {
+  color: var(--cl-primary);
+  background: #fce3e8;
+}
+
+.cl-mode-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  gap: 5px;
+}
+
+.cl-mode-title {
+  font-family: "DM Sans", sans-serif;
+  color: var(--cl-navy);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cl-mode-description {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #7786a0;
+}
+
+.cl-mode-arrow {
+  width: 31px;
+  height: 31px;
+  min-width: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fbf0e5;
+  color: #c17b14;
+  transition: all 0.3s ease;
+}
+
+.cl-mode--active .cl-mode-arrow {
+  color: var(--cl-primary);
+  background: #f9dfe5;
+}
+
+.cl-mode:hover .cl-mode-arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================
+   UNIVERSITY HEADER
+========================================== */
+
+.cl-university-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0e3df;
+  margin-bottom: 22px;
+}
+
+.cl-university-eyebrow {
+  font-family: "DM Sans", sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--cl-gold);
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.cl-university-heading {
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(20px, 1.7vw, 25px);
+  font-weight: 700;
+  color: var(--cl-navy);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.cl-university-heading span {
+  color: var(--cl-primary);
+}
+
+.cl-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  background: transparent;
+  color: var(--cl-primary);
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.cl-view-all svg {
+  transition: transform 0.25s ease;
+}
+
+.cl-view-all:hover svg {
+  transform: translateX(5px);
+}
+
+/* ==========================================
+   DRAG-ONLY CAROUSEL
+========================================== */
+
+.cl-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.cl-carousel-viewport {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-x pan-y;
+  padding: 3px 0 20px;
+}
+
+.cl-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.cl-carousel-viewport.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+.cl-carousel-viewport.is-dragging * {
+  cursor: grabbing !important;
+}
+
+.cl-carousel-track {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  width: max-content;
+  min-width: 100%;
+}
+
+/* ==========================================
+   UNIVERSITY CARD
+========================================== */
+
+.cl-university-card {
+  position: relative;
+  flex: 0 0 calc((100vw - 160px) / 6);
+  width: calc((100vw - 160px) / 6);
+  max-width: 255px;
+  min-width: 190px;
+  min-height: 310px;
+  background: #ffffff;
+  border: 1px solid #efe3df;
+  border-radius: 18px;
+  padding: 12px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  box-shadow: var(--cl-shadow);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.cl-university-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #99002e 0%,
+    #d99460 100%
+  );
+}
+
+.cl-university-card:hover {
+  transform: translateY(-5px);
+  border-color: #eec6cb;
+  box-shadow:
+    0 14px 35px rgba(74, 37, 47, 0.11);
+}
+
+/* ==========================================
+   UNIVERSITY IMAGE
+========================================== */
+
+.cl-university-image {
+  height: 145px;
+  width: 100%;
+  border-radius: 13px;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #fffaf9,
+    #fff2f1
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-university-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 12px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cl-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #f8e4e8;
+  color: var(--cl-primary);
+  font-family: "Playfair Display", serif;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+/* ==========================================
+   UNIVERSITY BODY
+========================================== */
+
+.cl-university-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 125px;
+  padding: 17px 4px 2px;
+}
+
+.cl-university-name {
+  color: #172d45;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 0;
+  min-height: 48px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cl-university-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #f0e7e4;
+}
+
+.cl-university-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: #7886a0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+}
+
+.cl-university-location svg {
+  color: var(--cl-primary);
+  flex-shrink: 0;
+}
+
+.cl-university-location span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cl-university-explore {
+  width: 35px;
+  height: 35px;
+  min-width: 35px;
+  border-radius: 50%;
+  border: 1px solid #f7d8df;
+  background: #fff0f3;
+  color: var(--cl-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cl-university-explore:hover {
+  background: var(--cl-primary);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+/* ==========================================
+   CAROUSEL FOOTER
+========================================== */
+
+.cl-carousel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 5px;
+  padding: 0 3px;
+}
+
+.cl-drag-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #a47c85;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.cl-drag-hint svg {
+  color: var(--cl-primary);
+}
+
+.cl-carousel-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cl-progress-track {
+  width: 110px;
+  height: 4px;
+  border-radius: 10px;
+  background: #f1d9de;
+  overflow: hidden;
+}
+
+.cl-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cl-primary);
+  transition: width 0.4s ease;
+}
+
+.cl-progress-count {
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cl-primary);
+  white-space: nowrap;
+}
+
+.cl-progress-count span {
+  color: #c6a4aa;
+}
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.cl-empty {
+  text-align: center;
+  padding: 45px 20px;
+  color: var(--cl-muted);
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+}
+
+/* ==========================================
+   GLOBAL PARTNERS SECTION
+========================================== */
+
+.cl-partners-section {
+  position: relative;
+  overflow: hidden;
+  padding: 42px 30px 45px;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fff6f5 100%
+  );
+  border-top: 1px solid #f0e2df;
+}
+
+.cl-partners-container {
+  width: min(100%, 1150px);
+  margin: 0 auto;
+}
+
+.cl-partners-heading {
+  text-align: center;
+}
+
+.cl-partners-eyebrow {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--cl-primary);
+  margin-bottom: 8px;
+}
+
+.cl-partners-heading h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  color: var(--cl-navy);
+  margin: 0;
+}
+
+.cl-partners-heading h2 span {
+  color: var(--cl-primary);
+}
+
+.cl-partners-heading p {
+  font-family: "DM Sans", sans-serif;
+  color: #63748b;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 9px 0 0;
+}
+
+.cl-partners-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 30px;
+}
+
+.cl-partner-item {
+  flex: 1 1 180px;
+  max-width: 260px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-right: 1px solid #e5cbce;
+}
+
+.cl-partner-item:last-child {
+  border-right: 0;
+}
+
+.cl-partner-item img {
+  max-width: 100%;
+  max-height: 60px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.cl-partner-item:hover img {
+  transform: scale(1.06);
+}
+
+/* ==========================================
+   RESPONSIVE - LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1700px) {
+  .cl-university-card {
+    flex-basis: 245px;
+    width: 245px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - LAPTOP
+========================================== */
+
+@media (max-width: 1200px) {
+  .cl-container {
+    width: min(100% - 50px, 1150px);
+  }
+
+  .cl-top-layout {
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 25px;
+  }
+
+  .cl-title {
+    font-size: 43px;
+  }
+
+  .cl-mode {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .cl-mode-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+
+  .cl-mode-description {
+    font-size: 9px;
+  }
+
+  .cl-university-card {
+    flex-basis: 225px;
+    width: 225px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET
+========================================== */
+
+@media (max-width: 900px) {
+  .cl-section {
+    padding: 40px 0 45px;
+  }
+
+  .cl-top-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  .cl-head {
+    text-align: center;
+  }
+
+  .cl-eyebrow {
+    justify-content: center;
+  }
+
+  .cl-title {
+    font-size: 43px;
+  }
+
+  .cl-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cl-modes {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cl-university-card {
+    flex-basis: 220px;
+    width: 220px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+========================================== */
+
+@media (max-width: 640px) {
+  .cl-section {
+    padding: 30px 0 35px;
+  }
+
+  .cl-container {
+    width: calc(100% - 28px);
+  }
+
+  .cl-top-layout {
+    gap: 22px;
+    margin-bottom: 32px;
+  }
+
+  .cl-title {
+    font-size: 37px;
+  }
+
+  .cl-sub {
+    font-size: 13px;
+  }
+
+  .cl-modes {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .cl-mode {
+    min-height: 64px;
+    padding: 9px 12px;
+  }
+
+  .cl-mode-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+
+  .cl-mode-description {
+    font-size: 10px;
+  }
+
+  .cl-university-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cl-university-heading {
+    font-size: 19px;
+  }
+
+  .cl-view-all {
+    font-size: 11px;
+  }
+
+  .cl-university-card {
+    flex-basis: 205px;
+    width: 205px;
+    min-width: 205px;
+    min-height: 290px;
+  }
+
+  .cl-university-image {
+    height: 130px;
+  }
+
+  .cl-university-name {
+    font-size: 13px;
+  }
+
+  .cl-carousel-footer {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cl-drag-hint {
+    font-size: 10px;
+  }
+
+  .cl-progress-track {
+    width: 70px;
+  }
+
+  .cl-partners-section {
+    padding: 35px 15px;
+  }
+
+  .cl-partner-item {
+    flex: 1 1 45%;
+    max-width: 50%;
+    border-right: 0;
+    border-bottom: 1px solid #f0e1e2;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .cl-title {
+    font-size: 32px;
+  }
+
+  .cl-university-card {
+    flex-basis: 185px;
+    width: 185px;
+    min-width: 185px;
+  }
+
+  .cl-carousel-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-carousel-viewport {
+    scroll-behavior: auto;
+  }
+
+  .cl-university-card,
+  .cl-mode,
+  .cl-university-explore,
+  .cl-progress-fill {
+    transition: none;
+  }
+}

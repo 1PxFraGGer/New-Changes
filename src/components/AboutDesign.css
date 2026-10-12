@@ -1,0 +1,550 @@
+/* ============================================================
+   AboutDesign.css — "About G Educonnect" hero block (roomier layout)
+   Every class is prefixed "ga-" so nothing else on the site can collide.
+   Designed on a 1680 x 480 canvas that scales with the screen width.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+.ga-section {
+  --ga-s: 1;
+  --ga-pad: 0px;
+  --ga-burgundy: #8c0a2b;
+  --ga-gold: #cda15f;
+  position: relative;
+  width: 100%;
+  height: 520px; /* JS overrides this on desktop */
+  overflow: hidden;
+  border-top: 3px solid #850b28;
+  background:
+    radial-gradient(ellipse at 100% 100%, #f9e4e1 0%, rgba(249,228,225,0) 45%),
+    linear-gradient(90deg, #fdf5f2 0%, #fffaf8 50%, #fdf5f2 100%);
+  font-family: "DM Sans", sans-serif;
+  text-align: left;
+}
+
+.ga-section,
+.ga-section *,
+.ga-section *::before,
+.ga-section *::after { box-sizing: border-box; }
+
+.ga-section h1, .ga-section h2, .ga-section h3, .ga-section p {
+  margin: 0;
+  padding: 0;
+  text-transform: none !important;
+  font-style: normal !important;
+}
+
+/* ---------- stage (fixed 1680px canvas) ---------- */
+
+.ga-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 1680px;
+  height: 480px; /* must match STAGE_H in AboutDesign.jsx */
+  transform-origin: 0 0;
+}
+
+.ga-container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 740px 940px;
+  align-items: center;
+  width: 1680px;
+  height: 480px;
+}
+
+/* ---------- LEFT VISUAL ---------- */
+
+.ga-visual {
+  position: relative;
+  width: 740px;
+  height: 440px;
+  isolation: isolate;
+}
+
+.ga-red-block {
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(135deg, #a10f33 0%, #8c0a2b 45%, #6f0320 100%);
+}
+
+.ga-red-top {
+  top: 24px;
+  left: 520px;
+  width: 170px;
+  height: 380px;
+  border-radius: 40px 44px 40px 36px;
+  transform: rotate(-1.5deg);
+}
+
+.ga-red-bottom {
+  top: 250px;
+  left: 70px;
+  width: 300px;
+  height: 160px;
+  border-radius: 30px 10px 14px 40px;
+  transform: rotate(-2deg);
+}
+
+/* bigger photo, nothing sits on its faces any more */
+.ga-photo {
+  position: absolute;
+  z-index: 2;
+  left: 120px;
+  top: 52px;
+  width: 530px;
+  height: 346px;
+  overflow: hidden;
+  border: 4px solid #fffaf5;
+  border-radius: 56px;
+  background: #f3e9e1;
+  box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+.ga-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%; /* keeps heads in frame */
+}
+
+.ga-outline {
+  position: absolute;
+  z-index: 3;
+  left: 92px;
+  top: 34px;
+  width: 586px;
+  height: 382px;
+  border: 1px solid rgba(205,161,95,.45);
+  border-radius: 72px;
+  transform: rotate(-1deg);
+  pointer-events: none;
+}
+
+/* education card — smaller, hangs off the photo's left edge */
+
+.ga-edu {
+  position: absolute;
+  z-index: 5;
+  left: 16px;
+  top: 58px;
+  width: 168px;
+  padding: 46px 14px 16px 22px;
+  border-radius: 20px;
+  background: #fffdfa;
+  box-shadow: 0 12px 30px rgba(60,20,20,.13);
+  transform: rotate(-4deg);
+}
+
+.ga-section .ga-edu h3 {
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  color: #1d262c !important;
+}
+
+.ga-gold-line {
+  width: 56px;
+  height: 3px;
+  margin-top: 10px;
+  background: var(--ga-gold);
+}
+
+.ga-edu-icon {
+  position: absolute;
+  top: -20px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a10f33, #7a0422);
+  box-shadow: 0 5px 12px rgba(95,0,28,.22);
+}
+
+.ga-edu-icon svg { display: block; width: 25px; height: 25px; fill: #fff; }
+
+/* experience card — smaller, hangs off the photo's right edge, low enough to clear faces */
+
+.ga-exp {
+  position: absolute;
+  z-index: 6;
+  left: 610px;
+  top: 294px;
+  width: 124px;
+  padding: 12px 10px 14px;
+  border-radius: 20px;
+  text-align: center;
+  background: linear-gradient(125deg, #fffdf0 0%, #f8e1b8 45%, #edc17c 100%);
+  box-shadow: 0 12px 30px rgba(128,67,22,.15);
+}
+
+.ga-crown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 4px;
+  margin-bottom: 2px;
+  line-height: 1;
+  color: #ad7950;
+}
+
+.ga-crown::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(173,121,80,.45);
+}
+
+.ga-crown svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ga-section .ga-exp h3 {
+  font-family: "Playfair Display", serif !important;
+  font-size: 38px !important;
+  font-weight: 700 !important;
+  line-height: 1.05 !important;
+  letter-spacing: 0 !important;
+  color: #78021f !important;
+}
+
+.ga-section .ga-exp p {
+  margin-top: 4px;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  color: #702d2b !important;
+}
+
+/* ---------- RIGHT CONTENT ---------- */
+/* big right padding keeps the cards clear of the red corner shape */
+
+.ga-content {
+  position: relative;
+  z-index: 4;
+  width: 940px;
+  padding: 20px 170px 20px 30px;
+  background: none;
+}
+
+.ga-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 8px;
+}
+
+.ga-eyebrow span {
+  padding: 5px 14px;
+  border-radius: 30px;
+  background: #f8e9eb;
+  color: #7c2939;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.ga-eyebrow::after {
+  content: "";
+  width: 45px;
+  height: 1px;
+  background: #bc9297;
+}
+
+.ga-section .ga-title {
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-size: 48px !important;
+  font-weight: 500 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.8px !important;
+  color: #10242b !important;
+  white-space: nowrap;
+}
+
+.ga-section .ga-title span {
+  color: var(--ga-burgundy) !important;
+  font-weight: 700 !important;
+}
+
+.ga-section .ga-subtitle {
+  margin-top: 8px;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+  color: #7b263c !important;
+}
+
+.ga-section .ga-desc {
+  max-width: 700px;
+  margin-top: 10px;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #66696d !important;
+}
+
+/* feature cards — auto height, so text can never be squeezed or cut */
+
+.ga-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.ga-card {
+  position: relative;
+  min-height: 150px;
+  padding: 16px 16px 20px;
+  overflow: hidden;
+  border: 1px solid #f2ece9;
+  border-radius: 18px;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 6px 25px rgba(42,28,25,.05);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+
+.ga-card::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(205,161,95,0), rgba(205,161,95,.55), rgba(205,161,95,0));
+}
+
+.ga-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(112,0,29,.10);
+}
+
+.ga-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+}
+
+.ga-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #f0d3d9;
+  background: linear-gradient(145deg, #fbeef0 0%, #f4dce1 100%);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.8);
+  color: var(--ga-burgundy);
+}
+
+.ga-icon svg {
+  display: block;
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ga-section .ga-card h3 {
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  color: #1e272b !important;
+}
+
+.ga-section .ga-card p {
+  margin-top: 10px;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 400 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0 !important;
+  color: #6b6b6b !important;
+}
+
+/* ---------- DECORATIONS ---------- */
+
+.ga-dots {
+  position: absolute;
+  opacity: .45;
+  pointer-events: none;
+  background-image: radial-gradient(#b98588 1.1px, transparent 1.1px);
+  background-size: 15px 15px;
+}
+
+.ga-dots-left   { top: 100px; left: 14px; width: 80px; height: 130px; }
+.ga-dots-middle { top: 24px; left: 640px; width: 150px; height: 80px; }
+
+.ga-dots-right {
+  z-index: 1;
+  top: calc(var(--ga-pad, 0px) + 30px * var(--ga-s));
+  right: calc(185px * var(--ga-s));
+  width: 75px;
+  height: 100px;
+  transform: scale(var(--ga-s));
+  transform-origin: top right;
+}
+
+/* ---- right-edge circle with a photo behind a burgundy tint ----
+   The circle is 400px wide but pushed off-screen, so only its left ~120px shows.
+   Change the picture in AboutDesign.jsx (CORNER_IMAGE) or the tint strength below. */
+
+.ga-corner {
+  position: absolute;
+  z-index: 1;
+  top: calc(var(--ga-pad, 0px) + 20px * var(--ga-s));
+  right: calc(-280px * var(--ga-s));
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: #850024;
+  transform: scale(var(--ga-s));
+  transform-origin: top right;
+}
+
+/* the photo — sits in the part of the circle that is visible */
+.ga-corner::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 150px;
+  background-image: var(--ga-corner-img, none);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+/* burgundy tint over the photo: lower the .xx alpha values to show more of the picture */
+.ga-corner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(150,6,40,.62) 0%, rgba(120,0,32,.55) 55%, rgba(110,0,30,.68) 100%);
+}
+
+/* thin gold line that follows the circle */
+.ga-arc {
+  position: absolute;
+  z-index: 1;
+  top: calc(var(--ga-pad, 0px) + 0px * var(--ga-s));
+  right: calc(-275px * var(--ga-s));
+  width: 440px;
+  height: 440px;
+  border: 1px solid rgba(205,161,95,.55);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: scale(var(--ga-s));
+  transform-origin: top right;
+}
+
+.ga-glow {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: -65px;
+  width: 400px;
+  height: 200px;
+  border-radius: 50%;
+  background: #f9e4e1;
+  filter: blur(45px);
+  opacity: .6;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ga-card { transition: none; }
+  .ga-card:hover { transform: none; }
+}
+
+/* ---------- MOBILE (stacked, no scaling) ---------- */
+
+@media (max-width: 768px) {
+  .ga-section { height: auto; padding: 28px 0; }
+
+  .ga-stage {
+    position: relative;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .ga-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+
+  .ga-visual { width: 100%; height: 340px; }
+
+  .ga-red-top    { top: 20px; left: 62%; width: 26%; height: 270px; }
+  .ga-red-bottom { top: 160px; left: 8%; width: 38%; height: 130px; }
+  .ga-photo      { left: 15%; top: 40px; width: 70%; height: 255px; }
+  .ga-outline    { left: 11%; top: 28px; width: 78%; height: 280px; }
+  .ga-edu        { left: 2%; top: 80px; transform: rotate(-4deg) scale(.78); transform-origin: top left; }
+  .ga-exp        { left: auto; right: 2%; top: 210px; transform: scale(.78); transform-origin: top right; }
+
+  .ga-dots-left, .ga-dots-middle { display: none; }
+
+  .ga-content { width: 100%; padding: 10px 22px 35px; }
+
+  .ga-section .ga-title { font-size: clamp(29px, 7vw, 42px) !important; white-space: normal; }
+  .ga-section .ga-subtitle { font-size: 14px !important; }
+  .ga-section .ga-desc { font-size: 13px !important; line-height: 1.6 !important; max-width: none; }
+
+  .ga-grid { grid-template-columns: 1fr; gap: 12px; }
+  .ga-card { min-height: 115px; padding: 15px; }
+  .ga-section .ga-card h3 { font-size: 16px !important; }
+
+  .ga-corner { top: 7px; right: -150px; width: 240px; height: 240px; transform: none; }
+  .ga-corner::before { width: 100px; }
+  .ga-arc, .ga-dots-right { display: none; }
+}
+
+@media (max-width: 400px) {
+  .ga-visual { height: 300px; }
+  .ga-photo { height: 225px; }
+  .ga-outline { height: 250px; }
+  .ga-red-top { height: 235px; }
+  .ga-red-bottom { height: 100px; top: 160px; }
+  .ga-edu { transform: rotate(-4deg) scale(.65); }
+  .ga-exp { top: 190px; transform: scale(.65); }
+  .ga-corner { right: -170px; width: 240px; height: 200px; border-radius: 50%; }
+  .ga-corner::before { width: 80px; }
+}

@@ -1,0 +1,1118 @@
+
+.counselling-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed
+  );
+
+  color: white;
+
+  box-shadow:
+    0 8px 25px rgba(37, 99, 235, 0.25);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.counselling-cta:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(37, 99, 235, 0.35);
+}
+
+.cta-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 18px;
+}
+
+.cta-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cta-text strong {
+  font-size: 14px;
+}
+
+.cta-text small {
+  margin-top: 2px;
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.cta-arrow {
+  font-size: 20px;
+  margin-left: 4px;
+}/* =====================================================
+   GLOBAL COUNSELLING CTA
+===================================================== */
+
+.global-counselling-cta {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border: none;
+  border-radius: 14px;
+
+  padding: 12px 18px;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed
+  );
+
+  color: #fff;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(37, 99, 235, 0.28);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.global-counselling-cta:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 15px 35px rgba(37, 99, 235, 0.38);
+}
+
+.global-counselling-cta .cta-icon {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  font-size: 19px;
+}
+
+.global-counselling-cta .cta-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.global-counselling-cta .cta-content strong {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.global-counselling-cta .cta-content small {
+  margin-top: 3px;
+
+  font-size: 10px;
+
+  opacity: 0.85;
+}
+
+.global-counselling-cta .cta-arrow {
+  font-size: 21px;
+  margin-left: 4px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .global-counselling-cta {
+    right: 14px;
+    bottom: 14px;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+  }
+
+  .global-counselling-cta .cta-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .global-counselling-cta .cta-content strong {
+    font-size: 12px;
+  }
+
+  .global-counselling-cta .cta-content small {
+    font-size: 9px;
+  }
+
+  .global-counselling-cta .cta-arrow {
+    font-size: 18px;
+  }
+}/* =========================================================
+   GLOBAL COUNSELLING MODAL
+========================================================= */
+
+.global-counselling-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(8, 16, 32, 0.82);
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+
+/* =========================================================
+   MODAL BOX
+========================================================= */
+
+.global-counselling-modal {
+  position: relative;
+
+  width: min(
+    920px,
+    calc(100vw - 40px)
+  );
+
+  max-height: calc(100vh - 40px);
+
+  display: grid;
+
+  grid-template-columns:
+    350px
+    minmax(0, 1fr);
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background: #fff;
+
+  box-shadow:
+    0 28px 80px
+    rgba(0, 0, 0, 0.36);
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.global-counselling-close {
+  position: absolute;
+
+  top: 16px;
+  right: 16px;
+
+  z-index: 20;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #f1f4f8;
+
+  color: #607086;
+
+  font-size: 26px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.global-counselling-close:hover {
+  background: #e8edf3;
+  transform: rotate(3deg);
+}
+
+.global-counselling-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.global-counselling-left {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #182751;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.global-counselling-image {
+  position: relative;
+
+  height: 370px;
+
+  overflow: hidden;
+}
+
+.global-counselling-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.global-image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(8, 16, 35, 0.05) 20%,
+      rgba(8, 16, 35, 0.85) 100%
+    );
+}
+
+
+/* =========================================================
+   LEFT IMAGE CONTENT
+========================================================= */
+
+.global-counselling-content {
+  position: absolute;
+
+  left: 26px;
+  right: 26px;
+  bottom: 28px;
+
+  z-index: 3;
+
+  color: #fff;
+}
+
+.global-counselling-content > span {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 12px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.35);
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: #fff;
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.global-counselling-content h2 {
+  margin: 16px 0 9px;
+
+  color: #fff;
+
+  font-size: 29px;
+  line-height: 1.08;
+
+  font-weight: 850;
+}
+
+.global-counselling-content p {
+  margin: 0;
+
+  color:
+    rgba(255, 255, 255, 0.82);
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   LEFT BENEFITS
+========================================================= */
+
+.global-benefits {
+  flex: 1;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 8px;
+
+  padding: 22px 20px;
+
+  background: #182751;
+}
+
+.global-benefits > div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.global-benefits strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 8px;
+  line-height: 1.35;
+
+  font-weight: 800;
+}
+
+.global-benefits span {
+  display: block;
+
+  color:
+    rgba(255, 255, 255, 0.62);
+
+  font-size: 7px;
+  line-height: 1.35;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.global-counselling-right {
+  min-width: 0;
+
+  overflow-y: auto;
+
+  padding:
+    38px 38px 25px;
+
+  background: #fff;
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.global-form-header {
+  margin-bottom: 22px;
+}
+
+.global-form-header > span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #742036;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+}
+
+.global-form-header h2 {
+  margin: 0 0 6px;
+
+  color: #101828;
+
+  font-size: 29px;
+  line-height: 1.2;
+
+  font-weight: 850;
+}
+
+.global-form-header p {
+  margin: 0;
+
+  color: #71809a;
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.global-counselling-form {
+  width: 100%;
+}
+
+
+/* =========================================================
+   FORM ROW
+========================================================= */
+
+.global-form-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 16px;
+
+  margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.global-form-group {
+  min-width: 0;
+
+  margin-bottom: 15px;
+}
+
+.global-form-row .global-form-group {
+  margin-bottom: 0;
+}
+
+.global-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #344054;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.global-form-group label b {
+  color: #e13c4b;
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
+.global-input,
+.global-textarea {
+  position: relative;
+
+  width: 100%;
+}
+
+.global-input > span {
+  position: absolute;
+
+  left: 13px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  z-index: 2;
+
+  font-size: 13px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   INPUT / SELECT
+========================================================= */
+
+.global-input input,
+.global-input select {
+  width: 100%;
+
+  height: 45px;
+
+  box-sizing: border-box;
+
+  padding:
+    0 38px;
+
+  border:
+    1px solid #d6dee8;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #f8fafc;
+
+  color: #344054;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.global-input select {
+  padding-right: 34px;
+
+  cursor: pointer;
+}
+
+.global-input input::placeholder {
+  color: #96a4b8;
+}
+
+
+/* =========================================================
+   DISABLED INPUTS
+========================================================= */
+
+.global-input input:disabled,
+.global-input select:disabled,
+.global-textarea textarea:disabled {
+  cursor: not-allowed;
+
+  background: #eef2f6;
+
+  color: #8a96a8;
+
+  opacity: 0.8;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.global-input input:focus,
+.global-input select:focus,
+.global-textarea textarea:focus {
+  border-color: #8b263e;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(111, 16, 34, 0.08);
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.global-textarea > span {
+  position: absolute;
+
+  left: 13px;
+  top: 14px;
+
+  z-index: 2;
+
+  font-size: 13px;
+
+  pointer-events: none;
+}
+
+.global-textarea textarea {
+  width: 100%;
+
+  min-height: 88px;
+
+  box-sizing: border-box;
+
+  resize: vertical;
+
+  padding:
+    13px 14px 13px 39px;
+
+  border:
+    1px solid #d6dee8;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #f8fafc;
+
+  color: #344054;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  line-height: 1.5;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.global-textarea textarea::placeholder {
+  color: #96a4b8;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.global-form-error {
+  margin-bottom: 13px;
+
+  padding: 10px 12px;
+
+  border:
+    1px solid #fecaca;
+
+  border-radius: 8px;
+
+  background: #fff1f2;
+
+  color: #b42318;
+
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.global-form-success {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  margin-bottom: 13px;
+
+  padding: 10px 12px;
+
+  border:
+    1px solid #b7ebcf;
+
+  border-radius: 8px;
+
+  background: #ecfdf3;
+
+  color: #067647;
+}
+
+.global-form-success strong {
+  font-size: 10px;
+}
+
+.global-form-success span {
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.global-submit-btn {
+  width: 100%;
+
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6f1022,
+      #8b2038
+    );
+
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 850;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 24px
+    rgba(111, 16, 34, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.global-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #5d0c1c,
+      #77152c
+    );
+
+  box-shadow:
+    0 13px 28px
+    rgba(111, 16, 34, 0.28);
+}
+
+.global-submit-btn:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.65;
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.global-spinner {
+  width: 14px;
+  height: 14px;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.45);
+
+  border-top-color: #fff;
+
+  border-radius: 50%;
+
+  animation:
+    globalCounsellingSpin
+    0.7s linear infinite;
+}
+
+@keyframes globalCounsellingSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   SECURE NOTE
+========================================================= */
+
+.global-secure-note {
+  display: block;
+
+  margin-top: 10px;
+
+  color: #95a2b3;
+
+  text-align: center;
+
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .global-counselling-modal {
+    width:
+      min(
+        860px,
+        calc(100vw - 30px)
+      );
+
+    grid-template-columns:
+      320px
+      minmax(0, 1fr);
+  }
+
+  .global-counselling-right {
+    padding:
+      34px 30px 24px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .global-counselling-modal {
+    width:
+      min(
+        720px,
+        calc(100vw - 24px)
+      );
+
+    grid-template-columns:
+      270px
+      minmax(0, 1fr);
+  }
+
+  .global-counselling-image {
+    height: 330px;
+  }
+
+  .global-counselling-content {
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .global-counselling-content h2 {
+    font-size: 24px;
+  }
+
+  .global-benefits {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+  .global-counselling-right {
+    padding:
+      30px 23px 22px;
+  }
+
+  .global-form-header h2 {
+    font-size: 24px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .global-counselling-overlay {
+    align-items: flex-start;
+
+    overflow-y: auto;
+
+    padding: 12px;
+  }
+
+  .global-counselling-modal {
+    width: 100%;
+
+    max-height: none;
+
+    grid-template-columns: 1fr;
+
+    margin: 12px 0;
+
+    border-radius: 17px;
+  }
+
+  .global-counselling-left {
+    display: none;
+  }
+
+  .global-counselling-right {
+    overflow: visible;
+
+    padding:
+      29px 18px 20px;
+  }
+
+  .global-form-header {
+    padding-right: 35px;
+  }
+
+  .global-form-header h2 {
+    font-size: 23px;
+  }
+
+  .global-form-row {
+    grid-template-columns: 1fr;
+
+    gap: 13px;
+
+    margin-bottom: 13px;
+  }
+
+  .global-form-group {
+    margin-bottom: 13px;
+  }
+
+  .global-input input,
+  .global-input select {
+    height: 44px;
+
+    font-size: 10px;
+  }
+
+  .global-textarea textarea {
+    min-height: 88px;
+
+    font-size: 10px;
+  }
+
+  .global-submit-btn {
+    min-height: 46px;
+
+    font-size: 10px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .global-counselling-overlay {
+    padding: 7px;
+  }
+
+  .global-counselling-modal {
+    margin: 7px 0;
+
+    border-radius: 14px;
+  }
+
+  .global-counselling-right {
+    padding:
+      25px 13px 17px;
+  }
+
+  .global-form-header h2 {
+    font-size: 21px;
+  }
+
+  .global-form-header p {
+    font-size: 10px;
+  }
+
+  .global-counselling-close {
+    top: 10px;
+    right: 10px;
+
+    width: 34px;
+    height: 34px;
+
+    font-size: 23px;
+  }
+
+  .global-input input,
+  .global-input select {
+    padding-left: 35px;
+
+    font-size: 9px;
+  }
+
+  .global-textarea textarea {
+    padding-left: 35px;
+
+    font-size: 9px;
+  }
+
+  .global-input > span,
+  .global-textarea > span {
+    left: 11px;
+
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 340px) {
+
+  .global-counselling-right {
+    padding:
+      23px 10px 15px;
+  }
+
+  .global-form-header h2 {
+    font-size: 19px;
+  }
+
+  .global-input input,
+  .global-input select {
+    height: 42px;
+  }
+}

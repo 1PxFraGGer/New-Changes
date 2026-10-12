@@ -1,0 +1,1001 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap");
+
+/* ==========================================
+   SECTION
+========================================== */
+
+.why-section {
+  --why-crimson: #99002e;
+  --why-navy: #102035;
+  --why-gold: #d5a65a;
+  --why-muted: #657389;
+
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 58px 0 65px;
+  background: linear-gradient(
+    115deg,
+    #fff9f8 0%,
+    #fffdfb 50%,
+    #fff2f1 100%
+  );
+  border-top: 1px solid #f2e4e2;
+  border-bottom: 1px solid #f2e4e2;
+}
+
+.why-section *,
+.why-section *::before,
+.why-section *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   BACKGROUND DECORATIONS
+========================================== */
+
+.why-bg {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.why-bg-one {
+  width: 360px;
+  height: 360px;
+  top: -240px;
+  right: -90px;
+  background: rgba(251, 214, 220, 0.28);
+}
+
+.why-bg-two {
+  width: 300px;
+  height: 300px;
+  bottom: -230px;
+  left: -150px;
+  background: rgba(249, 215, 219, 0.35);
+}
+
+.why-dot-pattern {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 180px;
+  height: 180px;
+  background-image: radial-gradient(
+    rgba(153, 0, 46, 0.13) 1px,
+    transparent 1px
+  );
+  background-size: 13px 13px;
+  mask-image: linear-gradient(
+    225deg,
+    black,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ==========================================
+   CONTAINER AND GRID
+========================================== */
+
+.why-container {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 100px, 1510px);
+  margin: 0 auto;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 95px);
+  align-items: center;
+}
+
+.why-left {
+  min-width: 0;
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.why-heading-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.why-section-number {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #ad0039,
+    #780024
+  );
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 5px 16px rgba(153, 0, 46, 0.2);
+}
+
+.why-heading-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.why-tag {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 4px 0 9px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  color: var(--why-crimson);
+}
+
+.why-tag-line {
+  width: 35px;
+  height: 1px;
+  background: var(--why-crimson);
+}
+
+.why-title {
+  margin: 0;
+  color: var(--why-navy);
+  font-family: "Playfair Display", serif;
+  font-size: clamp(36px, 3.6vw, 58px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.13;
+}
+
+.why-desc {
+  max-width: 650px;
+  margin: 0 0 24px 67px;
+  color: #536176;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+/* ==========================================
+   OFFERINGS
+========================================== */
+
+.why-offerings {
+  margin-left: 67px;
+}
+
+.why-offerings-title {
+  margin: 0 0 14px;
+  color: var(--why-navy);
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.why-points {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.why-point {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  min-height: 43px;
+  padding: 4px 10px 4px 0;
+  border-radius: 30px;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.why-point:hover {
+  background: rgba(153, 0, 46, 0.035);
+  transform: translateX(5px);
+}
+
+.why-point-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #b40040,
+    #81002a
+  );
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 3px 12px rgba(153, 0, 46, 0.24);
+}
+
+.why-point p {
+  margin: 0;
+  color: #202d3d;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   CTA BUTTON
+========================================== */
+
+.why-cta {
+  margin: 23px 0 0 67px;
+}
+
+.why-cta a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 43px;
+  padding: 10px 23px;
+  border-radius: 50px;
+  background: linear-gradient(
+    135deg,
+    #a50035,
+    #800026
+  );
+  color: #fff;
+  text-decoration: none;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 7px 19px rgba(153, 0, 46, 0.17);
+  transition: all 0.3s ease;
+}
+
+.why-cta a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 11px 24px rgba(153, 0, 46, 0.27);
+}
+
+.why-cta-arrow {
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.why-cta a:hover .why-cta-arrow {
+  transform: translateX(5px);
+}
+
+/* ==========================================
+   RIGHT VISUAL
+========================================== */
+
+.why-right {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.why-visual {
+  position: relative;
+  width: min(100%, 510px);
+  aspect-ratio: 1.14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   IMAGE
+========================================== */
+
+.why-image-wrap {
+  position: absolute;
+  width: 76%;
+  height: 88%;
+  top: 6%;
+  left: 13%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f3e6e5;
+  box-shadow:
+    0 18px 50px rgba(40, 30, 35, 0.12),
+    0 0 0 8px rgba(255, 255, 255, 0.65);
+  z-index: 2;
+}
+
+.why-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.7s ease;
+}
+
+.why-image-wrap:hover .why-image {
+  transform: scale(1.06);
+}
+
+.why-no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #f9e9e9,
+    #ecd4d9
+  );
+  color: var(--why-crimson);
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  text-align: center;
+  padding: 25px;
+}
+
+/* ==========================================
+   ORBIT RINGS
+========================================== */
+
+.why-orbit {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.why-orbit-one {
+  width: 92%;
+  height: 105%;
+  top: -2%;
+  left: 4%;
+  border: 1px solid rgba(164, 0, 50, 0.3);
+  transform: rotate(-16deg);
+  z-index: 1;
+}
+
+.why-orbit-two {
+  width: 82%;
+  height: 94%;
+  top: 4%;
+  left: 9%;
+  border: 1px solid rgba(213, 166, 90, 0.35);
+  transform: rotate(16deg);
+  z-index: 1;
+}
+
+/* ==========================================
+   FLOATING ICON CIRCLES
+========================================== */
+
+.why-float-icon {
+  position: absolute;
+  z-index: 5;
+  width: 62px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.97);
+  color: var(--why-crimson);
+  border: 1px solid #f6e2e5;
+  box-shadow:
+    0 7px 24px rgba(60, 25, 35, 0.1),
+    0 0 0 4px rgba(255, 255, 255, 0.35);
+  animation: whyFloat 5s ease-in-out infinite;
+}
+
+.why-float-graduation {
+  top: 0%;
+  left: 19%;
+}
+
+.why-float-people {
+  top: 27%;
+  left: 0%;
+  animation-delay: 0.7s;
+}
+
+.why-float-growth {
+  top: 58%;
+  left: 1%;
+  animation-delay: 1.4s;
+}
+
+.why-float-handshake {
+  bottom: 0%;
+  left: 24%;
+  animation-delay: 2.1s;
+}
+
+@keyframes whyFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ==========================================
+   EXCELLENCE BADGE
+========================================== */
+
+.why-excellence-badge {
+  position: absolute;
+  z-index: 6;
+  top: 32%;
+  right: 0%;
+  width: 164px;
+  height: 164px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(
+    circle at 35% 25%,
+    #a50035,
+    #690020 85%
+  );
+  color: #fff;
+  border: 4px solid #e8bf7d;
+  box-shadow:
+    0 0 0 5px rgba(255, 255, 255, 0.7),
+    0 12px 35px rgba(90, 0, 25, 0.25);
+}
+
+.why-excellence-number {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-size: 49px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #f7d18d;
+}
+
+.why-excellence-text {
+  display: block;
+  margin-top: 4px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* ==========================================
+   ORBIT DOTS
+========================================== */
+
+.why-orbit-dot {
+  position: absolute;
+  z-index: 3;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #b2003a;
+  box-shadow: 0 0 0 4px rgba(178, 0, 58, 0.08);
+}
+
+.why-orbit-dot-one {
+  top: 15%;
+  right: 9%;
+}
+
+.why-orbit-dot-two {
+  top: 48%;
+  left: 5%;
+}
+
+.why-orbit-dot-three {
+  bottom: 7%;
+  right: 23%;
+}
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1600px) {
+  .why-section {
+    padding: 70px 0 75px;
+  }
+
+  .why-visual {
+    width: 560px;
+  }
+
+  .why-title {
+    font-size: 62px;
+  }
+
+  .why-desc {
+    font-size: 15px;
+  }
+
+  .why-point p {
+    font-size: 14px;
+  }
+}
+
+/* ==========================================
+   LAPTOP
+========================================== */
+
+@media (max-width: 1200px) {
+  .why-container {
+    width: calc(100% - 70px);
+  }
+
+  .why-grid {
+    gap: 35px;
+  }
+
+  .why-title {
+    font-size: 43px;
+  }
+
+  .why-desc,
+  .why-offerings,
+  .why-cta {
+    margin-left: 0;
+  }
+
+  .why-visual {
+    width: 440px;
+  }
+
+  .why-excellence-badge {
+    width: 140px;
+    height: 140px;
+  }
+
+  .why-excellence-number {
+    font-size: 42px;
+  }
+
+  .why-excellence-text {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+  .why-section {
+    padding: 50px 0;
+  }
+
+  .why-container {
+    width: calc(100% - 48px);
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .why-left {
+    max-width: 700px;
+  }
+
+  .why-title {
+    font-size: 48px;
+  }
+
+  .why-desc {
+    max-width: 650px;
+  }
+
+  .why-right {
+    width: 100%;
+  }
+
+  .why-visual {
+    width: min(100%, 480px);
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+  .why-section {
+    padding: 38px 0 45px;
+  }
+
+  .why-container {
+    width: calc(100% - 34px);
+  }
+
+  .why-grid {
+    gap: 35px;
+  }
+
+  .why-heading-row {
+    gap: 13px;
+  }
+
+  .why-section-number {
+    width: 35px;
+    height: 35px;
+    font-size: 11px;
+  }
+
+  .why-tag {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    gap: 8px;
+    margin-bottom: 7px;
+  }
+
+  .why-tag-line {
+    width: 22px;
+  }
+
+  .why-title {
+    font-size: clamp(31px, 8vw, 42px);
+    letter-spacing: -0.8px;
+  }
+
+  .why-desc {
+    margin: 12px 0 20px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .why-offerings-title {
+    font-size: 18px;
+  }
+
+  .why-points {
+    gap: 9px;
+  }
+
+  .why-point {
+    gap: 12px;
+    min-height: 38px;
+  }
+
+  .why-point-icon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 10px;
+  }
+
+  .why-point p {
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .why-cta {
+    margin-top: 21px;
+  }
+
+  .why-cta a {
+    min-height: 40px;
+    padding: 9px 20px;
+    font-size: 12px;
+  }
+
+  .why-visual {
+    width: min(100%, 390px);
+  }
+
+  .why-float-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .why-float-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .why-excellence-badge {
+    width: 118px;
+    height: 118px;
+    border-width: 3px;
+  }
+
+  .why-excellence-number {
+    font-size: 34px;
+  }
+
+  .why-excellence-text {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .why-container {
+    width: calc(100% - 28px);
+  }
+
+  .why-title {
+    font-size: 29px;
+  }
+
+  .why-visual {
+    width: 100%;
+  }
+
+  .why-float-icon {
+    width: 39px;
+    height: 39px;
+  }
+
+  .why-float-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .why-excellence-badge {
+    width: 100px;
+    height: 100px;
+  }
+
+  .why-excellence-number {
+    font-size: 29px;
+  }
+
+  .why-excellence-text {
+    font-size: 10px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .why-float-icon {
+    animation: none;
+  }
+
+  .why-point,
+  .why-image,
+  .why-cta a {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   WHY CHOOSE US — COMPACT SECTION
+========================================== */
+
+.why-section {
+  padding: 35px 0 40px;
+}
+
+.why-container {
+  width: min(100% - 100px, 1380px);
+}
+
+.why-grid {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 45px;
+}
+
+/* HEADING */
+
+.why-heading-row {
+  gap: 18px;
+  margin-bottom: 8px;
+}
+
+.why-section-number {
+  width: 37px;
+  height: 37px;
+  font-size: 12px;
+}
+
+.why-title {
+  font-size: clamp(32px, 3vw, 46px);
+  line-height: 1.12;
+}
+
+.why-tag {
+  margin-bottom: 6px;
+}
+
+/* DESCRIPTION */
+
+.why-desc {
+  margin: 0 0 16px 55px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* BENEFIT POINTS */
+
+.why-offerings {
+  margin-left: 55px;
+}
+
+.why-offerings-title {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.why-points {
+  gap: 6px;
+}
+
+.why-point {
+  min-height: 35px;
+  gap: 12px;
+  padding: 2px 8px 2px 0;
+}
+
+.why-point-icon {
+  width: 29px;
+  height: 29px;
+  min-width: 29px;
+  font-size: 10px;
+}
+
+.why-point p {
+  font-size: 12px;
+}
+
+/* BUTTON */
+
+.why-cta {
+  margin: 16px 0 0 55px;
+}
+
+.why-cta a {
+  min-height: 38px;
+  padding: 8px 19px;
+  font-size: 11px;
+}
+
+/* RIGHT IMAGE */
+
+.why-visual {
+  width: min(100%, 420px);
+}
+
+.why-float-icon {
+  width: 49px;
+  height: 49px;
+}
+
+.why-float-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+/* EXCELLENCE BADGE */
+
+.why-excellence-badge {
+  width: 130px;
+  height: 130px;
+}
+
+.why-excellence-number {
+  font-size: 39px;
+}
+
+.why-excellence-text {
+  font-size: 12px;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .why-section {
+    padding: 35px 0;
+  }
+
+  .why-container {
+    width: calc(100% - 48px);
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .why-desc,
+  .why-offerings,
+  .why-cta {
+    margin-left: 0;
+  }
+
+  .why-visual {
+    width: min(100%, 370px);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .why-section {
+    padding: 28px 0 32px;
+  }
+
+  .why-container {
+    width: calc(100% - 32px);
+  }
+
+  .why-grid {
+    gap: 22px;
+  }
+
+  .why-title {
+    font-size: 30px;
+  }
+
+  .why-desc {
+    font-size: 12px;
+    margin: 10px 0 14px;
+  }
+
+  .why-points {
+    gap: 5px;
+  }
+
+  .why-point p {
+    font-size: 11.5px;
+  }
+
+  .why-cta {
+    margin-top: 14px;
+  }
+
+  .why-visual {
+    width: min(100%, 310px);
+  }
+
+  .why-excellence-badge {
+    width: 100px;
+    height: 100px;
+  }
+
+  .why-excellence-number {
+    font-size: 30px;
+  }
+
+  .why-excellence-text {
+    font-size: 10px;
+  }
+
+  .why-float-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

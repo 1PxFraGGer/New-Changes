@@ -1,0 +1,21 @@
+.navigation-page {
+  box-sizing: border-box;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text, #0f172a);
+}
+
+.navigation-page h1 {
+  margin: 0 0 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--primary, #7a1f2b);
+}
+
+.navigation-page p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--muted, #64748b);
+}
