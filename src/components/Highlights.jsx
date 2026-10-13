@@ -28,7 +28,7 @@ const resolveUrl = (url) => {
 };
 
 /* ==========================================
-   PROFESSIONAL HIGHLIGHT ICONS
+   HIGHLIGHT ICONS
 ========================================== */
 
 const HIGHLIGHT_ICONS = [
@@ -45,8 +45,8 @@ function HighlightIcon({ index }) {
 
   return (
     <Icon
-      size={29}
-      strokeWidth={1.9}
+      size={24}
+      strokeWidth={1.5}
       aria-hidden="true"
     />
   );
@@ -74,7 +74,7 @@ function Counter({ target, suffix = "+" }) {
           started.current = true;
 
           let startTime = null;
-          const duration = 1200;
+          const duration = 1500;
 
           const animate = (timestamp) => {
             if (startTime === null) {
@@ -124,7 +124,7 @@ function Counter({ target, suffix = "+" }) {
 }
 
 /* ==========================================
-   HIGHLIGHTS MAIN COMPONENT
+   MAIN HIGHLIGHTS COMPONENT
 ========================================== */
 
 export default function Highlights() {
@@ -172,8 +172,11 @@ export default function Highlights() {
               ...metaData,
             }));
           }
-        } catch {
-          // Keep default metadata if endpoint is unavailable.
+        } catch (error) {
+          console.warn(
+            "Highlights metadata unavailable:",
+            error
+          );
         }
       } catch (err) {
         console.error(
@@ -203,33 +206,38 @@ export default function Highlights() {
 
   return (
     <section className="hl-section" style={bgStyle}>
-      {/* BACKGROUND */}
+
+      {/* BACKGROUND IMAGE */}
       <div className="hl-bg-image" />
 
-      {/* DOTTED PATTERNS */}
+      {/* DARK GRADIENT OVERLAY */}
+      <div className="hl-dark-overlay" />
+
+      {/* BACKGROUND DOT TEXTURE */}
       <div className="hl-dots hl-dots-left" />
       <div className="hl-dots hl-dots-right" />
 
-      {/* LEFT DECORATION */}
+      {/* DECORATIVE GOLD CURVES */}
       <div className="hl-decoration-left">
         <div className="hl-deco-curve-one" />
         <div className="hl-deco-curve-two" />
       </div>
 
-      {/* RIGHT DECORATION */}
       <div className="hl-decoration-right">
         <div className="hl-deco-curve-three" />
         <div className="hl-deco-curve-four" />
       </div>
 
-      {/* BOTTOM WAVES */}
+      {/* BOTTOM GOLD LIGHT EFFECTS */}
       <div className="hl-bottom-wave-left" />
       <div className="hl-bottom-wave-right" />
 
       {/* MAIN CONTENT */}
       <div className="hl-inner">
+
         {/* HEADING */}
         <div className="hl-head">
+
           <div className="hl-heading-top">
             <span className="hl-heading-line" />
 
@@ -244,25 +252,29 @@ export default function Highlights() {
             {meta.subtitle ||
               "Education Through People, Partnerships & Purpose"}
           </h3>
+
         </div>
 
-        {/* STATISTICS */}
+        {/* HIGHLIGHTS STATISTICS */}
         <div className="hl-stats">
+
           {highlights.map((item, index) => (
             <div
               className="hl-stat"
               key={item.id ?? index}
               style={{
-                animationDelay: `${index * 0.1}s`,
+                animationDelay: `${index * 0.12}s`,
               }}
             >
+
               <div className="hl-stat-inner">
-                {/* ICON */}
+
+                {/* GOLD ICON CIRCLE */}
                 <div className="hl-icon-circle">
                   <HighlightIcon index={index} />
                 </div>
 
-                {/* COUNTER */}
+                {/* ANIMATED NUMBER */}
                 <div className="hl-num-wrap">
                   <Counter
                     target={Number(item.value) || 0}
@@ -270,14 +282,18 @@ export default function Highlights() {
                   />
                 </div>
 
-                {/* LABEL */}
+                {/* STAT LABEL */}
                 <span className="hl-label">
                   {item.label}
                 </span>
+
               </div>
+
             </div>
           ))}
+
         </div>
+
       </div>
     </section>
   );

@@ -66,9 +66,10 @@ export const Home = () => {
       <Highlights />
       <Clients />
       <Services />
+       <WhyChooseUs />
       <JourneyPage />
 
-      <WhyChooseUs />
+     
       {/* <Features /> */}
       {/* <Director /> */}
       {/* <PartnersSlider /> */}

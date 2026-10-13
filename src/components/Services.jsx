@@ -1,8 +1,13 @@
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import api from "../api/api";
 import "./Services.css";
+
+/* ==========================================
+   API CONFIGURATION
+========================================== */
 
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL ||
@@ -12,30 +17,31 @@ const BASE_URL = API_BASE.replace(/\/api\/?$/, "");
 
 const getImageUrl = (path) => {
   if (!path) return "";
-  if (/^(https?:)?\/\//i.test(path)) return path;
+
+  if (/^(https?:)?\/\//i.test(path)) {
+    return path;
+  }
+
   return `${BASE_URL}${path.startsWith("/") ? "" : "/"}${path}`;
 };
 
-function ArrowIcon() {
-  return (
-    <svg
-      width="21"
-      height="21"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M5 12h14M12 5l7 7-7 7" />
-    </svg>
-  );
-}
+/* ==========================================
+   SERVICE ICON
+========================================== */
 
-function ServiceIcon({ title, icon }) {
+function ServiceIcon({ title = "", icon }) {
   const name = title.toLowerCase();
+
+  if (icon) {
+    return (
+      <img
+        src={icon}
+        alt=""
+        loading="lazy"
+        className="svc-icon-image"
+      />
+    );
+  }
 
   let paths;
 
@@ -43,11 +49,10 @@ function ServiceIcon({ title, icon }) {
     paths = (
       <>
         <path d="M3 20h18" />
-        <rect x="4" y="13" width="4" height="7" rx="0.5" />
-        <rect x="10" y="9" width="4" height="11" rx="0.5" />
-        <rect x="16" y="5" width="4" height="15" rx="0.5" />
-        <path d="m4 10 6-5 4 2 6-5" />
-        <path d="M16 2h4v4" />
+        <rect x="4" y="13" width="4" height="7" rx=".5" />
+        <rect x="10" y="9" width="4" height="11" rx=".5" />
+        <rect x="16" y="5" width="4" height="15" rx=".5" />
+        <path d="m4 10 6-5 4 2 6-5M16 2h4v4" />
       </>
     );
   } else if (
@@ -69,7 +74,7 @@ function ServiceIcon({ title, icon }) {
   ) {
     paths = (
       <>
-        <path d="M12 6c-3-3-7-3-10-2v15c4-1 7-1 10 2" />
+        <path d="M12 6C9 3 5 3 2 4v15c4-1 7-1 10 2" />
         <path d="M12 6c3-3 7-3 10-2v15c-4-1-7-1-10 2" />
         <path d="M12 6v15" />
       </>
@@ -94,17 +99,6 @@ function ServiceIcon({ title, icon }) {
     );
   }
 
-  if (icon) {
-    return (
-      <img
-        src={icon}
-        alt=""
-        loading="lazy"
-        className="svc-icon-image"
-      />
-    );
-  }
-
   return (
     <svg
       width="43"
@@ -121,6 +115,10 @@ function ServiceIcon({ title, icon }) {
     </svg>
   );
 }
+
+/* ==========================================
+   SERVICE CARD
+========================================== */
 
 function ServiceCard({ service, index, onClick }) {
   const featured = index === 0;
@@ -150,6 +148,7 @@ function ServiceCard({ service, index, onClick }) {
 
       <div className="svc-card__content">
         <h3>{service.title}</h3>
+
         <p>
           {service.subtitle ||
             "Explore our education solutions and services."}
@@ -157,11 +156,117 @@ function ServiceCard({ service, index, onClick }) {
       </div>
 
       <span className="svc-card__arrow">
-        <ArrowIcon />
+        <ArrowRight size={21} />
       </span>
     </button>
   );
 }
+
+/* ==========================================
+   GLOBAL PARTNERS - STATIC DISPLAY
+
+   - No automatic scrolling
+   - No duplicate logos
+   - No navigation arrows
+   - Dynamic API data
+   - Existing burgundy/gold design
+========================================== */
+
+function GlobalPartners({ partners }) {
+  if (!partners || partners.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="svc-partners-section">
+
+      {/* BACKGROUND DECORATIONS */}
+
+      <div className="svc-partners-pattern svc-partners-pattern--left" />
+      <div className="svc-partners-pattern svc-partners-pattern--right" />
+
+      <div className="svc-partners-corner" />
+
+      <div className="svc-partners-gold-wave svc-partners-gold-wave--left" />
+      <div className="svc-partners-gold-wave svc-partners-gold-wave--right" />
+
+      <div className="svc-partners-container">
+
+        {/* HEADER */}
+
+        <div className="svc-partners-header">
+
+          <div className="svc-partners-eyebrow">
+            <span className="svc-partners-line" />
+
+            <span>TRUSTED BY</span>
+
+            <span className="svc-partners-line" />
+          </div>
+
+          <h2 className="svc-partners-title">
+            Our Global <span>Partners</span>
+          </h2>
+
+          <p className="svc-partners-subtitle">
+            Collaborating with leading organizations to
+            expand education opportunities worldwide.
+          </p>
+
+        </div>
+
+        {/* STATIC PARTNER LOGOS */}
+
+        <div className="svc-partners-carousel">
+
+          {/* GOLD HORIZONTAL LINE */}
+
+          <div className="svc-partners-timeline" />
+
+          {/* PARTNER LOGO CONTAINER */}
+
+          <div className="svc-partners-viewport">
+
+            <div className="svc-partners-wall">
+
+              {partners.map((partner, index) => (
+                <div
+                  className="svc-partners-logo"
+                  key={partner.id ?? index}
+                >
+
+                  <div className="svc-partners-logo-card">
+
+                    <img
+                      src={getImageUrl(partner.logo_url)}
+                      alt={
+                        partner.name ||
+                        "Global Partner"
+                      }
+                      loading="lazy"
+                      draggable="false"
+                    />
+
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+  );
+}
+
+/* ==========================================
+   MAIN SERVICES COMPONENT
+========================================== */
 
 export const Services = () => {
   const navigate = useNavigate();
@@ -169,6 +274,10 @@ export const Services = () => {
   const [services, setServices] = useState([]);
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  /* ==========================================
+     FETCH SERVICES AND PARTNERS
+  ========================================== */
 
   useEffect(() => {
     let mounted = true;
@@ -183,22 +292,28 @@ export const Services = () => {
 
         if (!mounted) return;
 
+        /* SERVICES DATA */
+
         if (servicesResult.status === "fulfilled") {
           const response = servicesResult.value.data;
 
-          setServices(
-            Array.isArray(response)
-              ? response
-              : Array.isArray(response?.data)
-              ? response.data
-              : []
-          );
+          const serviceData = Array.isArray(response)
+            ? response
+            : Array.isArray(response?.data)
+            ? response.data
+            : Array.isArray(response?.services)
+            ? response.services
+            : [];
+
+          setServices(serviceData);
         } else {
           console.error(
             "Error loading services:",
             servicesResult.reason
           );
         }
+
+        /* GLOBAL PARTNERS DATA */
 
         if (partnersResult.status === "fulfilled") {
           const response = partnersResult.value.data;
@@ -209,21 +324,28 @@ export const Services = () => {
             ? response.data
             : [];
 
-          setPartners(
-            clients.filter(
-              (item) =>
-                item.type === "partner" &&
-                item.logo_url
-            )
+          const partnerData = clients.filter(
+            (item) =>
+              item.type === "partner" &&
+              item.logo_url
           );
+
+          setPartners(partnerData);
         } else {
           console.error(
             "Error loading partners:",
             partnersResult.reason
           );
         }
+      } catch (err) {
+        console.error(
+          "Error fetching Services data:",
+          err
+        );
       } finally {
-        if (mounted) setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     };
 
@@ -233,6 +355,10 @@ export const Services = () => {
       mounted = false;
     };
   }, []);
+
+  /* ==========================================
+     LOADING STATE
+  ========================================== */
 
   if (loading) {
     return (
@@ -244,66 +370,41 @@ export const Services = () => {
     );
   }
 
+  /* ==========================================
+     RENDER
+  ========================================== */
+
   return (
     <>
-      {/* GLOBAL PARTNERS - RENDERED ONLY HERE */}
+
+      {/* ==========================================
+          GLOBAL PARTNERS
+      ========================================== */}
 
       {partners.length > 0 && (
-        <section className="svc-partners-section">
-          <div className="svc-partners-pattern svc-partners-pattern--left" />
-          <div className="svc-partners-pattern svc-partners-pattern--right" />
-          <div className="svc-partners-corner" />
-
-          <div className="svc-partners-container">
-            <div className="svc-partners-header">
-              <div className="svc-partners-eyebrow">
-                <span className="svc-partners-line" />
-                <span>TRUSTED BY</span>
-                <span className="svc-partners-line" />
-              </div>
-
-              <h2 className="svc-partners-title">
-                Our Global <span>Partners</span>
-              </h2>
-
-              <p className="svc-partners-subtitle">
-                In collaboration with leading
-                organizations to expand education
-                opportunities worldwide.
-              </p>
-            </div>
-
-            <div className="svc-partners-wall">
-              {partners.map((partner, index) => (
-                <div
-                  className="svc-partners-logo"
-                  key={partner.id || index}
-                >
-                  <img
-                    src={getImageUrl(partner.logo_url)}
-                    alt={partner.name || "Partner"}
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <GlobalPartners partners={partners} />
       )}
 
-      {/* EDUCATION SOLUTIONS */}
+      {/* ==========================================
+          EDUCATION SOLUTIONS
+      ========================================== */}
 
       {services.length > 0 && (
         <section className="svc-section">
+
+          {/* BACKGROUND DECORATIONS */}
+
           <div className="svc-decoration svc-decoration--tl" />
           <div className="svc-decoration svc-decoration--br" />
 
           <div className="svc-container">
+
             <div className="svc-layout">
 
               {/* LEFT CONTENT */}
 
               <div className="svc-intro">
+
                 <div className="svc-eyebrow">
                   WHAT WE OFFER
                 </div>
@@ -321,11 +422,14 @@ export const Services = () => {
                   solutions helping universities and
                   education consultants grow faster
                   and smarter — from admissions and
-                  marketing to publishing and tailored
-                  ERP/CRM tools.
+                  marketing to publishing and
+                  tailored ERP/CRM tools.
                 </p>
 
+                {/* ACTION BUTTONS */}
+
                 <div className="svc-intro-actions">
+
                   <button
                     type="button"
                     className="svc-explore-btn"
@@ -334,26 +438,34 @@ export const Services = () => {
                     }
                   >
                     Explore All Services
-                    <ArrowIcon />
+                    <ArrowRight size={18} />
                   </button>
 
                   <div className="svc-count-pill">
+
                     <span className="svc-count-number">
                       {services.length}
                     </span>
-                    <span>Premium Services</span>
+
+                    <span>
+                      Premium Services
+                    </span>
+
                   </div>
+
                 </div>
+
               </div>
 
               {/* RIGHT SERVICE CARDS */}
 
               <div className="svc-grid">
+
                 {services.map((service, index) => (
                   <ServiceCard
                     key={
-                      service.id ||
-                      service.slug ||
+                      service.id ??
+                      service.slug ??
                       index
                     }
                     service={service}
@@ -367,12 +479,16 @@ export const Services = () => {
                     }}
                   />
                 ))}
+
               </div>
 
             </div>
+
           </div>
+
         </section>
       )}
+
     </>
   );
 };
