@@ -850,3 +850,42 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==========================================
+   UNIVERSITY CARD - SEAMLESS WHITE DESIGN
+   No changes to card dimensions or layout
+========================================== */
+
+.cl-section .cl-university-card {
+  background: #ffffff;
+}
+
+.cl-section .cl-card-click {
+  background: #ffffff;
+}
+
+.cl-section .cl-card-image {
+  background: #ffffff;
+  border: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.cl-section .cl-card-image img {
+  background: transparent;
+}
+
+.cl-section .cl-card-content {
+  background: #ffffff;
+  border: none;
+  border-top: none;
+  box-shadow: none;
+}
+
+.cl-section .cl-card-name {
+  border: none;
+}
+
+.cl-section .cl-card-bottom {
+  border: none;
+}
