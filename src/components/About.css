@@ -1,30 +1,24 @@
-
 /* ==========================================
    GEDUCONNECT — ABOUT PAGE
 ========================================== */
-
 .about-page {
   --about-burgundy: #920c30;
   --about-burgundy-dark: #660b26;
   --about-gold: #d9ae72;
   --about-ink: #1c2730;
   --about-muted: #6b737c;
-
   width: 100%;
   overflow: hidden;
   font-family: "DM Sans", Arial, sans-serif;
 }
-
 .about-page *,
 .about-page *::before,
 .about-page *::after {
   box-sizing: border-box;
 }
-
 /* ==========================================
    HERO BANNER
 ========================================== */
-
 .about-page .about-banner {
   position: relative;
   isolation: isolate;
@@ -41,7 +35,6 @@
   text-align: center;
   overflow: hidden;
 }
-
 .about-page .banner-overlay {
   position: absolute;
   inset: 0;
@@ -53,7 +46,6 @@
     rgba(15, 18, 25, 0.85)
   );
 }
-
 .about-page .banner-grain {
   position: absolute;
   inset: 0;
@@ -65,52 +57,44 @@
   background-size: 7px 7px;
   opacity: 0.12;
 }
-
 .about-page .banner-orb,
 .about-page .banner-geo {
   position: absolute;
   pointer-events: none;
 }
-
 .about-page .banner-orb {
   border-radius: 50%;
   border: 1px solid rgba(217, 174, 114, 0.3);
 }
-
 .about-page .banner-orb--1 {
   width: 360px;
   height: 360px;
   top: -190px;
   left: -100px;
 }
-
 .about-page .banner-orb--2 {
   width: 440px;
   height: 440px;
   bottom: -270px;
   right: -110px;
 }
-
 .about-page .banner-geo--1,
 .about-page .banner-geo--2 {
   border: 1px solid rgba(217, 174, 114, 0.22);
   transform: rotate(35deg);
 }
-
 .about-page .banner-geo--1 {
   width: 110px;
   height: 110px;
   top: 70px;
   right: 17%;
 }
-
 .about-page .banner-geo--2 {
   width: 60px;
   height: 60px;
   bottom: 90px;
   left: 16%;
 }
-
 .about-page .banner-content {
   position: relative;
   z-index: 2;
@@ -120,7 +104,6 @@
   flex-direction: column;
   align-items: center;
 }
-
 .about-page .banner-eyebrow {
   display: inline-flex;
   padding: 9px 20px;
@@ -134,7 +117,6 @@
   letter-spacing: 2px;
   text-transform: uppercase;
 }
-
 .about-page .banner-title {
   max-width: 900px;
   margin: 0 0 20px;
@@ -145,7 +127,6 @@
   line-height: 1.13;
   letter-spacing: -1.5px;
 }
-
 .about-page .banner-sub {
   max-width: 680px;
   margin: 0 auto;
@@ -153,7 +134,6 @@
   font-size: clamp(13px, 1.3vw, 16px);
   line-height: 1.85;
 }
-
 .about-page .banner-line {
   width: 75px;
   height: 3px;
@@ -161,7 +141,6 @@
   border-radius: 10px;
   background: var(--about-gold);
 }
-
 .about-page .stat-strip {
   position: absolute;
   left: 50%;
@@ -177,7 +156,6 @@
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
 }
-
 .about-page .stat-item {
   min-width: 0;
   display: flex;
@@ -188,29 +166,24 @@
   padding: 4px 12px;
   border-right: 1px solid rgba(255, 255, 255, 0.17);
 }
-
 .about-page .stat-item:last-child {
   border-right: none;
 }
-
 .about-page .stat-number {
   color: #f3c887;
   font-size: clamp(24px, 2.6vw, 37px);
   font-weight: 800;
   line-height: 1.2;
 }
-
 .about-page .stat-label {
   color: rgba(255, 255, 255, 0.84);
   font-size: 11px;
   line-height: 1.5;
   text-align: center;
 }
-
 /* ==========================================
    PREMIUM FOUNDER SECTION
 ========================================== */
-
 .about-page .founder-section {
   position: relative;
   width: 100%;
@@ -226,18 +199,15 @@
   visibility: visible !important;
   transform: none !important;
 }
-
 .about-page .founder-shell {
   width: min(1190px, 100%);
   margin: 0 auto;
 }
-
 .about-page .founder-heading {
   max-width: 800px;
   margin: 0 auto 36px;
   text-align: center;
 }
-
 .about-page .founder-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -249,13 +219,11 @@
   font-weight: 800;
   letter-spacing: 2px;
 }
-
 .about-page .founder-eyebrow-line {
   width: 24px;
   height: 2px;
   background: var(--about-gold);
 }
-
 .about-page .founder-heading h2 {
   margin: 0 0 13px;
   color: var(--about-ink);
@@ -265,12 +233,10 @@
   line-height: 1.2;
   letter-spacing: -1px;
 }
-
 .about-page .founder-heading h2 em {
   color: var(--about-burgundy);
   font-style: normal;
 }
-
 .about-page .founder-heading > p {
   max-width: 590px;
   margin: 0 auto;
@@ -278,9 +244,7 @@
   font-size: 13px;
   line-height: 1.8;
 }
-
 /* MAIN CARD */
-
 .about-page .founder-card {
   width: 100%;
   display: grid;
@@ -293,9 +257,7 @@
   box-shadow:
     0 22px 65px rgba(39, 24, 26, 0.065);
 }
-
 /* LEFT PORTRAIT */
-
 .about-page .founder-portrait-side {
   position: relative;
   isolation: isolate;
@@ -313,7 +275,6 @@
     #4f0b22 100%
   );
 }
-
 .about-page .founder-portrait-decor {
   position: absolute;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -321,14 +282,12 @@
   pointer-events: none;
   z-index: -1;
 }
-
 .about-page .founder-decor-one {
   width: 430px;
   height: 430px;
   top: -230px;
   left: -210px;
 }
-
 .about-page .founder-decor-two {
   width: 520px;
   height: 520px;
@@ -336,7 +295,6 @@
   right: -260px;
   border-color: rgba(217, 174, 114, 0.3);
 }
-
 .about-page .founder-portrait-frame {
   position: relative;
   width: min(100%, 315px);
@@ -348,7 +306,6 @@
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
-
 .about-page .founder-portrait-frame img {
   display: block;
   width: 100%;
@@ -358,11 +315,9 @@
   border-radius: 150px 150px 9px 9px;
   transition: transform 0.6s ease;
 }
-
 .about-page .founder-portrait-frame:hover img {
   transform: scale(1.035);
 }
-
 .about-page .founder-portrait-placeholder {
   width: 270px;
   height: 320px;
@@ -374,7 +329,6 @@
   font-family: Georgia, serif;
   font-size: 100px;
 }
-
 .about-page .founder-photo-caption {
   display: flex;
   flex-direction: column;
@@ -383,28 +337,23 @@
   margin-top: 21px;
   text-align: center;
 }
-
 .about-page .founder-photo-caption > span {
   color: #e7bc82;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 1.7px;
 }
-
 .about-page .founder-photo-caption strong {
   color: white;
   font-family: Georgia, serif;
   font-size: 22px;
   font-weight: 500;
 }
-
 .about-page .founder-photo-caption small {
   color: #edcdd5;
   font-size: 11px;
 }
-
 /* RIGHT MESSAGE */
-
 .about-page .founder-message-side {
   display: flex;
   flex-direction: column;
@@ -418,13 +367,11 @@
     ),
     white;
 }
-
 .about-page .founder-message-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
-
 .about-page .founder-message-label {
   display: inline-flex;
   padding: 7px 12px;
@@ -435,7 +382,6 @@
   font-weight: 800;
   letter-spacing: 1.4px;
 }
-
 .about-page .founder-quote-symbol {
   height: 45px;
   color: var(--about-gold);
@@ -443,7 +389,6 @@
   font-size: 90px;
   line-height: 0.9;
 }
-
 .about-page .founder-message-side h3 {
   max-width: 520px;
   margin: 16px 0 19px;
@@ -453,7 +398,6 @@
   font-weight: 500;
   line-height: 1.35;
 }
-
 .about-page .founder-message-scroll {
   flex: 1;
   min-width: 0;
@@ -463,7 +407,6 @@
   scrollbar-width: thin;
   scrollbar-color: #d9b7bd #f7f1ed;
 }
-
 .about-page .founder-message-scroll p {
   margin: 0 0 13px;
   color: #626a74;
@@ -473,7 +416,6 @@
   line-height: 1.9;
   overflow-wrap: anywhere;
 }
-
 .about-page .founder-message-signature {
   display: flex;
   align-items: center;
@@ -482,32 +424,27 @@
   padding-top: 19px;
   border-top: 1px solid #eee9e4;
 }
-
 .about-page .founder-signature-rule {
   width: 31px;
   height: 2px;
   flex-shrink: 0;
   background: var(--about-gold);
 }
-
 .about-page .founder-message-signature > div {
   display: flex;
   flex: 1;
   flex-direction: column;
   gap: 5px;
 }
-
 .about-page .founder-message-signature strong {
   color: var(--about-burgundy);
   font-size: 13px;
   font-weight: 800;
 }
-
 .about-page .founder-message-signature div > span {
   color: #90949b;
   font-size: 10px;
 }
-
 .about-page .founder-signature-mark {
   color: rgba(146, 12, 48, 0.13);
   font-family: Georgia, serif;
@@ -515,7 +452,6 @@
   font-weight: 700;
   letter-spacing: -4px;
 }
-
 .about-page .founder-bottom-line {
   display: flex;
   align-items: center;
@@ -523,7 +459,6 @@
   gap: 15px;
   margin-top: 19px;
 }
-
 .about-page .founder-bottom-line > span {
   display: inline-flex;
   align-items: center;
@@ -533,18 +468,15 @@
   font-weight: 700;
   letter-spacing: 1.2px;
 }
-
 .about-page .founder-bottom-line i {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--about-gold);
 }
-
 /* ==========================================
    MISSION & VISION
 ========================================== */
-
 .about-page .mv-section {
   padding: 70px 24px 80px;
   background: #fff8f5;
@@ -552,13 +484,11 @@
   visibility: visible !important;
   transform: none !important;
 }
-
 .about-page .mv-inner {
   width: min(1120px, 100%);
   margin: 0 auto;
   text-align: center;
 }
-
 .about-page .section-eyebrow {
   color: var(--about-burgundy);
   font-size: 11px;
@@ -567,7 +497,6 @@
   text-transform: uppercase;
   margin-bottom: 17px;
 }
-
 .about-page .mv-title {
   margin: 0 0 34px;
   color: var(--about-ink);
@@ -575,13 +504,11 @@
   font-size: clamp(32px, 3.8vw, 48px);
   line-height: 1.2;
 }
-
 .about-page .mv-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
-
 .about-page .mv-card {
   position: relative;
   min-width: 0;
@@ -595,12 +522,10 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
-
 .about-page .mv-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
 }
-
 .about-page .mv-card::before {
   content: "";
   position: absolute;
@@ -610,7 +535,6 @@
   height: 3px;
   background: var(--about-gold);
 }
-
 .about-page .mv-card__icon {
   width: 50px;
   height: 50px;
@@ -622,156 +546,123 @@
   color: var(--about-burgundy);
   font-size: 28px;
 }
-
 .about-page .mv-card h3 {
   margin: 0 0 15px;
   color: var(--about-ink);
   font-family: Georgia, serif;
   font-size: 25px;
 }
-
 .about-page .mv-card p {
   margin: 0;
   color: var(--about-muted);
   font-size: 14px;
   line-height: 1.9;
 }
-
 /* ==========================================
    RESPONSIVE
 ========================================== */
-
 @media (max-width: 992px) {
   .about-page .founder-card {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   }
-
   .about-page .founder-portrait-side {
     padding: 28px 22px;
   }
-
   .about-page .founder-message-side {
     padding: 32px 28px;
   }
-
   .about-page .founder-portrait-frame {
     height: 315px;
   }
 }
-
 @media (max-width: 768px) {
   .about-page .about-banner {
     min-height: 570px;
     padding: 65px 20px 170px;
   }
-
   .about-page .banner-title {
     font-size: clamp(34px, 8vw, 48px);
   }
-
   .about-page .stat-strip {
     bottom: 20px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 14px 10px;
   }
-
   .about-page .stat-item {
     padding: 10px 6px;
   }
-
   .about-page .stat-item:nth-child(2) {
     border-right: none;
   }
-
   .about-page .stat-item:nth-child(-n+2) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   }
-
   .about-page .stat-number {
     font-size: 25px;
   }
-
   .about-page .founder-section {
     padding: 48px 16px 40px;
   }
-
   .about-page .founder-heading {
     margin-bottom: 25px;
   }
-
   .about-page .founder-card {
     grid-template-columns: 1fr;
     border-radius: 16px;
   }
-
   .about-page .founder-portrait-side {
     padding: 30px 20px 25px;
   }
-
   .about-page .founder-portrait-frame {
     width: min(260px, 100%);
     height: 285px;
   }
-
   .about-page .founder-photo-caption {
     margin-top: 15px;
   }
-
   .about-page .founder-message-side {
     padding: 28px 23px 30px;
   }
-
   .about-page .founder-message-scroll {
     max-height: none;
     overflow: visible;
     padding-right: 0;
   }
-
   .about-page .founder-bottom-line {
     flex-wrap: wrap;
   }
-
   .about-page .mv-section {
     padding: 50px 18px;
   }
-
   .about-page .mv-cards {
     grid-template-columns: 1fr;
     gap: 18px;
   }
-
   .about-page .mv-card {
     padding: 27px;
   }
 }
-
 @media (max-width: 480px) {
   .about-page .about-banner {
     min-height: 560px;
     padding: 55px 16px 165px;
   }
-
   .about-page .banner-title {
     font-size: 34px;
   }
-
   .about-page .founder-heading h2 {
     font-size: 31px;
   }
-
   .about-page .founder-message-side h3 {
     font-size: 24px;
   }
-
   .about-page .founder-portrait-frame {
     height: 260px;
   }
-
   .about-page .mv-card h3 {
     font-size: 22px;
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .about-page *,
   .about-page *::before,
@@ -779,4 +670,67 @@
     animation: none !important;
     transition: none !important;
   }
+}&#x20;
+
+/* ==========================================
+   OUR TEAM — DEPARTMENT STORY + GROUP PHOTO
+========================================== */
+.about-page .about-team-section {
+  padding: 78px 24px 88px;
+  background: #fffdfa;
+}
+.about-page .about-team-inner { width: min(1190px, 100%); margin: 0 auto; }
+.about-page .about-team-heading { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+.about-page .about-team-eyebrow { display: block; margin-bottom: 14px; color: #a27744; font-size: 11px; font-weight: 800; letter-spacing: 2.3px; }
+.about-page .about-team-heading h2 { margin: 0 0 14px; color: #1c2730; font: 500 clamp(34px, 4vw, 52px)/1.15 Georgia, serif; }
+.about-page .about-team-heading h2 em { color: #920c30; font-style: normal; }
+.about-page .about-team-heading p { margin: 0; color: #6b737c; font-size: 14px; line-height: 1.8; }
+.about-page .about-team-departments { display: flex; flex-direction: column; gap: 28px; }
+.about-page .about-team-department {
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  align-items: center;
+  min-height: 390px;
+  overflow: hidden;
+  border: 1px solid #efe5df;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 45px rgba(65, 27, 34, .045);
+}
+.about-page .about-team-department--reverse { grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); }
+.about-page .about-team-department--reverse .about-team-photo { order: -1; }
+.about-page .about-team-copy { padding: clamp(28px, 4vw, 58px); min-width: 0; }
+.about-page .about-team-number { display: block; color: #a27744; font-size: 10px; font-weight: 800; letter-spacing: 1.7px; margin-bottom: 23px; }
+.about-page .about-team-category { display: block; color: #920c30; font-size: 10px; font-weight: 800; letter-spacing: 1.3px; margin-bottom: 10px; }
+.about-page .about-team-copy h3 { margin: 0 0 11px; color: #1c2730; font: 500 clamp(28px, 3vw, 41px)/1.18 Georgia, serif; }
+.about-page .about-team-copy h4 { margin: 0 0 17px; color: #920c30; font: 600 clamp(15px, 1.5vw, 19px)/1.5 "DM Sans", Arial, sans-serif; }
+.about-page .about-team-copy p { max-width: 490px; margin: 0; color: #68717a; font-size: 13px; line-height: 1.95; }
+.about-page .about-team-rule { display: block; width: 60px; height: 3px; background: #d9ae72; margin-top: 25px; }
+.about-page .about-team-photo { position: relative; align-self: stretch; min-width: 0; min-height: 390px; overflow: hidden; background: #f4e9e5; }
+.about-page .about-team-photo img { display: block; width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: center; transition: transform .65s ease; }
+.about-page .about-team-department:hover .about-team-photo img { transform: scale(1.035); }
+.about-page .about-team-photo::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgba(20, 17, 23, .5)); pointer-events: none; }
+.about-page .about-team-photo-label { position: absolute; bottom: 22px; left: 25px; z-index: 1; color: white; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; text-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.about-page .about-team-photo-placeholder { height: 100%; min-height: 390px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 30px; background: linear-gradient(135deg, #f6e9e7, #e8d0d0); color: #9a5266; text-align: center; }
+.about-page .about-team-photo-placeholder strong { font: 500 24px Georgia, serif; color: #773047; }
+.about-page .about-team-photo-placeholder span { font-size: 12px; color: #936b74; }
+@media (max-width: 800px) {
+  .about-page .about-team-section { padding: 55px 18px; }
+  .about-page .about-team-heading { margin-bottom: 30px; }
+  .about-page .about-team-department,
+  .about-page .about-team-department--reverse { grid-template-columns: 1fr; }
+  .about-page .about-team-department--reverse .about-team-photo { order: initial; }
+  .about-page .about-team-copy { padding: 30px 26px; }
+  .about-page .about-team-photo { min-height: 310px; }
+  .about-page .about-team-photo-placeholder { min-height: 310px; }
+}
+@media (max-width: 480px) {
+  .about-page .about-team-section { padding: 45px 16px; }
+  .about-page .about-team-departments { gap: 20px; }
+  .about-page .about-team-copy { padding: 25px 20px; }
+  .about-page .about-team-photo,
+  .about-page .about-team-photo-placeholder { min-height: 245px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-page .about-team-photo img { transition: none; }
 }
