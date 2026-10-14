@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/api";
 import "./Navbar.css";
-import logo from "../assets/Gedu_logo_2.png";
+import logo from "../assets/Gedu_Connect_Logo.svg";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen]         = useState(false);
