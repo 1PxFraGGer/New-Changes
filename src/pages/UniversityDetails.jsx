@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/api";
-import { Helmet } from "react-helmet-async"
+import { Helmet } from "react-helmet-async";
 import CounsellingModal from "../components/CounsellingModal";
 import GlobalCounsellingModal from "../components/GlobalCounsellingModal";
 
@@ -14,19 +14,12 @@ import "./UniversityDetails.css";
 const getImageUrl = (path) => {
   if (!path) return "";
 
-  if (
-    path.startsWith("http://") ||
-    path.startsWith("https://")
-  ) {
+  if (path.startsWith("http://") || path.startsWith("https://")) {
     return path;
   }
 
   const apiBaseUrl = api.defaults?.baseURL || "";
-
-  const assetBaseUrl = apiBaseUrl.replace(
-    /\/api\/?$/,      
-    ""
-  );
+  const assetBaseUrl = apiBaseUrl.replace(/\/api\/?$/, "");
 
   return `${assetBaseUrl}${path.startsWith("/") ? "" : "/"}${path}`;
 };
@@ -39,36 +32,272 @@ const cleanHtml = (html = "") => {
   if (!html) return "";
 
   return html
-    .replace(
-      /<p>(\s|&nbsp;|<br\s*\/?>)*<\/p>/gi,
-      ""
-    )
-    .replace(
-      /<div>(\s|&nbsp;|<br\s*\/?>)*<\/div>/gi,
-      ""
-    )
-    .replace(
-      /(<br\s*\/?>\s*){3,}/gi,
-      "<br />"
-    )
+    .replace(/<p>(\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, "")
+    .replace(/<div>(\s|&nbsp;|<br\s*\/?>)*<\/div>/gi, "")
+    .replace(/(<br\s*\/?>\s*){3,}/gi, "<br />")
     .trim();
 };
 
 /* =========================================================
-   SAFE VALUE
+   HERO GALLERY (multi-image slider + lightbox)
 ========================================================= */
 
-const safeValue = (value, fallback = "") => {
-  if (
-    value === null ||
-    value === undefined ||
-    value === ""
-  ) {
-    return fallback;
-  }
+/*
+  slides: [{ id, src, caption? }]
+  alt:    university name (used for image alt text)
+*/
+function UniversityGallery({ slides = [], alt = "University" }) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [lightbox, setLightbox] = useState(false);
+  const touchStartX = useRef(null);
 
-  return value;
-};
+  const total = slides.length;
+
+  const goTo = useCallback(
+    (index) => {
+      if (!total) return;
+      setActive(((index % total) + total) % total);
+    },
+    [total]
+  );
+
+  const next = useCallback(() => goTo(active + 1), [active, goTo]);
+  const prev = useCallback(() => goTo(active - 1), [active, goTo]);
+
+  /* keep index valid if the image list changes */
+  useEffect(() => {
+    if (active > total - 1) setActive(0);
+  }, [total, active]);
+
+  /* auto rotate */
+  useEffect(() => {
+    if (total <= 1 || paused || lightbox) return;
+    const timer = setInterval(() => {
+      setActive((current) => (current + 1) % total);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [total, paused, lightbox]);
+
+  /* lightbox: keyboard + scroll lock */
+  useEffect(() => {
+    if (!lightbox) return;
+
+    const onKey = (e) => {
+      if (e.key === "Escape") setLightbox(false);
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox, next, prev]);
+
+  /* swipe */
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(diff) < 50) return;
+    diff < 0 ? next() : prev();
+  };
+
+  const current = slides[active];
+  const visibleThumbs = slides.slice(0, 6);
+
+  return (
+    <>
+      <section
+        className="ug-hero"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        {total === 0 && <div className="ug-empty" />}
+
+        {slides.map((slide, index) => (
+          <img
+            key={slide.id ?? index}
+            src={slide.src}
+            alt={`${alt} - photo ${index + 1}`}
+            className={`ug-slide ${index === active ? "is-active" : ""}`}
+            loading={index === 0 ? "eager" : "lazy"}
+            draggable={false}
+          />
+        ))}
+
+        <div className="ug-shade" />
+
+        {total > 1 && (
+          <>
+            <button
+              type="button"
+              className="ug-arrow ug-prev"
+              onClick={prev}
+              aria-label="Previous photo"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              className="ug-arrow ug-next"
+              onClick={next}
+              aria-label="Next photo"
+            >
+              ›
+            </button>
+          </>
+        )}
+
+        <div className="ug-bottom">
+          <div className="ug-bottom-inner">
+            {total > 1 ? (
+              <div className="ug-thumbs">
+                {visibleThumbs.map((slide, index) => (
+                  <button
+                    key={slide.id ?? index}
+                    type="button"
+                    className={index === active ? "active" : ""}
+                    onClick={() => goTo(index)}
+                    aria-label={`Show photo ${index + 1}`}
+                  >
+                    <img src={slide.src} alt="" loading="lazy" />
+                  </button>
+                ))}
+                {total > visibleThumbs.length && (
+                  <button
+                    type="button"
+                    className="ug-thumb-more"
+                    onClick={() => setLightbox(true)}
+                  >
+                    +{total - visibleThumbs.length}
+                  </button>
+                )}
+              </div>
+            ) : (
+              <span />
+            )}
+
+            {total > 0 && (
+              <div className="ug-actions">
+                {total > 1 && (
+                  <span className="ug-counter">
+                    {active + 1} / {total}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  className="ug-view-btn"
+                  onClick={() => setLightbox(true)}
+                >
+                  ▣ View Photos{total > 1 ? ` (${total})` : ""}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {total > 1 && (
+            <div className="ug-dots">
+              {slides.map((slide, index) => (
+                <button
+                  key={slide.id ?? index}
+                  type="button"
+                  className={index === active ? "active" : ""}
+                  onClick={() => goTo(index)}
+                  aria-label={`Go to photo ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ================= LIGHTBOX ================= */}
+      {lightbox && current && (
+        <div
+          className="ug-lightbox"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setLightbox(false)}
+        >
+          <button
+            type="button"
+            className="ug-lb-close"
+            onClick={() => setLightbox(false)}
+            aria-label="Close gallery"
+          >
+            ×
+          </button>
+
+          <div className="ug-lb-count">
+            {active + 1} / {total}
+          </div>
+
+          {total > 1 && (
+            <button
+              type="button"
+              className="ug-lb-arrow ug-lb-prev"
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
+              aria-label="Previous photo"
+            >
+              ‹
+            </button>
+          )}
+
+          <figure className="ug-lb-stage" onClick={(e) => e.stopPropagation()}>
+            <img src={current.src} alt={`${alt} - photo ${active + 1}`} />
+            {current.caption && <figcaption>{current.caption}</figcaption>}
+          </figure>
+
+          {total > 1 && (
+            <button
+              type="button"
+              className="ug-lb-arrow ug-lb-next"
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
+              aria-label="Next photo"
+            >
+              ›
+            </button>
+          )}
+
+          {total > 1 && (
+            <div className="ug-lb-strip" onClick={(e) => e.stopPropagation()}>
+              {slides.map((slide, index) => (
+                <button
+                  key={slide.id ?? index}
+                  type="button"
+                  className={index === active ? "active" : ""}
+                  onClick={() => goTo(index)}
+                  aria-label={`Show photo ${index + 1}`}
+                >
+                  <img src={slide.src} alt="" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
 
 /* =========================================================
    COMPONENT
@@ -85,48 +314,25 @@ export default function UniversityDetails() {
   const [data, setData] = useState(null);
   const [activeTab, setActiveTab] = useState(null);
 
-  const [showAllBadges, setShowAllBadges] =
-    useState(false);
+  const [showAllBadges, setShowAllBadges] = useState(false);
 
-  const [approvalMasters, setApprovalMasters] =
-    useState([]);
+  const [approvalMasters, setApprovalMasters] = useState([]);
+  const [affiliationMasters, setAffiliationMasters] = useState([]);
+  const [rankingMasters, setRankingMasters] = useState([]);
 
-  const [affiliationMasters, setAffiliationMasters] =
-    useState([]);
+  const [isCompared, setIsCompared] = useState(false);
+  const [compareCount, setCompareCount] = useState(0);
 
-  const [rankingMasters, setRankingMasters] =
-    useState([]);
+  const [showCounselling, setShowCounselling] = useState(false);
+  const [showGlobalCounselling, setShowGlobalCounselling] = useState(false);
 
-  const [isCompared, setIsCompared] =
-    useState(false);
+  const [selectedCourse, setSelectedCourse] = useState("");
 
-  const [compareCount, setCompareCount] =
-    useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [showCounselling, setShowCounselling] =
-    useState(false);
-
-  const [showGlobalCounselling, setShowGlobalCounselling] =
-    useState(false);
-
-  const [selectedCourse, setSelectedCourse] =
-    useState("");
-
-  const [loading, setLoading] =
-    useState(true);
-
-  const [error, setError] =
-    useState(null);
-
-  /* =======================================================
-     UNIVERSITY CAROUSEL
-  ======================================================= */
-
-  const [universityImages, setUniversityImages] =
-    useState([]);
-
-  const [activeCarouselIndex, setActiveCarouselIndex] =
-    useState(0);
+  /* University gallery images (rotation is handled by <UniversityGallery />) */
+  const [universityImages, setUniversityImages] = useState([]);
 
   /* =======================================================
      SAFE LOCAL STORAGE
@@ -134,22 +340,15 @@ export default function UniversityDetails() {
 
   const getStoredCompareList = () => {
     try {
-      const stored =
-        localStorage.getItem("compareList");
+      const stored = localStorage.getItem("compareList");
 
       if (!stored) return [];
 
       const parsed = JSON.parse(stored);
 
-      return Array.isArray(parsed)
-        ? parsed
-        : [];
-    } catch (error) {
-      console.error(
-        "Invalid compareList:",
-        error
-      );
-
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (err) {
+      console.error("Invalid compareList:", err);
       return [];
     }
   };
@@ -164,60 +363,35 @@ export default function UniversityDetails() {
         setLoading(true);
         setError(null);
 
-        const [
-          clientRes,
-          approvalsRes,
-          affiliationsRes,
-          rankingsRes,
-        ] = await Promise.all([
-          api.get(
-            `/public/clients/${slug}`
-          ),
+        const [clientRes, approvalsRes, affiliationsRes, rankingsRes] =
+          await Promise.all([
+            api.get(`/public/clients/${slug}`),
+            api.get(`/public/approvals`),
+            api.get(`/public/affiliations`),
+            api.get(`/public/rankings`),
+          ]);
 
-          api.get(
-            `/public/approvals`
-          ),
-
-          api.get(
-            `/public/affiliations`
-          ),
-
-          api.get(
-            `/public/rankings`
-          ),
-        ]);
-
-        const row =
-          clientRes.data;
+        const row = clientRes.data;
 
         if (!row) {
-          setError(
-            "University not found."
-          );
-
+          setError("University not found.");
           return;
         }
 
-        /* =================================================
-           UNIVERSITY CAROUSEL IMAGES
-        ================================================= */
+        /* ---------- GALLERY IMAGES ---------- */
 
         try {
           const imagesRes = await api.get(
             `/university-images/public/${row.id}`
           );
 
-          const images = Array.isArray(
-            imagesRes.data?.data
-          )
+          const images = Array.isArray(imagesRes.data?.data)
             ? imagesRes.data.data.filter(
-              (image) =>
-                Number(image.is_active) === 1
-            )
+                (image) => Number(image.is_active) === 1
+              )
             : [];
 
           setUniversityImages(images);
-          setActiveCarouselIndex(0);
         } catch (imageError) {
           console.error(
             "Failed to load university carousel images:",
@@ -225,112 +399,59 @@ export default function UniversityDetails() {
           );
 
           setUniversityImages([]);
-          setActiveCarouselIndex(0);
         }
 
-        /* =================================================
-           EXTRA DATA
-        ================================================= */
+        /* ---------- EXTRA DATA ---------- */
 
         let extra = {};
 
         try {
           extra =
-            typeof row.extra_data ===
-              "string"
-              ? JSON.parse(
-                row.extra_data
-              )
+            typeof row.extra_data === "string"
+              ? JSON.parse(row.extra_data)
               : row.extra_data || {};
         } catch (err) {
-          console.error(
-            "Invalid extra_data JSON:",
-            err
-          );
-
+          console.error("Invalid extra_data JSON:", err);
           extra = {};
         }
 
         row.extra_data = extra;
 
-        /* =================================================
-           SET DATA
-        ================================================= */
+        /* ---------- SET DATA ---------- */
 
         setData(row);
 
         setApprovalMasters(
-          Array.isArray(
-            approvalsRes.data
-          )
-            ? approvalsRes.data
-            : []
+          Array.isArray(approvalsRes.data) ? approvalsRes.data : []
         );
 
         setAffiliationMasters(
-          Array.isArray(
-            affiliationsRes.data
-          )
-            ? affiliationsRes.data
-            : []
+          Array.isArray(affiliationsRes.data) ? affiliationsRes.data : []
         );
 
         setRankingMasters(
-          Array.isArray(
-            rankingsRes.data
-          )
-            ? rankingsRes.data
-            : []
+          Array.isArray(rankingsRes.data) ? rankingsRes.data : []
         );
 
-        /* =================================================
-           TABS
-        ================================================= */
+        /* ---------- TABS ---------- */
 
-        if (
-          Array.isArray(extra.tabs) &&
-          extra.tabs.length > 0
-        ) {
-          const found =
-            extra.tabs.find(
-              (tab) =>
-                tab.slug === tabSlug
-            );
-
-          const defaultTab =
-            found ||
-            extra.tabs[0];
-
-          setActiveTab(
-            defaultTab
-          );
+        if (Array.isArray(extra.tabs) && extra.tabs.length > 0) {
+          const found = extra.tabs.find((tab) => tab.slug === tabSlug);
+          setActiveTab(found || extra.tabs[0]);
         } else {
           setActiveTab(null);
         }
 
-        /* =================================================
-           DEFAULT COURSE
-        ================================================= */
+        /* ---------- DEFAULT COURSE ---------- */
 
-        if (
-          Array.isArray(extra.programs) &&
-          extra.programs.length > 0
-        ) {
+        if (Array.isArray(extra.programs) && extra.programs.length > 0) {
           setSelectedCourse(
-            extra.programs[0]?.name ||
-            extra.programs[0]?.title ||
-            ""
+            extra.programs[0]?.name || extra.programs[0]?.title || ""
           );
         }
       } catch (err) {
-        console.error(
-          "Failed to load university details:",
-          err
-        );
-
-        setError(
-          "Unable to load university details."
-        );
+        console.error("Failed to load university details:", err);
+        setError("Unable to load university details.");
       } finally {
         setLoading(false);
       }
@@ -342,65 +463,16 @@ export default function UniversityDetails() {
   }, [slug, tabSlug]);
 
   /* =======================================================
-     UNIVERSITY CAROUSEL AUTO ROTATION
-  ======================================================= */
-
-  useEffect(() => {
-    if (universityImages.length <= 1) {
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setActiveCarouselIndex(
-        (current) =>
-          (current + 1) %
-          universityImages.length
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [universityImages.length]);
-
-  const showPreviousCarouselImage = () => {
-    if (!universityImages.length) return;
-
-    setActiveCarouselIndex(
-      (current) =>
-        (current - 1 + universityImages.length) %
-        universityImages.length
-    );
-  };
-
-  const showNextCarouselImage = () => {
-    if (!universityImages.length) return;
-
-    setActiveCarouselIndex(
-      (current) =>
-        (current + 1) %
-        universityImages.length
-    );
-  };
-
-  /* =======================================================
      COMPARE STATUS
   ======================================================= */
 
   useEffect(() => {
     if (!data) return;
 
-    const stored =
-      getStoredCompareList();
+    const stored = getStoredCompareList();
 
-    setCompareCount(
-      stored.length
-    );
-
-    setIsCompared(
-      stored.some(
-        (u) =>
-          u.slug === data.slug
-      )
-    );
+    setCompareCount(stored.length);
+    setIsCompared(stored.some((u) => u.slug === data.slug));
   }, [data]);
 
   /* =======================================================
@@ -408,72 +480,42 @@ export default function UniversityDetails() {
   ======================================================= */
 
   const getApprovalName = (id) => {
-    const item =
-      approvalMasters.find(
-        (a) =>
-          String(a.id) ===
-          String(id)
-      );
-
+    const item = approvalMasters.find((a) => String(a.id) === String(id));
     return item?.name || null;
   };
 
   const getAffiliationName = (id) => {
-    const item =
-      affiliationMasters.find(
-        (a) =>
-          String(a.id) ===
-          String(id)
-      );
-
+    const item = affiliationMasters.find((a) => String(a.id) === String(id));
     return item?.name || null;
   };
 
   const getRankingName = (id) => {
-    const item =
-      rankingMasters.find(
-        (r) =>
-          String(r.id) ===
-          String(id)
-      );
-
+    const item = rankingMasters.find((r) => String(r.id) === String(id));
     return item?.name || null;
   };
 
   /* =======================================================
-     LOADING
+     LOADING / ERROR / NO DATA
   ======================================================= */
 
   if (loading) {
     return (
       <div className="university-loading">
         <div className="loading-spinner"></div>
-        <p>
-          Loading university...
-        </p>
+        <p>Loading university...</p>
       </div>
     );
   }
-
-  /* =======================================================
-     ERROR
-  ======================================================= */
 
   if (error) {
     return (
       <div className="university-error">
         <div>
-          <h2>
-            Something went wrong
-          </h2>
+          <h2>Something went wrong</h2>
 
           <p>{error}</p>
 
-          <button
-            onClick={() =>
-              navigate("/clients")
-            }
-          >
+          <button onClick={() => navigate("/clients")}>
             Back to Universities
           </button>
         </div>
@@ -481,159 +523,86 @@ export default function UniversityDetails() {
     );
   }
 
-  /* =======================================================
-     NO DATA
-  ======================================================= */
-
   if (!data) {
-    return (
-      <div className="university-error">
-        University not found.
-      </div>
-    );
+    return <div className="university-error">University not found.</div>;
   }
 
   /* =======================================================
      EXTRA
   ======================================================= */
 
-  const extra =
-    data.extra_data || {};
+  const extra = data.extra_data || {};
 
   /* =======================================================
      BADGES
   ======================================================= */
 
-  const approvalNames =
-    Array.isArray(extra.approvals)
-      ? extra.approvals
-        .map(getApprovalName)
-        .filter(Boolean)
-      : [];
+  const approvalNames = Array.isArray(extra.approvals)
+    ? extra.approvals.map(getApprovalName).filter(Boolean)
+    : [];
 
-  const affiliationNames =
-    Array.isArray(
-      extra.affiliations
-    )
-      ? extra.affiliations
-        .map(
-          getAffiliationName
-        )
-        .filter(Boolean)
-      : [];
+  const affiliationNames = Array.isArray(extra.affiliations)
+    ? extra.affiliations.map(getAffiliationName).filter(Boolean)
+    : [];
 
-  const rankingNames =
-    Array.isArray(extra.rankings)
-      ? extra.rankings
-        .map(getRankingName)
-        .filter(Boolean)
-      : [];
+  const rankingNames = Array.isArray(extra.rankings)
+    ? extra.rankings.map(getRankingName).filter(Boolean)
+    : [];
 
   const allBadges = [
-    ...approvalNames.map(
-      (name) => ({
-        name,
-        type: "approval",
-      })
-    ),
-
-    ...affiliationNames.map(
-      (name) => ({
-        name,
-        type: "affiliation",
-      })
-    ),
-
-    ...rankingNames.map(
-      (name) => ({
-        name,
-        type: "ranking",
-      })
-    ),
+    ...approvalNames.map((name) => ({ name, type: "approval" })),
+    ...affiliationNames.map((name) => ({ name, type: "affiliation" })),
+    ...rankingNames.map((name) => ({ name, type: "ranking" })),
   ];
 
-  const visibleBadges =
-    showAllBadges
-      ? allBadges
-      : allBadges.slice(0, 5);
+  const visibleBadges = showAllBadges ? allBadges : allBadges.slice(0, 5);
 
-  const remaining =
-    Math.max(
-      allBadges.length - 5,
-      0
-    );
+  const remaining = Math.max(allBadges.length - 5, 0);
 
   /* =======================================================
      PROGRAMS
   ======================================================= */
 
-  const programs =
-    Array.isArray(
-      extra.programs
-    )
-      ? extra.programs
-      : [];
+  const programs = Array.isArray(extra.programs) ? extra.programs : [];
 
   /* =======================================================
-     HERO IMAGE / CAROUSEL
+     HERO GALLERY
   ======================================================= */
 
   const fallbackHeroImage = getImageUrl(
     extra.banner_url ||
-    extra.cover_image ||
-    extra.cover_image_url ||
-    data.banner_url ||
-    data.cover_image ||
-    data.cover_image_url
+      extra.cover_image ||
+      extra.cover_image_url ||
+      data.banner_url ||
+      data.cover_image ||
+      data.cover_image_url
   );
 
-  const activeCarouselImage =
-    universityImages.length > 0
-      ? universityImages[
-      Math.min(
-        activeCarouselIndex,
-        universityImages.length - 1
-      )
-      ]
-      : null;
-
-  const heroImage = activeCarouselImage
-    ? getImageUrl(activeCarouselImage.image_url)
-    : fallbackHeroImage;
+  const gallerySlides = universityImages.length
+    ? universityImages.map((img) => ({
+        id: img.id,
+        src: getImageUrl(img.image_url),
+        caption: img.caption || img.title || "",
+      }))
+    : fallbackHeroImage
+    ? [{ id: "fallback", src: fallbackHeroImage }]
+    : [];
 
   /* =======================================================
      UNIVERSITY META
   ======================================================= */
 
-  const location =
-    extra.location ||
-    extra.city ||
-    "";
+  const location = extra.location || extra.city || "";
 
-  const established =
-    extra.established ||
-    extra.established_year ||
-    "";
+  const established = extra.established || extra.established_year || "";
 
-  const universityType =
-    extra.university_type ||
-    extra.type ||
-    "Private";
+  const universityType = extra.university_type || extra.type || "Private";
 
-  const mode =
-    data.mode ||
-    extra.mode ||
-    "Online";
+  const mode = data.mode || extra.mode || "Online";
 
-  const rating =
-    extra.rating ||
-    data.rating ||
-    "";
+  const rating = extra.rating || data.rating || "";
 
-  const reviewCount =
-    extra.review_count ||
-    extra.reviews ||
-    "";
+  const reviewCount = extra.review_count || extra.reviews || "";
 
   /* =======================================================
      OVERVIEW TAB
@@ -642,24 +611,15 @@ export default function UniversityDetails() {
   const overviewTab =
     extra.tabs?.find(
       (tab) =>
-        tab.slug ===
-        "overview" ||
-        tab.title
-          ?.toLowerCase()
-          .includes("overview")
-    ) ||
-    extra.tabs?.[0];
+        tab.slug === "overview" ||
+        tab.title?.toLowerCase().includes("overview")
+    ) || extra.tabs?.[0];
 
   /* =======================================================
      APPLY
   ======================================================= */
 
   const handleApply = () => {
-    if (!selectedCourse) {
-      setShowCounselling(true);
-      return;
-    }
-
     setShowCounselling(true);
   };
 
@@ -668,24 +628,15 @@ export default function UniversityDetails() {
   ======================================================= */
 
   const handleCompare = () => {
-    const stored =
-      getStoredCompareList();
+    const stored = getStoredCompareList();
 
     let updated;
 
     if (isCompared) {
-      updated =
-        stored.filter(
-          (u) =>
-            u.slug !==
-            data.slug
-        );
+      updated = stored.filter((u) => u.slug !== data.slug);
     } else {
       if (stored.length >= 3) {
-        alert(
-          "You can compare maximum 3 universities."
-        );
-
+        alert("You can compare maximum 3 universities.");
         return;
       }
 
@@ -695,28 +646,15 @@ export default function UniversityDetails() {
           id: data.id,
           slug: data.slug,
           name: data.name,
-          logo_url:
-            data.logo_url,
+          logo_url: data.logo_url,
         },
       ];
     }
 
-    localStorage.setItem(
-      "compareList",
-      JSON.stringify(updated)
-    );
+    localStorage.setItem("compareList", JSON.stringify(updated));
 
-    setCompareCount(
-      updated.length
-    );
-
-    setIsCompared(
-      updated.some(
-        (u) =>
-          u.slug ===
-          data.slug
-      )
-    );
+    setCompareCount(updated.length);
+    setIsCompared(updated.some((u) => u.slug === data.slug));
   };
 
   /* =======================================================
@@ -725,17 +663,14 @@ export default function UniversityDetails() {
 
   const handleWhatsApp = () => {
     const phone =
-      extra.whatsapp ||
-      extra.whatsapp_number ||
-      "919314946384";
+      extra.whatsapp || extra.whatsapp_number || "919314946384";
 
-    const message =
-      `Hello G Educonnect, I am interested in ${selectedCourse || "online programs"} at ${data.name}.`;
+    const message = `Hello G Educonnect, I am interested in ${
+      selectedCourse || "online programs"
+    } at ${data.name}.`;
 
     window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(
-        message
-      )}`,
+      `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
       "_blank"
     );
   };
@@ -744,14 +679,10 @@ export default function UniversityDetails() {
      TAB NAVIGATION
   ======================================================= */
 
-  const handleTabNavigation = (
-    tab
-  ) => {
+  const handleTabNavigation = (tab) => {
     if (!tab?.slug) return;
 
-    navigate(
-      `/university/${slug}/${tab.slug}`
-    );
+    navigate(`/university/${slug}/${tab.slug}`);
   };
 
   /* =======================================================
@@ -796,507 +727,242 @@ export default function UniversityDetails() {
           href={`https://geduconnect.com/university/${data.slug}`}
         />
       </Helmet>
-    <div className="university-page">
 
-     {/* =====================================================
-    UNIVERSITY COVER IMAGE
-===================================================== */}
+      <div className="university-page">
+        {/* =====================================================
+            UNIVERSITY GALLERY (HERO)
+        ===================================================== */}
 
-<section
-  className="university-cover"
-  style={
-    heroImage
-      ? {
-          backgroundImage: `
-            linear-gradient(
-              to bottom,
-              rgba(0, 0, 0, 0.05),
-              rgba(0, 0, 0, 0.72)
-            ),
-            url("${heroImage}")
-          `,
-        }
-      : undefined
-  }
->
-  <div className="university-cover-overlay" />
+        <UniversityGallery slides={gallerySlides} alt={data.name} />
 
-  {/* =====================================================
-      CAROUSEL CONTROLS
-  ===================================================== */}
+        {/* =====================================================
+            UNIVERSITY PROFILE HEADER
+        ===================================================== */}
 
-  {universityImages.length > 1 && (
-    <>
-      <button
-        type="button"
-        className="university-carousel-arrow university-carousel-prev"
-        onClick={showPreviousCarouselImage}
-        aria-label="Previous university image"
-      >
-        ‹
-      </button>
+        <section className="university-profile-header">
+          <div className="university-container">
+            {/* BREADCRUMB */}
 
-      <button
-        type="button"
-        className="university-carousel-arrow university-carousel-next"
-        onClick={showNextCarouselImage}
-        aria-label="Next university image"
-      >
-        ›
-      </button>
+            <div className="university-breadcrumb">
+              <span onClick={() => navigate("/")}>Home</span>
 
-      <div className="university-carousel-dots">
-        {universityImages.map((image, index) => (
-          <button
-            key={image.id}
-            type="button"
-            className={
-              index === activeCarouselIndex
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              setActiveCarouselIndex(index)
-            }
-            aria-label={`Go to university image ${index + 1}`}
-          />
-        ))}
-      </div>
-    </>
-  )}
+              <span>/</span>
 
-  {/* =====================================================
-      VIEW PHOTOS
-  ===================================================== */}
+              <span onClick={() => navigate("/clients")}>Universities</span>
 
-  <div className="university-cover-content">
-    <button
-      type="button"
-      className="photo-button"
-      onClick={() => {
-        if (universityImages.length > 1) {
-          showNextCarouselImage();
-        }
-      }}
-    >
-      ▣ View Photos
-      {universityImages.length > 0
-        ? ` (${universityImages.length})`
-        : ""}
-    </button>
-  </div>
-</section>
+              <span>/</span>
 
+              <strong>{data.name}</strong>
+            </div>
 
-{/* =====================================================
-    UNIVERSITY PROFILE HEADER
-===================================================== */}
+            {/* PROFILE */}
 
-<section className="university-profile-header">
+            <div className="university-profile-grid">
+              {/* LOGO */}
 
-  <div className="university-container">
-
-    {/* =====================================================
-        BREADCRUMB
-    ===================================================== */}
-
-    <div className="university-breadcrumb">
-
-      <span
-        onClick={() => navigate("/")}
-      >
-        Home
-      </span>
-
-      <span>/</span>
-
-      <span
-        onClick={() => navigate("/clients")}
-      >
-        Universities
-      </span>
-
-      <span>/</span>
-
-      <strong>
-        {data.name}
-      </strong>
-
-    </div>
-
-
-    {/* =====================================================
-        PROFILE
-    ===================================================== */}
-
-    <div className="university-profile-grid">
-
-      {/* =================================================
-          LOGO
-      ================================================= */}
-
-      <div className="university-profile-logo">
-
-        {data.logo_url ? (
-          <img
-            src={getImageUrl(data.logo_url)}
-            alt={data.name}
-          />
-        ) : (
-          <div className="logo-placeholder">
-            {data.name
-              ?.substring(0, 2)
-              .toUpperCase()}
-          </div>
-        )}
-
-      </div>
-
-
-      {/* =================================================
-          UNIVERSITY INFORMATION
-      ================================================= */}
-
-      <div className="university-profile-info">
-
-        <div className="admission-open">
-          <span></span>
-          Admissions Open
-        </div>
-
-        <h1>
-          {data.name}
-
-          <span>
-            — Programs, Fees,
-            Admissions & Placements
-          </span>
-        </h1>
-
-        <div className="university-meta">
-
-          {location && (
-            <span>
-              📍 {location}
-            </span>
-          )}
-
-          {established && (
-            <span>
-              ▣ Est. {established}
-            </span>
-          )}
-
-          <span>
-            🎓 {mode}
-          </span>
-
-          <span className="type-badge">
-            {universityType}
-          </span>
-
-          {rating && (
-            <span className="rating-badge">
-              ★ {rating}
-
-              {reviewCount
-                ? ` (${reviewCount} Reviews)`
-                : ""}
-            </span>
-          )}
-
-        </div>
-
-      </div>
-
-
-      {/* =================================================
-          ACTIONS
-      ================================================= */}
-
-      <div className="university-profile-actions">
-
-        <button
-          type="button"
-          className="primary-apply-btn"
-          onClick={handleApply}
-        >
-          Apply to University
-          <span>→</span>
-        </button>
-
-        <button
-          type="button"
-          className="secondary-advisor-btn"
-          onClick={() =>
-            setShowCounselling(true)
-          }
-        >
-          ☎ Talk to Advisor
-        </button>
-
-        <div className="header-small-actions">
-
-          <button
-            type="button"
-            onClick={handleCompare}
-          >
-            {isCompared
-              ? "✓ Compared"
-              : "⚖ Compare"}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              if (navigator.share) {
-                navigator.share({
-                  title: data.name,
-                  url: window.location.href,
-                });
-              }
-            }}
-          >
-            ↗ Share
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    {/* =====================================================
-        APPROVALS
-    ===================================================== */}
-
-    {allBadges.length > 0 && (
-      <div className="university-approvals">
-
-        <span className="approvals-label">
-          APPROVALS:
-        </span>
-
-        {visibleBadges.map(
-          (badge, index) => (
-            <span
-              key={`${badge.type}-${index}`}
-              className={`approval-badge ${badge.type}`}
-            >
-              {badge.type === "approval" &&
-                "✓ "}
-
-              {badge.name}
-            </span>
-          )
-        )}
-
-        {!showAllBadges && remaining > 0 && (
-          <button
-            type="button"
-            className="more-badge"
-            onClick={() =>
-              setShowAllBadges(true)
-            }
-          >
-            +{remaining} more
-          </button>
-        )}
-
-      </div>
-    )}
-
-  </div>
-
-</section>
-
-      {/* =====================================================
-          TABS
-      ===================================================== */}
-
-   {Array.isArray(extra.tabs) &&
-  extra.tabs.length > 0 && (
-    <nav className="university-tabs">
-
-      <div className="university-container university-tabs-inner">
-
-        {extra.tabs.map((tab, index) => (
-          <button
-            key={
-              tab.id ||
-              tab.slug ||
-              tab.title
-            }
-            type="button"
-            className={
-              activeTab?.slug === tab.slug
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              handleTabNavigation(tab)
-            }
-          >
-            <span>
-              {tab.title}
-            </span>
-
-            {tab.count && (
-              <small>
-                {tab.count}
-              </small>
-            )}
-          </button>
-        ))}
-
-      </div>
-
-    </nav>
-  )}
-
-      {/* =====================================================
-          MAIN CONTENT
-      ===================================================== */}
-
-      <main className="university-container">
-
-        <div className="university-main-layout">
-
-          {/* =================================================
-              LEFT
-          ================================================= */}
-
-          <div className="university-main-content">
-
-            {/* PROGRAM OVERVIEW LABEL */}
-
-
-
-
-            {/* ACTIVE TAB CONTENT */}
-
-            <section className="university-content-card">
-
-              <div className="content-heading">
-
-                <h2>
-                  {activeTab?.title ||
-                    "About " +
-                    data.name}
-                </h2>
-
+              <div className="university-profile-logo">
+                {data.logo_url ? (
+                  <img src={getImageUrl(data.logo_url)} alt={data.name} />
+                ) : (
+                  <div className="logo-placeholder">
+                    {data.name?.substring(0, 2).toUpperCase()}
+                  </div>
+                )}
               </div>
 
-              {activeTab?.content ? (
-                <div
-                  className="dynamic-content"
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      cleanHtml(
-                        activeTab.content
-                      ),
-                  }}
-                />
-              ) : overviewTab?.content ? (
-                <div
-                  className="dynamic-content"
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      cleanHtml(
-                        overviewTab.content
-                      ),
-                  }}
-                />
-              ) : data.description ? (
-                <p className="overview-description">
-                  {data.description}
-                </p>
-              ) : (
-                <p className="empty-content">
-                  No information available
-                  for this section.
-                </p>
-              )}
+              {/* INFORMATION */}
 
-            </section>
+              <div className="university-profile-info">
+                <div className="admission-open">
+                  <span></span>
+                  Admissions Open
+                </div>
 
+                <h1>
+                  {data.name}
 
-          </div>
+                  <span>— Programs, Fees, Admissions & Placements</span>
+                </h1>
 
+                <div className="university-meta">
+                  {location && <span>📍 {location}</span>}
 
-          {/* =================================================
-              RIGHT SIDEBAR
-          ================================================= */}
+                  {established && <span>▣ Est. {established}</span>}
 
-          <aside className="university-sidebar">
+                  <span>🎓 {mode}</span>
 
-            {/* QUICK APPLY */}
+                  <span className="type-badge">{universityType}</span>
 
-            <div className="quick-apply-card">
-
-              <div className="quick-tabs">
-
-                <button className="active">
-                  ⚡ Quick Apply
-                </button>
-
-                <button>
-                  ▣ Fee Plans
-                </button>
-
-                <button>
-                  ♜ Eligibility
-                </button>
-
+                  {rating && (
+                    <span className="rating-badge">
+                      ★ {rating}
+                      {reviewCount ? ` (${reviewCount} Reviews)` : ""}
+                    </span>
+                  )}
+                </div>
               </div>
 
+              {/* ACTIONS */}
 
-              <div className="fee-waiver">
+              <div className="university-profile-actions">
+                <button
+                  type="button"
+                  className="primary-apply-btn"
+                  onClick={handleApply}
+                >
+                  Apply to University
+                  <span>→</span>
+                </button>
 
-                <span>
-                  🎁 Early Admission
-                  Fee Waiver
-                </span>
+                <button
+                  type="button"
+                  className="secondary-advisor-btn"
+                  onClick={() => setShowCounselling(true)}
+                >
+                  ☎ Talk to Advisor
+                </button>
 
-                <strong>
-                  ACTIVE
-                </strong>
+                <div className="header-small-actions">
+                  <button type="button" onClick={handleCompare}>
+                    {isCompared ? "✓ Compared" : "⚖ Compare"}
+                  </button>
 
-              </div>
-
-
-              <label>
-                SELECT INTERESTED
-                COURSE:
-              </label>
-
-
-              <select
-                value={
-                  selectedCourse
-                }
-                onChange={(e) =>
-                  setSelectedCourse(
-                    e.target.value
-                  )
-                }
-              >
-
-                <option value="">
-                  Select Course
-                </option>
-
-                {programs.map(
-                  (
-                    program,
-                    index
-                  ) => (
-                    <option
-                      key={
-                        program.id ||
-                        index
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (navigator.share) {
+                        navigator.share({
+                          title: data.name,
+                          url: window.location.href,
+                        });
                       }
+                    }}
+                  >
+                    ↗ Share
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* APPROVALS */}
+
+            {allBadges.length > 0 && (
+              <div className="university-approvals">
+                <span className="approvals-label">APPROVALS:</span>
+
+                {visibleBadges.map((badge, index) => (
+                  <span
+                    key={`${badge.type}-${index}`}
+                    className={`approval-badge ${badge.type}`}
+                  >
+                    {badge.type === "approval" && "✓ "}
+
+                    {badge.name}
+                  </span>
+                ))}
+
+                {!showAllBadges && remaining > 0 && (
+                  <button
+                    type="button"
+                    className="more-badge"
+                    onClick={() => setShowAllBadges(true)}
+                  >
+                    +{remaining} more
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* =====================================================
+            TABS
+        ===================================================== */}
+
+        {Array.isArray(extra.tabs) && extra.tabs.length > 0 && (
+          <nav className="university-tabs">
+            <div className="university-container university-tabs-inner">
+              {extra.tabs.map((tab) => (
+                <button
+                  key={tab.id || tab.slug || tab.title}
+                  type="button"
+                  className={activeTab?.slug === tab.slug ? "active" : ""}
+                  onClick={() => handleTabNavigation(tab)}
+                >
+                  <span>{tab.title}</span>
+
+                  {tab.count && <small>{tab.count}</small>}
+                </button>
+              ))}
+            </div>
+          </nav>
+        )}
+
+        {/* =====================================================
+            MAIN CONTENT
+        ===================================================== */}
+
+        <main className="university-container">
+          <div className="university-main-layout">
+            {/* LEFT */}
+
+            <div className="university-main-content">
+              <section className="university-content-card">
+                {activeTab?.content ? (
+                  <div
+                    className="dynamic-content"
+                    dangerouslySetInnerHTML={{
+                      __html: cleanHtml(activeTab.content),
+                    }}
+                  />
+                ) : overviewTab?.content ? (
+                  <div
+                    className="dynamic-content"
+                    dangerouslySetInnerHTML={{
+                      __html: cleanHtml(overviewTab.content),
+                    }}
+                  />
+                ) : data.description ? (
+                  <p className="overview-description">{data.description}</p>
+                ) : (
+                  <p className="empty-content">
+                    No information available for this section.
+                  </p>
+                )}
+              </section>
+            </div>
+
+            {/* RIGHT SIDEBAR */}
+
+            <aside className="university-sidebar">
+              {/* QUICK APPLY */}
+
+              <div className="quick-apply-card">
+                <div className="quick-tabs">
+                  <button className="active">⚡ Quick Apply</button>
+
+                  <button>▣ Fee Plans</button>
+
+                  <button>♜ Eligibility</button>
+                </div>
+
+                <div className="fee-waiver">
+                  <span>🎁 Early Admission Fee Waiver</span>
+
+                  <strong>ACTIVE</strong>
+                </div>
+
+                <label>SELECT INTERESTED COURSE:</label>
+
+                <select
+                  value={selectedCourse}
+                  onChange={(e) => setSelectedCourse(e.target.value)}
+                >
+                  <option value="">Select Course</option>
+
+                  {programs.map((program, index) => (
+                    <option
+                      key={program.id || index}
                       value={
                         program.name ||
                         program.title ||
@@ -1304,358 +970,206 @@ export default function UniversityDetails() {
                         ""
                       }
                     >
-                      {program.name ||
-                        program.title ||
-                        program.program_name}
+                      {program.name || program.title || program.program_name}
                     </option>
-                  )
-                )}
-
-              </select>
-
-
-              <button
-                type="button"
-                className="quick-apply-main"
-                onClick={
-                  handleApply
-                }
-              >
-                Apply for{" "}
-                {selectedCourse ||
-                  "Program"}
-                <span>
-                  →
-                </span>
-              </button>
-
-
-              <button
-                type="button"
-                className="download-syllabus"
-                onClick={() =>
-                  setShowCounselling(
-                    true
-                  )
-                }
-              >
-                ↓ Download Syllabus
-              </button>
-
-
-              <div className="quick-actions">
+                  ))}
+                </select>
 
                 <button
                   type="button"
-                  className="whatsapp-btn"
-                  onClick={
-                    handleWhatsApp
-                  }
+                  className="quick-apply-main"
+                  onClick={handleApply}
                 >
-                  ● WhatsApp
+                  Apply for {selectedCourse || "Program"}
+                  <span>→</span>
                 </button>
 
                 <button
                   type="button"
-                  className="advisor-btn"
-                  onClick={() =>
-                    setShowCounselling(
-                      true
-                    )
-                  }
+                  className="download-syllabus"
+                  onClick={() => setShowCounselling(true)}
                 >
-                  ☎ Talk to Advisor
+                  ↓ Download Syllabus
                 </button>
 
+                <div className="quick-actions">
+                  <button
+                    type="button"
+                    className="whatsapp-btn"
+                    onClick={handleWhatsApp}
+                  >
+                    ● WhatsApp
+                  </button>
+
+                  <button
+                    type="button"
+                    className="advisor-btn"
+                    onClick={() => setShowCounselling(true)}
+                  >
+                    ☎ Talk to Advisor
+                  </button>
+                </div>
+
+                <div className="verified-text">
+                  <span>✓</span>
+                  Verified Partner · Free Guidance · Direct Admission
+                </div>
               </div>
 
+              {/* WHY GEDUCONNECT */}
 
-              <div className="verified-text">
+              <div className="why-gedu-card">
+                <h3>Why Apply Through G Educonnect?</h3>
 
-                <span>
-                  ✓
-                </span>
+                <ul>
+                  <li>
+                    <span>✓</span>
+                    100% Free Counselling
+                  </li>
 
-                Verified Partner ·
-                Free Guidance ·
-                Direct Admission
+                  <li>
+                    <span>✓</span>
+                    Personalised Guidance
+                  </li>
 
+                  <li>
+                    <span>✓</span>
+                    Admission Assistance
+                  </li>
+
+                  <li>
+                    <span>✓</span>
+                    Documentation Support
+                  </li>
+
+                  <li>
+                    <span>✓</span>
+                    Fee & Eligibility Guidance
+                  </li>
+                </ul>
               </div>
 
-            </div>
+              {/* APPROVAL SUMMARY */}
 
-
-            {/* WHY GEDUCONNECT */}
-
-            <div className="why-gedu-card">
-
-              <h3>
-                Why Apply Through
-                G Educonnect?
-              </h3>
-
-              <ul>
-
-                <li>
-                  <span>✓</span>
-                  100% Free Counselling
-                </li>
-
-                <li>
-                  <span>✓</span>
-                  Personalised Guidance
-                </li>
-
-                <li>
-                  <span>✓</span>
-                  Admission Assistance
-                </li>
-
-                <li>
-                  <span>✓</span>
-                  Documentation Support
-                </li>
-
-                <li>
-                  <span>✓</span>
-                  Fee & Eligibility
-                  Guidance
-                </li>
-
-              </ul>
-
-            </div>
-
-
-            {/* APPROVAL SUMMARY */}
-
-            {allBadges.length >
-              0 && (
+              {allBadges.length > 0 && (
                 <div className="sidebar-approval-card">
-
-                  <h3>
-                    Approvals &
-                    Recognition
-                  </h3>
+                  <h3>Approvals & Recognition</h3>
 
                   <div>
-
-                    {allBadges.map(
-                      (
-                        badge,
-                        index
-                      ) => (
-                        <span
-                          key={
-                            `${badge.type}-${index}`
-                          }
-                        >
-                          ✓{" "}
-                          {
-                            badge.name
-                          }
-                        </span>
-                      )
-                    )}
-
+                    {allBadges.map((badge, index) => (
+                      <span key={`${badge.type}-${index}`}>
+                        ✓ {badge.name}
+                      </span>
+                    ))}
                   </div>
-
                 </div>
               )}
+            </aside>
+          </div>
+        </main>
 
-          </aside>
+        {/* =====================================================
+            COUNSELLING CTA
+        ===================================================== */}
 
-        </div>
+        <section className="university-counselling-section">
+          <div className="university-container">
+            <div className="counselling-content">
+              <span>NEED HELP CHOOSING?</span>
 
-      </main>
+              <h2>Get Free Counselling</h2>
 
+              <p>
+                Confused about universities, courses, eligibility or
+                admissions? Talk to our education experts and get
+                personalised guidance.
+              </p>
 
-      {/* =====================================================
-          COUNSELLING CTA
-      ===================================================== */}
+              <div className="counselling-points">
+                <span>✓ Course Guidance</span>
 
-      <section className="university-counselling-section">
+                <span>✓ Admission Assistance</span>
 
-        <div className="university-container">
+                <span>✓ Fee Guidance</span>
+              </div>
 
-          <div className="counselling-content">
+              <button
+                type="button"
+                onClick={() => setShowGlobalCounselling(true)}
+              >
+                Get Free Counselling →
+              </button>
+            </div>
 
-            <span>
-              NEED HELP CHOOSING?
-            </span>
+            <div className="counselling-visual">
+              <div className="counselling-icon">🎓</div>
 
-            <h2>
-              Get Free Counselling
-            </h2>
+              <div className="counselling-floating-card">
+                <strong>Talk to an Expert</strong>
 
-            <p>
-              Confused about
-              universities, courses,
-              eligibility or
-              admissions? Talk to
-              our education experts
-              and get personalised
-              guidance.
-            </p>
+                <span>Get personalised guidance</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <div className="counselling-points">
+        {/* =====================================================
+            FLOATING COMPARE BAR
+        ===================================================== */}
 
-              <span>
-                ✓ Course Guidance
-              </span>
-
-              <span>
-                ✓ Admission Assistance
-              </span>
-
-              <span>
-                ✓ Fee Guidance
-              </span>
-
+        {compareCount >= 2 && (
+          <div className="compare-floating-bar">
+            <div>
+              <strong>{compareCount}</strong>
+              Universities Selected
             </div>
 
             <button
               type="button"
-              onClick={() =>
-                setShowGlobalCounselling(
-                  true
-                )
-              }
-            >
-              Get Free Counselling
-              →
-            </button>
+              onClick={() => {
+                const stored = getStoredCompareList();
 
-          </div>
-
-
-          <div className="counselling-visual">
-
-            <div className="counselling-icon">
-              🎓
-            </div>
-
-            <div className="counselling-floating-card">
-              <strong>
-                Talk to an Expert
-              </strong>
-
-              <span>
-                Get personalised
-                guidance
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
-          FLOATING COMPARE BAR
-      ===================================================== */}
-
-      {compareCount >= 2 && (
-        <div className="compare-floating-bar">
-
-          <div>
-            <strong>
-              {compareCount}
-            </strong>
-
-            Universities
-            Selected
-          </div>
-
-          <button
-            type="button"
-            onClick={() => {
-
-              const stored =
-                getStoredCompareList();
-
-              const query =
-                stored
-                  .map(
-                    (u) =>
-                      `v=${encodeURIComponent(
-                        u.slug
-                      )}`
-                  )
+                const query = stored
+                  .map((u) => `v=${encodeURIComponent(u.slug)}`)
                   .join("&");
 
-              navigate(
-                `/compare?${query}`
-              );
+                navigate(`/compare?${query}`);
+              }}
+            >
+              Compare Now →
+            </button>
+          </div>
+        )}
 
-            }}
-          >
-            Compare Now →
+        {/* =====================================================
+            MOBILE CTA
+        ===================================================== */}
+
+        <div className="mobile-university-cta">
+          <button type="button" onClick={handleApply}>
+            Apply Now
           </button>
 
+          <button type="button" onClick={handleWhatsApp}>
+            WhatsApp
+          </button>
         </div>
-      )}
 
+        {/* =====================================================
+            MODALS
+        ===================================================== */}
 
-      {/* =====================================================
-          MOBILE CTA
-      ===================================================== */}
+        <CounsellingModal
+          show={showCounselling}
+          onClose={() => setShowCounselling(false)}
+          university={data}
+        />
 
-      <div className="mobile-university-cta">
-
-        <button
-          type="button"
-          onClick={
-            handleApply
-          }
-        >
-          Apply Now
-        </button>
-
-        <button
-          type="button"
-          onClick={
-            handleWhatsApp
-          }
-        >
-          WhatsApp
-        </button>
-
+        <GlobalCounsellingModal
+          show={showGlobalCounselling}
+          onClose={() => setShowGlobalCounselling(false)}
+        />
       </div>
-
-
-      {/* =====================================================
-          MODALS
-      ===================================================== */}
-
-      <CounsellingModal
-        show={
-          showCounselling
-        }
-        onClose={() =>
-          setShowCounselling(
-            false
-          )
-        }
-        university={data}
-      />
-
-
-      <GlobalCounsellingModal
-        show={
-          showGlobalCounselling
-        }
-        onClose={() =>
-          setShowGlobalCounselling(
-            false
-          )
-        }
-      />
-
-    </div>
-</>
-
+    </>
   );
 }

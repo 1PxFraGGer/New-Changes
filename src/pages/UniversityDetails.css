@@ -21,8 +21,7 @@
   --uni-green: #0daa6d;
   --uni-green-light: #e9fff5;
 
-  --uni-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.08);
+  --uni-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
 
   --uni-radius: 16px;
 }
@@ -71,10 +70,7 @@
 ========================================================= */
 
 .university-container {
-  width: min(
-    1180px,
-    calc(100% - 40px)
-  );
+  width: min(1180px, calc(100% - 40px));
 
   margin-left: auto;
   margin-right: auto;
@@ -108,9 +104,7 @@
 
   border-radius: 50%;
 
-  animation:
-    universitySpin
-    0.8s linear infinite;
+  animation: universitySpin 0.8s linear infinite;
 }
 
 @keyframes universitySpin {
@@ -153,81 +147,6 @@
   border-radius: 9px;
 
   font-weight: 700;
-}
-
-
-/* =========================================================
-   CAMPUS COVER
-========================================================= */
-
-.university-cover {
-  width: 100%;
-  height: 250px;
-
-  position: relative;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.04),
-      rgba(0, 0, 0, 0.7)
-    ),
-    linear-gradient(
-      90deg,
-      #ddd,
-      #bbb
-    );
-
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  overflow: hidden;
-}
-
-.university-cover-overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      transparent 45%,
-      rgba(0, 0, 0, 0.5)
-    );
-}
-
-.university-cover-content {
-  position: absolute;
-
-  right: 35px;
-  bottom: 24px;
-
-  z-index: 2;
-}
-
-.photo-button {
-  border: 1px solid rgba(255,255,255,.3);
-
-  background:
-    rgba(0,0,0,.65);
-
-  color: #fff;
-
-  border-radius: 9px;
-
-  padding: 9px 15px;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  backdrop-filter: blur(8px);
-
-  transition: .2s;
-}
-
-.photo-button:hover {
-  background: rgba(0,0,0,.85);
 }
 
 
@@ -329,8 +248,7 @@
 
   border: 4px solid #fff;
 
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.22);
+  box-shadow: 0 8px 25px rgba(0,0,0,.22);
 }
 
 .university-profile-logo img {
@@ -399,11 +317,9 @@
 
   gap: 7px;
 
-  background:
-    rgba(0, 201, 130, .13);
+  background: rgba(0, 201, 130, .13);
 
-  border: 1px solid
-    rgba(0, 230, 150, .35);
+  border: 1px solid rgba(0, 230, 150, .35);
 
   color: #31e19a;
 
@@ -453,11 +369,9 @@
 .type-badge {
   padding: 4px 9px;
 
-  background:
-    rgba(255,255,255,.1);
+  background: rgba(255,255,255,.1);
 
-  border: 1px solid
-    rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.15);
 
   border-radius: 6px;
 
@@ -467,11 +381,9 @@
 .rating-badge {
   padding: 5px 10px;
 
-  background:
-    rgba(245,169,0,.14);
+  background: rgba(245,169,0,.14);
 
-  border: 1px solid
-    rgba(245,169,0,.5);
+  border: 1px solid rgba(245,169,0,.5);
 
   border-radius: 7px;
 
@@ -517,9 +429,7 @@
 
   font-weight: 800;
 
-  box-shadow:
-    0 5px 15px
-    rgba(245,169,0,.2);
+  box-shadow: 0 5px 15px rgba(245,169,0,.2);
 
   transition: .2s;
 }
@@ -533,9 +443,7 @@
 .primary-apply-btn:hover {
   transform: translateY(-1px);
 
-  box-shadow:
-    0 8px 20px
-    rgba(245,169,0,.3);
+  box-shadow: 0 8px 20px rgba(245,169,0,.3);
 }
 
 .secondary-advisor-btn {
@@ -545,11 +453,9 @@
 
   border-radius: 10px;
 
-  border: 1px solid
-    rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.22);
 
-  background:
-    rgba(255,255,255,.08);
+  background: rgba(255,255,255,.08);
 
   color: #fff;
 
@@ -561,8 +467,7 @@
 }
 
 .secondary-advisor-btn:hover {
-  background:
-    rgba(255,255,255,.15);
+  background: rgba(255,255,255,.15);
 }
 
 .header-small-actions {
@@ -576,11 +481,9 @@
 }
 
 .header-small-actions button {
-  border: 1px solid
-    rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.15);
 
-  background:
-    rgba(255,255,255,.06);
+  background: rgba(255,255,255,.06);
 
   color: #ddd;
 
@@ -594,8 +497,7 @@
 }
 
 .header-small-actions button:hover {
-  background:
-    rgba(255,255,255,.13);
+  background: rgba(255,255,255,.13);
 }
 
 
@@ -616,8 +518,7 @@
 
   padding-top: 17px;
 
-  border-top: 1px solid
-    rgba(255,255,255,.12);
+  border-top: 1px solid rgba(255,255,255,.12);
 }
 
 .approvals-label {
@@ -671,11 +572,9 @@
 }
 
 .more-badge {
-  border: 1px solid
-    rgba(255,255,255,.25);
+  border: 1px solid rgba(255,255,255,.25);
 
-  background:
-    rgba(255,255,255,.08);
+  background: rgba(255,255,255,.08);
 
   color: #fff;
 
@@ -687,6 +586,7 @@
 
   font-weight: 800;
 }
+
 
 /* =====================================================
    STICKY UNIVERSITY TABS
@@ -707,14 +607,8 @@
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #dddddd;
 
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
-
-
-/* =====================================================
-   TABS INNER
-===================================================== */
 
 .university-tabs-inner {
   display: flex;
@@ -732,11 +626,6 @@
 .university-tabs-inner::-webkit-scrollbar {
   display: none;
 }
-
-
-/* =====================================================
-   TAB BUTTON
-===================================================== */
 
 .university-tabs-inner button {
   position: relative;
@@ -772,30 +661,15 @@
     background 0.2s ease;
 }
 
-
-/* =====================================================
-   HOVER
-===================================================== */
-
 .university-tabs-inner button:hover {
   color: #8b1e2d;
 }
-
-
-/* =====================================================
-   ACTIVE TAB
-===================================================== */
 
 .university-tabs-inner button.active {
   color: #8b1e2d;
 
   font-weight: 600;
 }
-
-
-/* =====================================================
-   ACTIVE UNDERLINE
-===================================================== */
 
 .university-tabs-inner button.active::after {
   content: "";
@@ -811,14 +685,8 @@
 
   background: #8b1e2d;
 
-  border-radius:
-    2px 2px 0 0;
+  border-radius: 2px 2px 0 0;
 }
-
-
-/* =====================================================
-   TAB COUNT
-===================================================== */
 
 .university-tabs-inner button small {
   display: inline-flex;
@@ -841,11 +709,6 @@
 
   font-weight: 500;
 }
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media (max-width: 768px) {
 
@@ -906,8 +769,7 @@
 
   border-radius: 20px;
 
-  background:
-    var(--uni-primary-light);
+  background: var(--uni-primary-light);
 
   border: 1px solid #f2d7dc;
 
@@ -1045,8 +907,7 @@
 
   vertical-align: middle;
 
-  background:
-    var(--uni-primary);
+  background: var(--uni-primary);
 
   border-radius: 50%;
 }
@@ -1056,8 +917,7 @@
 
   background: transparent;
 
-  color:
-    var(--uni-primary);
+  color: var(--uni-primary);
 
   font-size: 11px;
 
@@ -1072,8 +932,7 @@
 .glance-grid {
   display: grid;
 
-  grid-template-columns:
-    1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
   gap: 14px;
 }
@@ -1085,8 +944,7 @@
 
   padding: 19px;
 
-  border: 1px solid
-    var(--uni-border);
+  border: 1px solid var(--uni-border);
 
   border-radius: 15px;
 
@@ -1098,8 +956,7 @@
 .glance-card:hover {
   transform: translateY(-2px);
 
-  box-shadow:
-    var(--uni-shadow);
+  box-shadow: var(--uni-shadow);
 }
 
 .glance-icon {
@@ -1114,11 +971,9 @@
 
   border-radius: 10px;
 
-  background:
-    var(--uni-primary-light);
+  background: var(--uni-primary-light);
 
-  color:
-    var(--uni-primary);
+  color: var(--uni-primary);
 
   font-size: 17px;
 }
@@ -1155,8 +1010,7 @@
 .university-benefits {
   display: grid;
 
-  grid-template-columns:
-    repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 
   gap: 10px;
 
@@ -1198,11 +1052,9 @@
 
   border-radius: 50%;
 
-  background:
-    #ffe9ed;
+  background: #ffe9ed;
 
-  color:
-    var(--uni-primary);
+  color: var(--uni-primary);
 
   font-size: 16px;
 }
@@ -1239,8 +1091,7 @@
 .program-grid {
   display: grid;
 
-  grid-template-columns:
-    repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 
   gap: 13px;
 }
@@ -1250,8 +1101,7 @@
 
   padding: 17px;
 
-  border: 1px solid
-    var(--uni-border);
+  border: 1px solid var(--uni-border);
 
   border-radius: 15px;
 
@@ -1263,11 +1113,9 @@
 }
 
 .program-card-new:hover {
-  transform:
-    translateY(-3px);
+  transform: translateY(-3px);
 
-  box-shadow:
-    var(--uni-shadow);
+  box-shadow: var(--uni-shadow);
 }
 
 .program-card-icon {
@@ -1339,8 +1187,7 @@
 
   background: transparent;
 
-  color:
-    var(--uni-primary);
+  color: var(--uni-primary);
 
   text-align: left;
 
@@ -1357,8 +1204,7 @@
 .explore-tabs-grid {
   display: grid;
 
-  grid-template-columns:
-    1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
   gap: 10px;
 }
@@ -1374,8 +1220,7 @@
 
   padding: 13px;
 
-  border: 1px solid
-    var(--uni-border);
+  border: 1px solid var(--uni-border);
 
   background: #fff;
 
@@ -1388,11 +1233,9 @@
 
 .explore-tabs-grid button:hover,
 .explore-tabs-grid button.active {
-  border-color:
-    #d9a6af;
+  border-color: #d9a6af;
 
-  background:
-    #fff8f9;
+  background: #fff8f9;
 }
 
 .explore-tabs-grid button > span {
@@ -1405,11 +1248,9 @@
   align-items: center;
   justify-content: center;
 
-  background:
-    var(--uni-primary-light);
+  background: var(--uni-primary-light);
 
-  color:
-    var(--uni-primary);
+  color: var(--uni-primary);
 
   border-radius: 7px;
 
@@ -1425,8 +1266,7 @@
 }
 
 .explore-tabs-grid em {
-  color:
-    var(--uni-primary);
+  color: var(--uni-primary);
 
   font-style: normal;
 }
@@ -1441,9 +1281,7 @@
 }
 
 .quick-apply-card {
-  position: sticky;
-
-  top: 90px;
+  position: relative;
 
   padding: 20px;
 
@@ -1458,9 +1296,7 @@
 
   border-radius: 20px;
 
-  box-shadow:
-    0 18px 45px
-    rgba(0,0,0,.2);
+  box-shadow: 0 18px 45px rgba(0,0,0,.2);
 
   z-index: 30;
 }
@@ -1473,8 +1309,7 @@
 .quick-tabs {
   display: grid;
 
-  grid-template-columns:
-    1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 
   overflow: hidden;
 
@@ -1502,8 +1337,7 @@
 }
 
 .quick-tabs button.active {
-  background:
-    var(--uni-gold);
+  background: var(--uni-gold);
 
   color: #111;
 }
@@ -1530,8 +1364,7 @@
 
   border-radius: 10px;
 
-  background:
-    #3a300b;
+  background: #3a300b;
 
   color: #eee;
 
@@ -1547,8 +1380,7 @@
 
   border-radius: 5px;
 
-  background:
-    var(--uni-gold);
+  background: var(--uni-gold);
 
   color: #111;
 
@@ -1587,8 +1419,7 @@
 
   outline: none;
 
-  background:
-    #252525;
+  background: #252525;
 
   color: #fff;
 
@@ -1596,8 +1427,7 @@
 }
 
 .quick-apply-card select:focus {
-  border-color:
-    var(--uni-gold);
+  border-color: var(--uni-gold);
 }
 
 
@@ -1681,8 +1511,7 @@
 .quick-actions {
   display: grid;
 
-  grid-template-columns:
-    1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
   gap: 8px;
 
@@ -1703,8 +1532,7 @@
 .whatsapp-btn {
   border: 0;
 
-  background:
-    #15cc70;
+  background: #15cc70;
 
   color: #fff;
 }
@@ -1739,8 +1567,7 @@
 }
 
 .verified-text span {
-  color:
-    #14df88;
+  color: #14df88;
 
   font-size: 11px;
 }
@@ -1811,8 +1638,7 @@
 
   border-radius: 50%;
 
-  background:
-    var(--uni-primary);
+  background: var(--uni-primary);
 
   color: #fff;
 
@@ -1831,8 +1657,7 @@
 
   padding: 18px;
 
-  border: 1px solid
-    var(--uni-border);
+  border: 1px solid var(--uni-border);
 
   border-radius: 15px;
 
@@ -1858,8 +1683,7 @@
 
   border-radius: 6px;
 
-  background:
-    #fafafa;
+  background: #fafafa;
 
   border: 1px solid #eee;
 
@@ -1917,13 +1741,11 @@
 
   padding: 6px 11px;
 
-  border: 1px solid
-    rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.18);
 
   border-radius: 20px;
 
-  background:
-    rgba(255,255,255,.07);
+  background: rgba(255,255,255,.07);
 
   color: #ffd25a;
 
@@ -1983,8 +1805,7 @@
 
   border-radius: 10px;
 
-  background:
-    var(--uni-gold);
+  background: var(--uni-gold);
 
   color: #111;
 
@@ -2022,18 +1843,13 @@
 
   border-radius: 50%;
 
-  background:
-    rgba(255,255,255,.08);
+  background: rgba(255,255,255,.08);
 
-  border:
-    1px solid
-    rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.15);
 
   font-size: 55px;
 
-  box-shadow:
-    0 20px 45px
-    rgba(0,0,0,.2);
+  box-shadow: 0 20px 45px rgba(0,0,0,.2);
 }
 
 .counselling-floating-card {
@@ -2054,9 +1870,7 @@
 
   color: #222;
 
-  box-shadow:
-    0 15px 35px
-    rgba(0,0,0,.22);
+  box-shadow: 0 15px 35px rgba(0,0,0,.22);
 }
 
 .counselling-floating-card strong {
@@ -2083,8 +1897,7 @@
 
   bottom: 20px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   z-index: 1000;
 
@@ -2104,12 +1917,9 @@
 
   border-radius: 14px;
 
-  background:
-    rgba(255,255,255,.96);
+  background: rgba(255,255,255,.96);
 
-  box-shadow:
-    0 15px 45px
-    rgba(0,0,0,.18);
+  box-shadow: 0 15px 45px rgba(0,0,0,.18);
 
   backdrop-filter: blur(12px);
 
@@ -2117,8 +1927,7 @@
 }
 
 .compare-floating-bar strong {
-  color:
-    var(--uni-primary);
+  color: var(--uni-primary);
 
   margin-right: 4px;
 
@@ -2132,8 +1941,7 @@
 
   border-radius: 9px;
 
-  background:
-    var(--uni-primary);
+  background: var(--uni-primary);
 
   color: #fff;
 
@@ -2153,17 +1961,98 @@
 
 
 /* =========================================================
+   HTML CONTENT STYLING
+   FOR ADMIN-GENERATED TAB CONTENT
+========================================================= */
+
+.dynamic-content table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  margin: 20px 0;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--uni-border);
+}
+
+.dynamic-content th {
+  padding: 11px;
+
+  background: var(--uni-primary);
+
+  color: #fff;
+
+  text-align: left;
+
+  font-size: 11px;
+}
+
+.dynamic-content td {
+  padding: 10px;
+
+  border: 1px solid var(--uni-border);
+
+  color: #555;
+
+  font-size: 11px;
+}
+
+.dynamic-content blockquote {
+  margin: 20px 0;
+
+  padding: 15px 18px;
+
+  border-left: 4px solid var(--uni-primary);
+
+  background: var(--uni-primary-light);
+
+  color: #555;
+
+  border-radius: 0 8px 8px 0;
+}
+
+.dynamic-content a {
+  color: var(--uni-primary);
+
+  font-weight: 700;
+}
+
+.dynamic-content hr {
+  margin: 25px 0;
+
+  border: 0;
+
+  border-top: 1px solid var(--uni-border);
+}
+
+
+/* =========================================================
+   SMOOTH SECTION SCROLL
+========================================================= */
+
+#courses,
+#overview,
+#admission,
+#placements,
+#support,
+#faq {
+  scroll-margin-top: 90px;
+}
+
+
+/* =========================================================
    RESPONSIVE
+   (kept after the base rules so the overrides win)
 ========================================================= */
 
 @media (max-width: 1100px) {
 
   .university-container {
-    width:
-      min(
-        100% - 30px,
-        1000px
-      );
+    width: min(100% - 30px, 1000px);
   }
 
   .university-profile-grid {
@@ -2193,21 +2082,14 @@
   }
 
   .program-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 
-/* =========================================================
-   TABLET
-========================================================= */
+/* TABLET */
 
 @media (max-width: 900px) {
-
-  .university-cover {
-    height: 270px;
-  }
 
   .university-profile-grid {
     grid-template-columns:
@@ -2216,24 +2098,32 @@
   }
 
   .university-profile-actions {
-    grid-column:
-      1 / -1;
+    grid-column: 1 / -1;
 
     display: grid;
 
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     align-items: center;
   }
 
   .header-small-actions {
-    grid-column:
-      1 / -1;
+    grid-column: 1 / -1;
   }
 
   .university-main-layout {
     grid-template-columns: 1fr;
+  }
+
+  .university-sidebar {
+    position: static;
+
+    max-height: none;
+
+    overflow: visible;
+
+    padding: 0;
+    margin: 0;
   }
 
   .quick-apply-card {
@@ -2255,13 +2145,11 @@
   }
 
   .university-benefits {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .program-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .counselling-visual {
@@ -2270,40 +2158,18 @@
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
+/* MOBILE */
 
 @media (max-width: 700px) {
 
   .university-container {
-    width:
-      calc(100% - 24px);
+    width: calc(100% - 24px);
   }
-
-  /* COVER */
-
-  .university-cover {
-    height: 210px;
-  }
-
-  .university-cover-content {
-    right: 12px;
-    bottom: 12px;
-  }
-
-  .photo-button {
-    padding: 7px 10px;
-
-    font-size: 9px;
-  }
-
 
   /* PROFILE */
 
   .university-profile-header {
-    padding:
-      14px 0 18px;
+    padding: 14px 0 18px;
   }
 
   .university-breadcrumb {
@@ -2374,8 +2240,7 @@
   }
 
   .university-profile-actions {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     margin-top: 4px;
   }
@@ -2388,8 +2253,7 @@
   }
 
   .header-small-actions {
-    grid-column:
-      1 / -1;
+    grid-column: 1 / -1;
   }
 
   .header-small-actions button {
@@ -2446,8 +2310,7 @@
   /* MAIN */
 
   .university-main-layout {
-    padding:
-      28px 0 90px;
+    padding: 28px 0 90px;
   }
 
   .section-mini-label {
@@ -2476,8 +2339,7 @@
   /* GLANCE */
 
   .glance-grid {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     gap: 9px;
   }
@@ -2509,8 +2371,7 @@
   /* BENEFITS */
 
   .university-benefits {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     gap: 12px;
 
@@ -2553,8 +2414,7 @@
   /* PROGRAMS */
 
   .program-grid {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     gap: 9px;
   }
@@ -2592,8 +2452,7 @@
   /* EXPLORE */
 
   .explore-tabs-grid {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
 
@@ -2631,8 +2490,7 @@
   /* COUNSELLING */
 
   .university-counselling-section {
-    padding:
-      38px 0;
+    padding: 38px 0;
   }
 
   .university-counselling-section
@@ -2670,8 +2528,7 @@
   .compare-floating-bar {
     bottom: 66px;
 
-    min-width:
-      calc(100% - 24px);
+    min-width: calc(100% - 24px);
 
     padding: 10px 11px;
 
@@ -2698,25 +2555,19 @@
 
     display: grid;
 
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     gap: 8px;
 
     padding: 9px 10px;
 
-    background:
-      rgba(255,255,255,.96);
+    background: rgba(255,255,255,.96);
 
-    border-top:
-      1px solid #ddd;
+    border-top: 1px solid #ddd;
 
-    box-shadow:
-      0 -5px 20px
-      rgba(0,0,0,.12);
+    box-shadow: 0 -5px 20px rgba(0,0,0,.12);
 
-    backdrop-filter:
-      blur(10px);
+    backdrop-filter: blur(10px);
   }
 
   .mobile-university-cta button {
@@ -2732,30 +2583,22 @@
   }
 
   .mobile-university-cta button:first-child {
-    background:
-      var(--uni-gold);
+    background: var(--uni-gold);
 
     color: #111;
   }
 
   .mobile-university-cta button:last-child {
-    background:
-      #18c96f;
+    background: #18c96f;
 
     color: #fff;
   }
 }
 
 
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
+/* SMALL MOBILE */
 
 @media (max-width: 430px) {
-
-  .university-cover {
-    height: 180px;
-  }
 
   .university-profile-grid {
     grid-template-columns:
@@ -2783,23 +2626,19 @@
   }
 
   .university-profile-actions {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
   .glance-grid {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
   .university-benefits {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
   .program-grid {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
   .program-card-new p {
@@ -2807,100 +2646,411 @@
   }
 
   .quick-actions {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 
 /* =========================================================
-   HTML CONTENT STYLING
-   FOR ADMIN-GENERATED TAB CONTENT
+   UNIVERSITY GALLERY (HERO) - G EDUCONNECT
 ========================================================= */
 
-.dynamic-content table {
+.ug-hero {
+  position: relative;
+
+  /* full width, edge to edge, and shorter */
   width: 100%;
-
-  border-collapse: collapse;
-
-  margin: 20px 0;
+  height: clamp(230px, 24vw, 380px);
+  margin: 0;
 
   overflow: hidden;
-
-  border-radius: 10px;
-
-  border: 1px solid
-    var(--uni-border);
+  background: linear-gradient(120deg, #2a0710, #5b1021);
+  user-select: none;
 }
 
-.dynamic-content th {
-  padding: 11px;
-
+.ug-empty {
+  position: absolute;
+  inset: 0;
   background:
-    var(--uni-primary);
+    radial-gradient(circle at 75% 30%, rgba(245, 169, 0, 0.18), transparent 40%),
+    linear-gradient(120deg, #2a0710, #5b1021);
+}
 
+/* ---------- slides (crossfade + slow zoom) ---------- */
+
+.ug-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0;
+
+  /* fade only: no zoom, so the photo stays sharp */
+  transition: opacity 0.9s ease;
+  pointer-events: none;
+}
+
+.ug-slide.is-active {
+  opacity: 1;
+}
+
+.ug-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(20, 3, 8, 0.55), transparent 38%);
+}
+
+/* ---------- arrows ---------- */
+
+.ug-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
   color: #fff;
-
-  text-align: left;
-
-  font-size: 11px;
+  font-size: 30px;
+  line-height: 1;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
 }
 
-.dynamic-content td {
-  padding: 10px;
-
-  border: 1px solid
-    var(--uni-border);
-
-  color: #555;
-
-  font-size: 11px;
+.ug-hero:hover .ug-arrow {
+  opacity: 1;
 }
 
-.dynamic-content blockquote {
-  margin: 20px 0;
-
-  padding: 15px 18px;
-
-  border-left:
-    4px solid
-    var(--uni-primary);
-
-  background:
-    var(--uni-primary-light);
-
-  color: #555;
-
-  border-radius: 0 8px 8px 0;
+.ug-arrow:hover {
+  background: rgba(111, 16, 34, 0.85);
 }
 
-.dynamic-content a {
-  color:
-    var(--uni-primary);
+.ug-prev { left: 24px; }
+.ug-next { right: 24px; }
 
+/* ---------- bottom bar ---------- */
+
+.ug-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 0 clamp(14px, 3vw, 36px) 20px;
+}
+
+.ug-bottom-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ug-thumbs {
+  display: flex;
+  gap: 8px;
+}
+
+.ug-thumbs button {
+  width: 62px;
+  height: 42px;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 9px;
+  background: #000;
+  opacity: 0.75;
+  transition: all 0.2s;
+}
+
+.ug-thumbs button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ug-thumbs button:hover {
+  opacity: 1;
+}
+
+.ug-thumbs button.active {
+  border-color: #f5a900;
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.ug-thumbs .ug-thumb-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ug-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.ug-counter {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+
+.ug-view-btn {
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+
+.ug-view-btn:hover {
+  background: #f5a900;
+  color: #111;
+}
+
+/* dots: mobile only */
+.ug-dots {
+  display: none;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.ug-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.ug-dots button.active {
+  width: 22px;
+  border-radius: 6px;
+  background: #f5a900;
+}
+
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
+.ug-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 70px 120px;
+  background: rgba(10, 2, 5, 0.94);
+  animation: ugFade 0.2s ease;
+}
+
+@keyframes ugFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ug-lb-stage {
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ug-lb-stage img {
+  max-width: 100%;
+  max-height: calc(100vh - 230px);
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.ug-lb-stage figcaption {
+  margin-top: 12px;
+  color: #ddd;
+  font-size: 13px;
+  text-align: center;
+}
+
+.ug-lb-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.ug-lb-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.ug-lb-count {
+  position: absolute;
+  top: 26px;
+  left: 24px;
+  color: #ddd;
+  font-size: 13px;
   font-weight: 700;
 }
 
-.dynamic-content hr {
-  margin: 25px 0;
-
+.ug-lb-arrow {
+  position: absolute;
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  transform: translateY(-50%);
   border: 0;
-
-  border-top:
-    1px solid
-    var(--uni-border);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 32px;
+  line-height: 1;
 }
 
+.ug-lb-arrow:hover {
+  background: #f5a900;
+  color: #111;
+}
+
+.ug-lb-prev { left: 16px; }
+.ug-lb-next { right: 16px; }
+
+.ug-lb-strip {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  max-width: calc(100% - 40px);
+  padding: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ug-lb-strip::-webkit-scrollbar { display: none; }
+
+.ug-lb-strip button {
+  flex-shrink: 0;
+  width: 84px;
+  height: 56px;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  opacity: 0.55;
+  background: #000;
+}
+
+.ug-lb-strip button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ug-lb-strip button.active {
+  border-color: #f5a900;
+  opacity: 1;
+}
 
 /* =========================================================
-   SMOOTH SECTION SCROLL
+   RESPONSIVE
 ========================================================= */
 
-#courses,
-#overview,
-#admission,
-#placements,
-#support,
-#faq {
-  scroll-margin-top: 90px;
+@media (max-width: 900px) {
+  .ug-hero {
+    height: clamp(210px, 38vw, 300px);
+  }
+
+  .ug-thumbs button {
+    width: 62px;
+    height: 42px;
+  }
+
+  .ug-arrow {
+    opacity: 1;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .ug-prev { left: 10px; }
+  .ug-next { right: 10px; }
+}
+
+@media (max-width: 700px) {
+  .ug-hero {
+    height: 200px;
+  }
+
+  .ug-thumbs,
+  .ug-counter {
+    display: none;
+  }
+
+  .ug-dots {
+    display: flex;
+  }
+
+  .ug-bottom {
+    padding-bottom: 12px;
+  }
+
+  .ug-view-btn {
+    padding: 8px 11px;
+    font-size: 10px;
+  }
+
+  .ug-arrow {
+    display: none;
+  }
+
+  .ug-lightbox {
+    padding: 56px 12px 100px;
+  }
+
+  .ug-lb-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .ug-lb-prev { left: 6px; }
+  .ug-lb-next { right: 6px; }
+
+  .ug-lb-strip button {
+    width: 64px;
+    height: 44px;
+  }
 }
