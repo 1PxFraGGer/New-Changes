@@ -639,3 +639,15 @@ a {
         height: 13px;
     }
 }
+
+.nav-top .num a > span > svg,
+.nav-top .email a > span > svg {
+    fill: #ffffff;
+}
+
+/* SOCIAL MEDIA ICONS — WHITE */
+
+.nav-top .social a,
+.nav-top .social a:hover {
+    color: #ffffff;
+}
