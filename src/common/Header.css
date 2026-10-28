@@ -21,9 +21,9 @@ a {
 
     width: 100%;
 
-    height: 44px;
+    height: 32px;
 
-    padding: 0 42px;
+    padding: 0 24px;
 
     display: flex;
 
@@ -69,17 +69,13 @@ a {
 
     animation:
         topbarShine 8s linear infinite;
+
+    pointer-events: none;
 }
 
 @keyframes topbarShine {
-
-    0% {
-        left: -120%;
-    }
-
-    100% {
-        left: 140%;
-    }
+    0% { left: -120%; }
+    100% { left: 140%; }
 }
 
 /* =========================================================
@@ -91,7 +87,7 @@ a {
 
     align-items: center;
 
-    gap: 26px;
+    gap: 18px;
 
     position: relative;
 
@@ -106,13 +102,13 @@ a {
 
     align-items: center;
 
-    gap: 10px;
+    gap: 7px;
 
     color: rgba(255,255,255,0.92);
 
     font-family: 'Inter', sans-serif;
 
-    font-size: 13px;
+    font-size: 11.5px;
 
     font-weight: 500;
 
@@ -126,9 +122,7 @@ a {
 
 .num a:hover,
 .email a:hover {
-    transform:
-        translateY(-2px);
-
+    transform: translateY(-2px);
     color: #ffffff;
 }
 
@@ -138,8 +132,8 @@ a {
 
 .num span,
 .email span {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
 
     border-radius: 50%;
 
@@ -147,11 +141,8 @@ a {
     align-items: center;
     justify-content: center;
 
-    background:
-        rgba(255,255,255,0.08);
-
-    border:
-        1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
 
     backdrop-filter: blur(10px);
 
@@ -164,22 +155,21 @@ a {
 
 .num a:hover span,
 .email a:hover span {
-    background:
-        rgba(255,255,255,0.16);
-
-    transform:
-        scale(1.08);
+    background: rgba(255,255,255,0.16);
+    transform: scale(1.08);
 }
 
 /* svg */
 
 .num svg,
 .email svg {
+    width: 12px;
+    height: 12px;
     fill: white;
 }
 
 /* =========================================================
-   SOCIAL
+   SOCIAL — GOLD ICONS & CIRCLES INSPIRED BY REFERENCE
 ========================================================= */
 
 .social {
@@ -187,7 +177,7 @@ a {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 16px;
 
     position: relative;
 
@@ -199,8 +189,8 @@ a {
 .social a {
     position: relative;
 
-    width: 36px;
-    height: 36px;
+    width: 26px;
+    height: 26px;
 
     border-radius: 50%;
 
@@ -208,23 +198,28 @@ a {
     align-items: center;
     justify-content: center;
 
-    background:
-        rgba(255,255,255,0.08);
+    flex-shrink: 0;
+    color: #e4b65b;
 
-    border:
-        1px solid rgba(255,255,255,0.10);
+    background: rgba(36, 0, 14, 0.20);
+    border: 1px solid #b98335;
 
     backdrop-filter: blur(12px);
 
-    overflow: hidden;
+    /* Allow dividers to sit between the circles */
+    overflow: visible;
+
+    box-shadow: 0 0 0 3px rgba(191, 136, 57, 0.05);
 
     transition:
         transform 0.4s cubic-bezier(.22,1,.36,1),
         background 0.35s ease,
-        box-shadow 0.35s ease;
+        box-shadow 0.35s ease,
+        color 0.35s ease,
+        border-color 0.35s ease;
 }
 
-/* glow */
+/* soft glow inside gold circle */
 
 .social a::before {
     content: "";
@@ -232,11 +227,12 @@ a {
     position: absolute;
 
     inset: 0;
+    border-radius: inherit;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,0.18),
+            rgba(231,179,85,0.14),
             transparent
         );
 
@@ -245,22 +241,37 @@ a {
     transition: opacity 0.35s ease;
 }
 
+/* thin vertical separators like reference image */
+
+.social a:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -9px;
+    top: 50%;
+    height: 19px;
+    width: 1px;
+    transform: translateY(-50%);
+    background: rgba(227, 175, 87, 0.18);
+    pointer-events: none;
+}
+
 /* hover */
 
 .social a:hover {
-    transform:
-        translateY(-4px)
-        scale(1.06);
-
-    background:
-        rgba(255,255,255,0.16);
-
-    box-shadow:
-        0 10px 24px rgba(0,0,0,0.20);
+    transform: translateY(-3px) scale(1.06);
+    color: #ffe2a0;
+    border-color: #eac16c;
+    background: rgba(177, 114, 39, 0.15);
+    box-shadow: 0 0 0 4px rgba(225, 164, 68, 0.11), 0 8px 21px rgba(0,0,0,0.20);
 }
 
 .social a:hover::before {
     opacity: 1;
+}
+
+.social a:focus-visible {
+    outline: 2px solid #ffe2a0;
+    outline-offset: 4px;
 }
 
 /* icons */
@@ -270,15 +281,16 @@ a {
 
     z-index: 2;
 
-    transition:
-        transform 0.35s ease;
+    display: block;
+    width: 13px;
+    height: 13px;
+    transition: transform 0.35s ease;
 }
 
 /* rotate effect */
 
 .social a:hover svg {
-    transform:
-        scale(1.08);
+    transform: scale(1.08);
 }
 
 /* =========================================================
@@ -287,7 +299,6 @@ a {
 
 .head-container {
     position: relative;
-
     z-index: 99;
 }
 
@@ -296,48 +307,52 @@ a {
 ========================================================= */
 
 @media (max-width: 991px) {
-
     .nav-top {
-        padding: 0 20px;
+        padding: 0 14px;
     }
 
     .contact {
-        gap: 14px;
+        gap: 12px;
     }
 
     .num a,
     .email a {
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .social {
+        gap: 12px;
+    }
+
+    .social a {
+        width: 24px;
+        height: 24px;
+    }
+
+    .social a:not(:last-child)::after {
+        right: -7px;
     }
 }
 
 @media (max-width: 768px) {
-
     .nav-top {
         height: auto;
-
-        padding:
-            10px 16px;
-
+        padding: 5px 12px;
         flex-direction: column;
-
-        gap: 10px;
+        gap: 5px;
     }
 
     .contact {
         width: 100%;
-
         justify-content: center;
-
         flex-wrap: wrap;
-
         gap: 10px;
     }
 
     .social {
         width: 100%;
-
         justify-content: center;
+        gap: 12px;
     }
 
     .num a,
@@ -346,7 +361,18 @@ a {
     }
 
     .social a {
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .social a:not(:last-child)::after {
+        right: -7px;
+        height: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-top::before {
+        animation: none;
     }
 }
