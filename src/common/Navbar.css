@@ -712,6 +712,20 @@
     white-space: nowrap;
     transform: none !important;
   }
+
+  /* ── Drawer open: logo hidden, close button pinned top-right ── */
+  .logo-wrap.menu-open {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #menuToggle.open {
+    position: fixed;
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    right: 20px;
+    z-index: 10003;
+  }
 }
 
 /* =========================================================
